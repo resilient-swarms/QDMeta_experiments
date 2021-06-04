@@ -1,0 +1,2280 @@
+<?xml version="1.0"?>
+<skel version="1.0">
+
+        <skeleton name="Rhex">
+            <imobile>false</imobile>
+            <transformation>0 0 0.37 0 0 0</transformation>
+
+
+      <body name='body'>
+          <transformation>0 0 0 0 0 0</transformation>
+      <inertia>
+        <mass>7</mass>
+        <moment_of_inertia>
+          <ixx>0.09999558</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.18137058</iyy>
+          <iyz>0</iyz>
+          <izz>0.25882500</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.54 .39 .139</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.54 .39 .139</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='spacer_1'>
+          <transformation>0 0.205 0 0 0 0</transformation>
+      <inertia>
+        <mass>0.02</mass>
+        <moment_of_inertia>
+          <ixx>0.00000016</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000016</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000016</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.05 .02 .139</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.05 .02 .139</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='spacer_2'>
+          <transformation>0 -0.205 0 0 0 0</transformation>
+      <inertia>
+        <mass>0.02</mass>
+        <moment_of_inertia>
+          <ixx>0.00000016</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000016</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000016</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.05 .02 .139</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.05 .02 .139</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_1_middle_right'>
+          <transformation>-0.0153 -0.2245 -0.003043 0 -0.19635 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_2_middle_right'>
+          <transformation>-0.04357 -0.2245 -0.014754 0 -0.589049 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_3_middle_right'>
+          <transformation>-0.06521 -0.2245 -0.03639 0 -0.981748 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_4_middle_right'>
+          <transformation>-0.07692 -0.2245 -0.064666 0 -1.374447 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='leg_part_5_middle_right'>
+          <transformation>-0.07692 -0.2245 -0.0952630 0 -1.7671459 0</transformation>
+      <inertia>
+        <mass>0.0125</mass> 
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_8_middle_right'>
+          <transformation>-0.0153 -0.2245 -0.156883 0 -2.94529 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_7_middle_right'>
+          <transformation>-0.04357 -0.2245 -0.145172 0 -2.55254 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_6_middle_right'>
+          <transformation>-0.06521 -0.2245 -0.123534 0 -2.159845 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+      <body name='leg_part_1_front_right'>
+          <transformation>0.2347 -0.20475 -0.003043 0 -0.19635 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_2_front_right'>
+          <transformation>0.20643 -0.20475 -0.014754 0 -0.589049 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_3_front_right'>
+          <transformation>0.18479 -0.20475 -0.03639 0 -0.98175 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_4_front_right'>
+          <transformation>0.17308 -0.20475 -0.064666 0 -1.374447 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='leg_part_5_front_right'>
+          <transformation>0.17308 -0.20475 -0.0952630 0 -1.7671459 0</transformation>
+      <inertia>
+        <mass>0.0125</mass> 
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='leg_part_8_front_right'>
+          <transformation>0.2347 -0.20475 -0.156883 0 -2.94529 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_7_front_right'>
+          <transformation>0.20643 -0.20475 -0.145172 0 -2.55254 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_6_front_right'>
+          <transformation>0.18479 -0.20475 -0.123534 0 -2.159845 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+      <body name='leg_part_1_back_right'>
+          <transformation>-0.2653 -0.20475 -0.003043 0 -0.19635 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_2_back_right'>
+          <transformation>-0.29357 -0.20475 -0.014754 0 -0.589049 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_3_back_right'>
+          <transformation>-0.31521 -0.20475 -0.03639 0 -0.981748 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_4_back_right'>
+          <transformation>-0.32692 -0.20475 -0.064666 0 -1.374447 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='leg_part_5_back_right'>
+          <transformation>-0.32692 -0.20475 -0.0952630 0 -1.7671459 0</transformation>
+      <inertia>
+        <mass>0.0125</mass> 
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+       <body name='leg_part_8_back_right'>
+          <transformation>-0.2653 -0.20475 -0.156883 0 -2.94529 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_7_back_right'>
+          <transformation>-0.29357 -0.20475 -0.145172 0 -2.55254 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_6_back_right'>
+          <transformation>-0.31521 -0.20475 -0.123534 0 -2.159845 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+ 
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+      <body name='leg_part_1_middle_left'>
+          <transformation>-0.0153 0.2245 -0.003043 0 -0.19635 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_2_middle_left'>
+          <transformation>-0.04357 0.2245 -0.014754 0 -0.589049 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_3_middle_left'>
+          <transformation>-0.06521 0.2245 -0.03639 0 -0.981748 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_4_middle_left'>
+          <transformation>-0.07692 0.2245 -0.064666 0 -1.374447 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='leg_part_5_middle_left'>
+          <transformation>-0.07692 0.2245 -0.0952630 0 -1.7671459 0</transformation>
+      <inertia>
+        <mass>0.0125</mass> 
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='leg_part_8_middle_left'>
+          <transformation>-0.0153 0.2245 -0.156883 0 -2.94529 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_7_middle_left'>
+          <transformation>-0.04357 0.2245 -0.145172 0 -2.55254 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_6_middle_left'>
+          <transformation>-0.06521 0.2245 -0.123534 0 -2.159845 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+<!-- ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+      <body name='leg_part_1_front_left'>
+          <transformation>0.2347 0.20475 -0.003043 0 -0.19635 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_2_front_left'>
+          <transformation>0.20643 0.20475 -0.014754 0 -0.589049 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_3_front_left'>
+          <transformation>0.18479 0.20475 -0.03639 0 -0.981748 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_4_front_left'>
+          <transformation>0.17308 0.20475 -0.064666 0 -1.374447 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='leg_part_5_front_left'>
+          <transformation>0.17308 0.20475 -0.0952630 0 -1.7671459 0</transformation>
+      <inertia>
+        <mass>0.0125</mass> 
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+      <body name='leg_part_8_front_left'>
+          <transformation>0.2347 0.20475 -0.156883 0 -2.94529 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_7_front_left'>
+          <transformation>0.20643 0.20475 -0.145172 0 -2.55254 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_6_front_left'>
+          <transformation>0.18479 0.20475 -0.123534 0 -2.159845 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+      <body name='leg_part_1_back_left'>
+          <transformation>-0.2653 0.20475 -0.003043 0 -0.19635 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_2_back_left'>
+          <transformation>-0.29357 0.20475 -0.014754 0 -0.589049 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_3_back_left'>
+          <transformation>-0.31521 0.20475 -0.03639 0 -0.981748 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_4_back_left'>
+          <transformation>-0.32692 0.20475 -0.064666 0 -1.374447 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+      <body name='leg_part_5_back_left'>
+          <transformation>-0.32692 0.20475 -0.0952630 0 -1.7671459 0</transformation>
+      <inertia>
+        <mass>0.0125</mass> 
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+       <body name='leg_part_8_back_left'>
+          <transformation>-0.2653 0.20475 -0.156883 0 -2.94529 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_7_back_left'>
+          <transformation>-0.29357 0.20475 -0.145172 0 -2.55254 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+
+      <body name='leg_part_6_back_left'>
+          <transformation>-0.31521 0.20475 -0.123534 0 -2.159845 0</transformation>
+      <inertia>
+        <mass>0.0125</mass>
+        <moment_of_inertia>
+          <ixx>0.00000052</ixx>
+          <ixy>0</ixy>
+          <ixz>0</ixz>
+          <iyy>0.00000733</iyy>
+          <iyz>0</iyz>
+          <izz>0.00000784</izz>
+        </moment_of_inertia>
+      </inertia>
+	<collision_shape name='collision_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+          </collision_shape>
+
+          <visualization_shape name='visualization_shape'>
+            <geometry>
+              <box>
+                <size>.0312 .0175 .003</size>
+              </box>
+            </geometry>
+         </visualization_shape>
+       </body>
+
+<!-- /////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////-->
+
+
+
+    <joint type="free" name="joint 1">
+         <parent>world</parent>
+         <child>body</child>
+    </joint>
+    <joint name="side_left" type="weld">
+      <child>spacer_1</child>
+      <parent>body</parent>
+    </joint>
+    <joint name="side_right" type="weld">
+      <child>spacer_2</child>
+      <parent>body</parent>
+    </joint>
+    <joint type="revolute" name="left_front">
+        <parent>body</parent>
+        <child>leg_part_1_front_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+             <xyz>0 1 0</xyz>
+     	<dynamics>
+            <damping>0.01</damping>
+      	</dynamics>
+        </axis>
+    
+    </joint>
+    <joint type="revolute" name="left_middle">
+        <parent>spacer_1</parent>
+        <child>leg_part_1_middle_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+             <xyz>0 1 0</xyz>
+     	<dynamics>
+            <damping>0.01</damping>
+      	</dynamics>
+        </axis>
+    
+    </joint>
+    <joint type="revolute" name="left_back">
+        <parent>body</parent>
+        <child>leg_part_1_back_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+             <xyz>0 1 0</xyz>
+     	<dynamics>
+            <damping>0.01</damping>
+      	</dynamics>
+        </axis>
+    
+    </joint>
+    <joint type="revolute" name="right_front">
+        <parent>body</parent>
+        <child>leg_part_1_front_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+             <xyz>0 1 0</xyz>
+     	<dynamics>
+            <damping>0.01</damping>
+      	</dynamics>
+        </axis>
+    
+    </joint>
+    <joint type="revolute" name="right_middle">
+        <parent>spacer_2</parent>
+        <child>leg_part_1_middle_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+             <xyz>0 1 0</xyz>
+     	<dynamics>
+            <damping>0.01</damping>
+      	</dynamics>
+        </axis>
+    
+    </joint>
+    <joint type="revolute" name="right_back">
+        <parent>body</parent>
+        <child>leg_part_1_back_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+             <xyz>0 1 0</xyz>
+     	<dynamics>
+            <damping>0.01</damping>
+      	</dynamics>
+        </axis>
+    
+    </joint>
+
+<!--################################################################################################################################################-->
+
+    <joint type="revolute" name="back_right_1">
+        <parent>leg_part_1_back_right</parent>
+        <child>leg_part_2_back_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_right_2">
+        <parent>leg_part_2_back_right</parent>
+        <child>leg_part_3_back_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_right_3">
+        <parent>leg_part_3_back_right</parent>
+        <child>leg_part_4_back_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_right_4">
+        <parent>leg_part_4_back_right</parent>
+        <child>leg_part_5_back_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_right_5">
+        <parent>leg_part_5_back_right</parent>
+        <child>leg_part_6_back_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_right_6">
+        <parent>leg_part_6_back_right</parent>
+        <child>leg_part_7_back_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_right_7">
+        <parent>leg_part_7_back_right</parent>
+        <child>leg_part_8_back_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+
+<!--################################################################################################################################################-->
+<!--################################################################################################################################################-->
+
+    <joint type="revolute" name="middle_right_1">
+        <parent>leg_part_1_middle_right</parent>
+        <child>leg_part_2_middle_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_right_2">
+        <parent>leg_part_2_middle_right</parent>
+        <child>leg_part_3_middle_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_right_3">
+        <parent>leg_part_3_middle_right</parent>
+        <child>leg_part_4_middle_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_right_4">
+        <parent>leg_part_4_middle_right</parent>
+        <child>leg_part_5_middle_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_right_5">
+        <parent>leg_part_5_middle_right</parent>
+        <child>leg_part_6_middle_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_right_6">
+        <parent>leg_part_6_middle_right</parent>
+        <child>leg_part_7_middle_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_right_7">
+        <parent>leg_part_7_middle_right</parent>
+        <child>leg_part_8_middle_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+
+<!--################################################################################################################################################-->
+<!--################################################################################################################################################-->
+
+    <joint type="revolute" name="front_right_1">
+        <parent>leg_part_1_front_right</parent>
+        <child>leg_part_2_front_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_right_2">
+        <parent>leg_part_2_front_right</parent>
+        <child>leg_part_3_front_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_right_3">
+        <parent>leg_part_3_front_right</parent>
+        <child>leg_part_4_front_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_right_4">
+        <parent>leg_part_4_front_right</parent>
+        <child>leg_part_5_front_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_right_5">
+        <parent>leg_part_5_front_right</parent>
+        <child>leg_part_6_front_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_right_6">
+        <parent>leg_part_6_front_right</parent>
+        <child>leg_part_7_front_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_right_7">
+        <parent>leg_part_7_front_right</parent>
+        <child>leg_part_8_front_right</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+
+<!--################################################################################################################################################-->
+<!--################################################################################################################################################-->
+
+    <joint type="revolute" name="back_left_1">
+        <parent>leg_part_1_back_left</parent>
+        <child>leg_part_2_back_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_left_2">
+        <parent>leg_part_2_back_left</parent>
+        <child>leg_part_3_back_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_left_3">
+        <parent>leg_part_3_back_left</parent>
+        <child>leg_part_4_back_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_left_4">
+        <parent>leg_part_4_back_left</parent>
+        <child>leg_part_5_back_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_left_5">
+        <parent>leg_part_5_back_left</parent>
+        <child>leg_part_6_back_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_left_6">
+        <parent>leg_part_6_back_left</parent>
+        <child>leg_part_7_back_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="back_left_7">
+        <parent>leg_part_7_back_left</parent>
+        <child>leg_part_8_back_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+<!--################################################################################################################################################-->
+<!--################################################################################################################################################-->
+
+    <joint type="revolute" name="middle_left_1">
+        <parent>leg_part_1_middle_left</parent>
+        <child>leg_part_2_middle_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_left_2">
+        <parent>leg_part_2_middle_left</parent>
+        <child>leg_part_3_middle_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_left_3">
+        <parent>leg_part_3_middle_left</parent>
+        <child>leg_part_4_middle_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_left_4">
+        <parent>leg_part_4_middle_left</parent>
+        <child>leg_part_5_middle_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_left_5">
+        <parent>leg_part_5_middle_left</parent>
+        <child>leg_part_6_middle_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_left_6">
+        <parent>leg_part_6_middle_left</parent>
+        <child>leg_part_7_middle_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="middle_left_7">
+        <parent>leg_part_7_middle_left</parent>
+        <child>leg_part_8_middle_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+<!--################################################################################################################################################-->
+<!--################################################################################################################################################-->
+
+    <joint type="revolute" name="front_left_1">
+        <parent>leg_part_1_front_left</parent>
+        <child>leg_part_2_front_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_left_2">
+        <parent>leg_part_2_front_left</parent>
+        <child>leg_part_3_front_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_left_3">
+        <parent>leg_part_3_front_left</parent>
+        <child>leg_part_4_front_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_left_4">
+        <parent>leg_part_4_front_left</parent>
+        <child>leg_part_5_front_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_left_5">
+        <parent>leg_part_5_front_left</parent>
+        <child>leg_part_6_front_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_left_6">
+        <parent>leg_part_6_front_left</parent>
+        <child>leg_part_7_front_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+    <joint type="revolute" name="front_left_7">
+        <parent>leg_part_7_front_left</parent>
+        <child>leg_part_8_front_left</child>
+        <transformation>0.0156 0 0 0 0 0</transformation>
+        <axis>
+            <xyz>0 1 0</xyz>
+        <dynamics>
+            <sprint_rest_position>0</sprint_rest_position>
+            <spring_stiffness>5000</spring_stiffness>
+            <damping>0.1</damping>
+        </dynamics>
+        </axis>
+
+    </joint>
+
+
+
+<!--################################################################################################################################################-->
+
+        </skeleton>	
+
+
+
+</skel>
