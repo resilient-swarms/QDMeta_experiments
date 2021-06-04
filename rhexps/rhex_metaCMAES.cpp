@@ -8,8 +8,9 @@
 //#define EXPERIMENT_TYPE CONDITION_DUTY_CYCLE
 
 #define META() EXPERIMENT_TYPE == META_CMAES
-#define CONTROL() EXPERIMENT_TYPE > META_CMAES && EXPERIMENT_TYPE < CONDITION_CMAES_CHECK
+#define CONTROL() EXPERIMENT_TYPE == CONDITION_CVT_ME
 #define AURORA() EXPERIMENT_TYPE == CONDITION_AURORA
+
 #define CMAES_CHECK() EXPERIMENT_TYPE == CONDITION_CMAES_CHECK
 #define ENVIR_TESTS() EVAL_ENVIR == 1 && (TEST || META())
 #define DAMAGE_TESTS() EVAL_ENVIR == 0 && (TEST || META())
@@ -154,6 +155,9 @@ int main(int argc, char **argv)
 #if CMAES_CHECK()
     global::damage_index = atoi(argv[2]);
     std::cout << "will do damage " << global::damage_index << std::endl;
+#elif CONTROL() || AURORA()
+    global::set_condition(argv[2]);
+    
 #elif META()
     size_t index = 0;
     for (size_t i = 0; i < argc; ++i)
@@ -166,6 +170,12 @@ int main(int argc, char **argv)
     }
     sferes::eval::param_ctrl = init_parameter_control(seed, std::string(argv[2]), argv[index]);
 #endif
+
+
+#ifdef CVT_ME
+    BottomParams::ea::centroids = load_centroids(std::string(std::getenv("BOTS_DIR")) + "/include/meta-cmaes/centroids/centroids_" + std::to_string(BottomParams::ea::number_of_clusters) + "_" + std::to_string(BottomParams::ea::number_of_dimensions) + ".dat");
+#endif
+
     // initialisation of the simulation and the simulated robot, robot morphology currently set to raised.skel only
     global::init_simu(std::string(argv[1]), std::string(std::getenv("RESIBOTS_DIR")) + "/share/rhex_models/SKEL/raised.skel");
     run_ea(argc, argv, ea);
