@@ -81,42 +81,12 @@ public:
 
     std::vector<float> get_desc(simulator_t & simu, base_features_t & b)
     {
-#ifdef PRINTING
-
-#endif
-
-        std::vector<double> vec;
-        //std::cout << "duty "<<std::endl;
-        simu.get_descriptor<rhex_dart::descriptors::Trajectory, std::vector<double>>(vec);
-
-#else
-#error "Please give a viable condition in {0,1,2,3,4}"
-#endif
-        return std::vector<float>(vec.begin(), vec.end());
-#else
-        //get the base_features
-        get_base_features(b, simu);
-        // get descriptor
-        return get_desc(b);
-#endif
-    }
-
-#if WEIGHT()
-    std::vector<float> get_desc(const base_features_t &b)
-    {
-
-#if NO_WEIGHT()
+#if !META()
                 std::vector<double> vec;
-                // if (global::condition == global::ConditionType::pos)
-                // {
-                //     //std::cout << "pos "<<std::endl;
-                //     simu.get_descriptor<planar_dart::descriptors::PositionalCoord, std::vector<double>>(vec);
-                // }
-                // else 
                 if (global::condition == global::ConditionType::tra)
                 {
                     //std::cout << "pol "<<std::endl;
-                    simu.get_descriptor<planar_dart::descriptors::Trajectory, std::vector<double>>(vec);
+                    simu.get_descriptor<rhex_dart::descriptors::Trajectory, std::vector<double>>(vec);
                 }
                 else
                 {
@@ -131,6 +101,14 @@ public:
 #endif  // NO_WEIGHT() else WEIGHT()
     }
 #if META()
+            std::vector<float> get_desc(const base_features_t &b)
+            {
+
+		//std::cout << "META "<<std::endl;
+                bottom_features_t D = feature_map.out(b);
+                std::vector<float> vec(D.data(), D.data() + D.rows() * D.cols());
+                return vec;
+            }
     template <typename Individual>
     static void add_to_database(Individual & ind)
     {

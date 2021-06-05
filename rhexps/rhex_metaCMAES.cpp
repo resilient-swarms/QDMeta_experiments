@@ -62,22 +62,39 @@
 #include <meta-cmaes/cmaes.hpp>
 #include <sferes/stat/best_fit.hpp>
 typedef boost::fusion::vector<sferes::stat::BestFit<phen_t, CMAESCHECKParams>> stat_t;
-
-typedef modif::Dummy<> modifier_t;
-typedef sferes::ea::Cmaes<phen_t, eval_t, stat_t, modifier_t,CMAESCHECKParams> ea_t;
+#elif AURORA()
+#include <aurora/aurora.hpp>
+double Params::nov::l = 0.01;
 #else
 #include <meta-cmaes/control_typedefs.hpp>
+
+#include <sferes/ea/ea.hpp>
+
+#ifdef CVT_ME
+#include <meta-cmaes/cvt_utils.hpp>
+typedef boost::fusion::vector<sferes::stat::Map<phen_t, BottomParams>> stat_t;
+
+typedef modif::Dummy<> modifier_t;
+typedef sferes::ea::CVTMapElites<phen_t, eval_t, stat_t, modifier_t, BottomParams> ea_t;
+
+#else
 #ifdef TEST
 #include <meta-cmaes/stat_map.hpp>
 #else
 #include <modules/map_elites/stat_map.hpp>
 #endif
-#include <sferes/ea/ea.hpp>
 #include <modules/map_elites/map_elites.hpp>
 typedef boost::fusion::vector<sferes::stat::Map<phen_t, BottomParams>> stat_t;
 
 typedef modif::Dummy<> modifier_t;
 typedef sferes::ea::MapElites<phen_t, eval_t, stat_t, modifier_t, BottomParams> ea_t;
+#endif
+
+#endif
+
+#include <meta-cmaes/bottom_typedefs.hpp>
+#ifdef CVT_ME
+std::vector<BottomParams::ea::point_t> BottomParams::ea::centroids;
 #endif
 
 #include <sferes/run.hpp>

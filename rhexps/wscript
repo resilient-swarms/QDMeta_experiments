@@ -80,14 +80,14 @@ def _build_evolution(bld):
 		cxxflags+=["-DGRAPHIC"]
 		libs += 'DART_GRAPHIC'
 	cxxflags+=['-g']
-	if os.environ.get('BUILD_META',"False") == "True":
+	if os.environ.get('BUILD_TYPE',"False") == "meta":
 		sferes.create_variants(bld,
 							source = 'rhex_metaCMAES.cpp',
 							use = 'sferes2',
 							uselib = libs,
 							target = 'rhex_metaCMAES_envir_meta',
 							cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
-							"-DBEHAV_DIM=4"],   # -march=native
+							"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 		sferes.create_variants(bld,
 							source = 'rhex_metaCMAES.cpp',
@@ -95,7 +95,7 @@ def _build_evolution(bld):
 							uselib = libs,
 							target = 'rhex_metaCMAES_damage_meta',
 							cxxflags = cxxflags + ['-g','-march=native',"-DEXPERIMENT_TYPE=0",
-							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4"],   # -march=native
+							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 	elif os.environ.get("BUILD_TYPE","False") == "aurora":
             bld.env.LIBPATH_KDTREE = '/usr/local/lib/'

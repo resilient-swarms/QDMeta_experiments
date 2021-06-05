@@ -85,12 +85,14 @@ struct BottomParams
     // grid properties, discretise 3 dimensions into 10 bins each
     struct ea
     {
-#if DUTY_C() || BO_C()
-        SFERES_CONST size_t behav_dim = 6;
-        SFERES_ARRAY(size_t, behav_shape, 4, 4, 4, 4, 4, 4); // 4096 cells for each bottom-level map
+#ifdef CVT_ME
+        SFERES_CONST size_t number_of_clusters = 4096;
+        SFERES_CONST size_t number_of_dimensions = BEHAV_DIM;
+        typedef boost::array<double, number_of_dimensions> point_t;
+        static std::vector<point_t> centroids;
 #else
-        SFERES_CONST size_t behav_dim = 3;
-        SFERES_ARRAY(size_t, behav_shape, 16, 16, 16); // 4096 cells for each bottom-level map
+        SFERES_CONST size_t behav_dim = 4;
+        SFERES_ARRAY(size_t, behav_shape, 8,8,8,8); // 4096 cells for each bottom-level map
 #endif
         SFERES_CONST float epsilon = 0.00;
     };
@@ -154,7 +156,7 @@ struct CMAESParams
     //     SFERES_ARRAY(size_t, behav_shape, 4, 4); // 16 cells based on two meta-descriptors
     //     SFERES_CONST float epsilon = 0.00;
     // };
-
+    static constexpr float percentage_evaluated = 0.10f;
     struct evo_float // not used, but needed for compilation;
     {
         // we choose the polynomial mutation type
@@ -169,23 +171,26 @@ struct CMAESParams
         // SFERES_CONST float eta_m = 15.0f;
         // // a parameter of the polynomial cross-over
         // SFERES_CONST float eta_c = 10.0f;
-        SFERES_CONST float sigma = 0.05;
+        SFERES_CONST float sigma = 0.05f;
     };
 
     // save map every 50 iterations
     struct pop
     {
-        SFERES_CONST unsigned nb_gen = 1001; // at most 1000 meta-generations
-        SFERES_CONST int dump_period = 10;   // every 10 meta-generations (at most 4 hours, based on 20,000 per meta-generation, and 1 eval/s)
-        SFERES_CONST int size = 5;           // number of maps
+        SFERES_CONST unsigned nb_gen = 100001; // overestimate, will hit max_evals before that
+        SFERES_CONST int dump_period = 200;    //
+        SFERES_CONST int size = META_POP_SIZE; // number of maps
         SFERES_CONST int initial_aleat = 1;
-        SFERES_CONST float percentage_evaluated = 0.10;
+        SFERES_CONST unsigned max_evals = 100000000; //100M is equal to the bottomparams: 400*250000
     };
 
-    // parameter limits between 1.0 and 2.0  ( avoids negative weights ! )
     struct parameters
     {
+#if FEATUREMAP == NONLINEAR
+        SFERES_CONST float min = -1.0f;
+#else
         SFERES_CONST float min = 0.0f;
+#endif
         SFERES_CONST float max = 1.0f;
     };
 };

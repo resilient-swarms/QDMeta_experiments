@@ -49,6 +49,46 @@ std::set<size_t> _take_complement(std::set<size_t> full_set, std::set<size_t> su
                         std::inserter(diff, diff.begin()));
     return diff;
 }
+
+    // set the right condition
+    enum ConditionType
+    {
+        meta = 0,
+        pos,
+        tra,
+        cmaes_check
+    } condition;
+#ifndef TEST
+    void set_condition(const std::string &cond)
+    {
+        if (cond == "meta")
+        {
+            condition = ConditionType::meta;
+            assert(META());
+            assert(BEHAV_DIM == 4);
+        }
+        else if (cond == "pos")
+        {
+            condition = ConditionType::pos;
+            assert(CONTROL());
+            assert(BEHAV_DIM == 2);
+        }
+        else if (cond == "tra")
+        {
+            condition = ConditionType::tra;
+            assert(CONTROL() || AURORA());
+#if CONTROL()
+            assert(BEHAV_DIM == 50);
+#endif
+        }
+        else
+        {
+            throw std::runtime_error("condition " + cond + " not known");
+        }
+        std::cout<< "done setting condition" << std::endl;;
+    }
+#endif
+
 #if CMAES_CHECK()
 size_t damage_index;
 #endif
@@ -147,36 +187,7 @@ void init_damage(std::string seed, std::string robot_file)
     }
 }
 #endif
-#if GLOBAL_WEIGHT()
-weight_t W;
-void init_weight(std::string seed, std::string robot_file)
-{
-    std::ofstream ofs("global_weight_" + seed + ".txt");
-    W = weight_t::Random();                //random numbers between (-1,1)
-    W = (W + weight_t::Constant(1.)) / 2.; // add 1 to the matrix to have values between 0 and 2; divide by 2 --> [0,1]
-    size_t count = 0;
-#ifdef PRINTING
-    std::cout << "before conversion " << std::endl;
-#endif
-    for (size_t j = 0; j < NUM_BOTTOM_FEATURES; ++j)
-    {
-        float sum = W.block<1, NUM_BASE_FEATURES>(j, 0).sum();
-        for (size_t k = 0; k < NUM_BASE_FEATURES; ++k)
-        {
-            W(j, k) = W(j, k) / sum; // put it available for the MapElites parent class
 
-#ifdef PRINTING
-            std::cout << "sum " << sum << std::endl;
-            std::cout << W(j, k) << "," << std::endl;
-#endif
-            ++count;
-        }
-    }
-    ofs << W;
-    std::cout << "global weight: " << std::endl;
-    std::cout << W << std::endl;
-}
-#endif
 
 void init_simu(std::string seed, std::string robot_file)
 {
@@ -185,10 +196,6 @@ void init_simu(std::string seed, std::string robot_file)
     init_damage(seed, robot_file);
 #elif ENVIR_TESTS() // recovery tests (meta-learning with environments or test for environment adaptation)
     init_world(seed, robot_file);
-#endif
-
-#if GLOBAL_WEIGHT() // if using a global weight
-    init_weight(seed, robot_file);
 #endif
 }
 
