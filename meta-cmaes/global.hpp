@@ -12,6 +12,8 @@
 #include <meta-cmaes/database.hpp>
 #include <meta-cmaes/params.hpp>
 #include <sferes/ea/cmaes_interface.h>
+#elif CMAES_CHECK()
+#include <sferes/ea/cmaes_interface.h>
 #endif
 namespace global
 {
@@ -93,7 +95,8 @@ std::set<size_t> _take_complement(std::set<size_t> full_set, std::set<size_t> su
 #endif
 
 #if CMAES_CHECK()
-size_t damage_index;
+size_t damage_index=0;
+size_t envir_index=0;//
 #endif
 const double BODY_LENGTH = .54;
 const double BODY_WIDTH = .39;
@@ -201,8 +204,10 @@ void init_simu(std::string seed, std::string robot_file)
     init_world(seed, robot_file);
 #endif
 }
-
-#if META()
+#if CMAES_CHECK()
+cmaes_t evo;
+#endif
+#if META() 
 
 cmaes_t evo;
 // will use first-in-first-out queue such that latest DATABASE_SIZE individuals are maintained
