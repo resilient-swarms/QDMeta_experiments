@@ -61,8 +61,8 @@
 #elif CMAES_CHECK()
 #include <meta-cmaes/cmaescheck_fitness.hpp>
 #include <meta-cmaes/cmaes.hpp>
-#include <sferes/stat/best_fit.hpp>
-typedef boost::fusion::vector<sferes::stat::BestFit<phen_t, CMAESCHECKParams>> stat_t;
+#include <meta-cmaes/stat_bestgenotype.hpp>
+typedef boost::fusion::vector<sferes::stat::BestGenotype<phen_t, CMAESCHECKParams>> stat_t;
 typedef modif::Dummy<> modifier_t;
 typedef sferes::ea::Cmaes<phen_t, eval_t, stat_t, modifier_t,CMAESCHECKParams> ea_t;
 #elif AURORA()
