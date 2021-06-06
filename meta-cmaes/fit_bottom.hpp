@@ -41,6 +41,23 @@ public:
     FitBottom(const feature_map_t &f) : feature_map(f), _dead(false)
     {
     }
+#elif AURORA()
+	   const std::vector<float>& gt() {return _gt;}
+  	   float& loss() {return _loss;}
+  template<typename block_t>
+  void get_flat_observations(block_t& data)const
+  {
+    for(size_t t=0; t< _gt.size(); t++)
+      {
+        data(0,t) = _gt[t];
+      }
+  }
+
+  size_t get_flat_obs_size()const{
+    assert(_gt.size());
+    return _gt.size();
+  }
+
 #endif
     inline void set_fitness(float fFitness)
     {
@@ -174,7 +191,12 @@ protected:
     mode::mode_t _mode;
     float _value = 0.0f;
     std::vector<float> _desc;
+#elif AURORA()
+	    std::vector<float> _gt;
+	    float _loss=INFINITY;
 #endif
+
+
 
     // descriptor work done here, in this case duty cycle
     template <typename Indiv>
@@ -218,7 +240,17 @@ protected:
         {
             // convert to final descriptor
             base_features_t b;
+#if AURORA()
+#ifdef PRINTING
+		    std::cout << " get desc " << std::endl;
+#endif
+		    this->_gt = get_desc(simu, b);
+#ifdef PRINTING
+		    std::cout << " end get desc " << std::endl;
+#endif
+#else
             this->_desc = get_desc(simu, b);
+#endif
             this->_dead = false;
 #if META()
             set_b(b);

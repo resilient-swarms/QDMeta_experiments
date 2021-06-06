@@ -15,6 +15,7 @@
 #endif
 namespace global
 {
+std::string outputdir;
 // sampling without replacement (see https://stackoverflow.com/questions/28287138/c-randomly-sample-k-numbers-from-range-0n-1-n-k-without-replacement)
 std::set<size_t> _pickSet(size_t N, size_t k, std::mt19937 &gen)
 {

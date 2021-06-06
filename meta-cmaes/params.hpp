@@ -70,6 +70,13 @@ struct BottomParams
         SFERES_CONST float min = 0.0f;
         SFERES_CONST float max = 1.0f;
     };
+    
+
+        // simulation time
+    struct simu
+    {
+        SFERES_CONST size_t time = 5;
+    };
 
 };
 

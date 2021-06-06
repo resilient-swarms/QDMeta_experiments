@@ -160,6 +160,16 @@ using namespace sferes;
 
 int main(int argc, char **argv)
 {
+    size_t index = 0;
+    for (size_t i = 0; i < argc; ++i)
+    {
+        if (std::string(argv[i]) == "--d")
+        {
+            index = i + 1;
+            break;
+        }
+    }
+    global::outputdir=argv[index];
     long seed = atoi(argv[1]);
     std::srand(seed); //use experiment number as seed for random generator. mostly for Eigen
     

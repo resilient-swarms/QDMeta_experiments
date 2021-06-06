@@ -103,7 +103,7 @@ def _build_evolution(bld):
             bld.env.INCLUDES_KDTREE = '/usr/local/include/'
 
  
-            sferes.create_variants(bld,source = 'planarCMAES.cpp',
+            sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',
 					use = 'sferes2',
 					uselib = libs + " KDTREE ",
 					target = 'planarCMAES_aurora',
