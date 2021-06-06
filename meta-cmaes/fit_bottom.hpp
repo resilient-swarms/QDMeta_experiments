@@ -36,9 +36,9 @@ namespace sferes
 public:
     FitBottom() : _dead(false){};
 #if META()
-    weight_t W;
+    feature_map_t feature_map;
 
-    FitBottom(const weight_t &w) : W(w), _dead(false)
+    FitBottom(const feature_map_t &f) : feature_map(f), _dead(false)
     {
     }
 #endif
