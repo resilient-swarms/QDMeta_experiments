@@ -269,6 +269,9 @@ namespace rhex_dart
             _covered_distance = fin_pos[0] - init_pos[0];
             _body_avg_height = (chain) ? _body_avg_height / (_world->getTime() - old_t) : _world->getTime();
             _arrival_angle = std::round(atan((fin_pos[1] - init_pos[1]) / (_covered_distance)) * 100) / 100.0;
+#ifdef GRAPHIC
+		std::cout << "fitness " << _covered_distance << std::endl;
+#endif
         }
 
         robot_t robot()
@@ -542,7 +545,7 @@ namespace rhex_dart
             tf.translation() = Eigen::Vector3d(0.3, 0.0, 0);
 
             tf.linear() = (Eigen::AngleAxisd(0, Eigen::Vector3d::UnitX()) *
-                           Eigen::AngleAxisd(-0.523599, Eigen::Vector3d::UnitY()) *
+                           Eigen::AngleAxisd(-M_PI/10.0, Eigen::Vector3d::UnitY()) *
                            Eigen::AngleAxisd(0, Eigen::Vector3d::UnitZ()))
                               .toRotationMatrix();
 
@@ -588,7 +591,7 @@ namespace rhex_dart
             hbody->setFrictionCoeff(friction);
 
             // Give the body a shape
-            double hill_radius = 5.0;
+            double hill_radius = 6;
             auto sphere = std::make_shared<dart::dynamics::SphereShape>(hill_radius);
 
             auto sphere_node = hbody->createShapeNodeWith<dart::dynamics::VisualAspect, dart::dynamics::CollisionAspect, dart::dynamics::DynamicsAspect>(sphere);
@@ -597,7 +600,7 @@ namespace rhex_dart
 
             // Put the body into position
             Eigen::Isometry3d tf(Eigen::Isometry3d::Identity());
-            tf.translation() = Eigen::Vector3d(3.2, 0.0, -4.0);
+            tf.translation() = Eigen::Vector3d(2.6, 0.0, -5.6);
             hbody->getParentJoint()->setTransformFromParentBodyNode(tf);
 
             _world->addSkeleton(hill);
@@ -610,7 +613,7 @@ namespace rhex_dart
             // Give the body a shape
             double step_x_width = 0.2;
             double step_y_width = 5;
-            double step_height = 0.10;
+            double step_height = 0.08;
 
             for (size_t i = 0; i < 100; ++i)
             {
@@ -828,12 +831,12 @@ namespace rhex_dart
         void _add_pipes(double friction = 1.0)
         {
             // create cylinders without the same name
-            double pipe_x_width = 0.05;
+            double pipe_x_width = 0.030;
             double pipe_y_width = 10;
-            double pipe_z_width = 0.05;
+            double pipe_z_width = 0.030;
             int num_pipes = 10;
-            double pipe_y_rotation = 1.57079632679 / 2; // 45 degrees rototation
-            double pipe_x_spacing = 1;
+            double pipe_y_rotation = M_PI / 4.0; // 45 degrees rototation
+            double pipe_x_spacing = 1.0;
 
             _add_floor(1, 20, 10);
 
@@ -855,7 +858,7 @@ namespace rhex_dart
 
                 // Put the body into position
                 Eigen::Isometry3d tf(Eigen::Isometry3d::Identity());
-                tf.translation() = Eigen::Vector3d(0.4 + (i * pipe_x_spacing), 0.0, 0.15);
+                tf.translation() = Eigen::Vector3d(0.4 + (i * pipe_x_spacing), 0.0, 0.015);
 
                 tf.linear() = (Eigen::AngleAxisd(0, Eigen::Vector3d::UnitX()) *
                                Eigen::AngleAxisd(pipe_y_rotation, Eigen::Vector3d::UnitY()) *

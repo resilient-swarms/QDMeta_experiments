@@ -64,14 +64,15 @@ namespace sferes
                     _ctrl.push_back(indiv.gen().data(i));
 #ifdef EVAL_ENVIR
                 size_t world_option = global::envir_index;
-
+		std::string dam = "none";
 #else
                 size_t world_option = 0;
                 size_t damage_option = global::damage_index;
+		std::string dam =  std::to_string(damage_option);
 #endif
 
 #ifdef GRAPHIC
-                std::string fileprefix = "video" + std::to_string(world_option) + std::to_string(damage_option);
+                std::string fileprefix = "video" + std::to_string(world_option) + dam;
 #else
                 std::string fileprefix = "";
 #endif

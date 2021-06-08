@@ -31,7 +31,7 @@
 
 typedef sferes::gen::Sampled<24, BottomParams> bottom_gen_t; // 24 parameters for our controller
 typedef size_t bottom_gen_data_t;                            // sampled data type is based on unsigned ints
-typedef boost::fusion::vector<> base_safe_t;
+typedef boost::fusion::vector<rhex_dart::safety_measures::TurnOver> base_safe_t;
 typedef boost::fusion::vector<rhex_dart::descriptors::Trajectory> base_desc_t;
 typedef rhex_controller::RhexControllerBuehler base_controller_t;
 typedef rhex_dart::RhexDARTSimu<rhex_dart::safety<base_safe_t>, rhex_dart::desc<base_desc_t>> simulator_t;
