@@ -192,30 +192,7 @@ namespace rhex_dart {
         protected:
             std::vector<Eigen::Vector3d> _pos_traj;
         };
-	// simple centre-of-mass trajectory
-        struct Trajectory : public DescriptorBase {
-        public:
-            Trajectory() {}
-
-            template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
-            {
-		Eigen::Vector3d pos = rob->skeleton()->getCOM();
-                _pos_traj.push_back(pos[0]);
-		_pos_traj.push_back(pos[1]);
-		_pos_traj.push_back(pos[2]);
-            }
-
-            void get(std::vector<double>& results)
-            {
-                results = _pos_traj;
-            }
-
-        protected:
-            std::vector<double> _pos_traj;
-        };
-
-        struct RotationTraj : public DescriptorBase {
+	struct RotationTraj : public DescriptorBase {
         public:
             RotationTraj() {}
 
@@ -238,6 +215,47 @@ namespace rhex_dart {
         protected:
             std::vector<Eigen::Vector3d> _rotation_traj;
         };
+	// centre-of-mass + rpy trajectory
+        struct FullTrajectory : public DescriptorBase {
+        public:
+	    
+            FullTrajectory() {}
+
+            template <typename Simu, typename robot>
+            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            {
+		this->_pos_traj(simu,rob,init_trans);
+		this->_rot_traj(simu,rob,init_trans);
+            }
+
+            void get(std::vector<double>& results)
+            {
+		std::vector<Eigen::Vector3d> positions,rotations;
+		this->_pos_traj.get(positions);
+		this->_rot_traj.get(rotations);
+		for(size_t i=0; i < positions.size(); ++i)
+		{
+
+		    _traj.push_back(positions[i][0]);
+		    _traj.push_back(positions[i][1]);
+		    _traj.push_back(rotations[i][0]);
+		    _traj.push_back(rotations[i][1]);
+		    _traj.push_back(rotations[i][2]);
+#ifdef GRAPHIC
+		std::ofstream ofs("/home/david/RHex_experiments/Results/fulltrajectory_log.txt",std::ios::app);
+		ofs << *(_traj.end() - 5) << " " << *(_traj.end() - 4) << " " << *(_traj.end() - 3) << " " <<*(_traj.end() - 2) << " " << *(_traj.end() - 1) << std::endl;
+#endif
+		}
+                
+            }
+
+        protected:
+	    PositionTraj _pos_traj;
+	    RotationTraj _rot_traj;
+            std::vector<double> _traj;
+        };
+
+
 
         struct BodyOrientation : public DescriptorBase {
         public:

@@ -87,20 +87,18 @@ namespace sferes
 
                 simu.run(Params::simu::time); // run simulation for the same amount of time as the bottom level, to keep function evals comparable
                 float fitness = simu.covered_distance();
-
-                // these assume a behaviour descriptor of size 6.
-                if (fitness < -1000)
-                {
-                    // this means that something bad happened in the simulation
-                    // we do not kill the individual in the meta-map, but set fitness to zero and bd does not contribute
-                    return 0.0; // will not count towards the sum
-                    // do not update the descriptor !
-                }
-                else
-                {
-                    // update the meta-fitness
-                    return fitness;
-                }
+#ifdef GRAPHIC
+		std::vector<double> results;
+                simu.get_descriptor<rhex_dart::descriptors::FullTrajectory, std::vector<double>>(results);
+#endif
+		float dead = -1000.0f;
+		if ( dead > fitness)
+		{
+	           return 0.0;//extreme values not good in cma-es
+		}
+		else{
+               	   return fitness;
+		}
             }
 #endif
         };
