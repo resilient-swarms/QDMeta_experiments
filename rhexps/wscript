@@ -35,8 +35,8 @@ def _build_test(bld, take_compl=[]):
 		do_cmaes_check=True
 	else:
 		do_cmaes_check=False
-
-	cxxflags+=['-g']
+	if os.environ.get('BUILD_DEBUG',"False") == "True":
+		cxxflags+=['-g']
 	if os.environ.get('BUILD_ENVIR',"False") == "True":
 		sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',
 								use = 'sferes2',
@@ -79,7 +79,8 @@ def _build_evolution(bld):
 	if os.environ.get('BUILD_GRAPHIC',"False") == "True":
 		cxxflags+=["-DGRAPHIC"]
 		libs += 'DART_GRAPHIC'
-	cxxflags+=['-g']
+	if os.environ.get('BUILD_DEBUG',"False") == "True":
+		cxxflags+=['-g']
 	if os.environ.get('BUILD_META',"False") == "True":
 		sferes.create_variants(bld,
 							source = 'rhex_metaCMAES.cpp',
