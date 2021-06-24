@@ -17,8 +17,8 @@ def options(opt):
 def check_rhex_controller(conf):
     includes_check = ['/usr/local/include', '/usr/include']
 
-    if 'RESIBOTS_DIR' in os.environ:
-        includes_check = [os.environ['RESIBOTS_DIR'] + '/include'] + includes_check
+    if 'BOTS_DIR' in os.environ:
+        includes_check = [os.environ['BOTS_DIR'] + '/include'] + includes_check
 
     if conf.options.controller:
         includes_check = [conf.options.controller + '/include']
