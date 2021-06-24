@@ -40,8 +40,8 @@ def check_rhex_dart(conf):
 
     # You can customize where you want to check
     # e.g. here we search also in a folder defined by an environmental variables
-    includes_check = [os.environ['RESIBOTS_DIR'] + '/include'] 
-    libs_check = [os.environ['RESIBOTS_DIR'] + '/lib'] 
+    includes_check = [os.environ['BOTS_DIR'] + '/include'] 
+    libs_check = [os.environ['BOTS_DIR'] + '/lib'] 
 
     if conf.options.rhex_dart:
     	includes_check = [conf.options.rhex_dart + '/include']
