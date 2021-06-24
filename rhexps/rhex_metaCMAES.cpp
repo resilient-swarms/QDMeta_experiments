@@ -199,7 +199,7 @@ int main(int argc, char **argv)
     global::set_condition(argv[2]);
     
 #elif META()
-    sferes::eval::param_ctrl = init_parameter_control(seed, std::string(argv[2]), global::outputdir);
+    sferes::eval::param_ctrl = init_parameter_control(seed, std::string(argv[2]), argv[index]);
 #endif
 
 
