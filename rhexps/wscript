@@ -59,7 +59,7 @@ def _build_test(bld, take_compl=[]):
 							uselib = libs,
 							target = tag+'_damage_control',
 							cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',
-							"- DEXPERIMENT_TYPE=2","DNUM_CORES="+str(os.environ.get('NUM_CORES',"1"))],   # damage
+							"-DEXPERIMENT_TYPE=2","DNUM_CORES="+str(os.environ.get('NUM_CORES',"1"))],   # damage
 							variants = ['BINARY'])
 	if do_cmaes_check:
 		# note this is not a meta-condition but can only generate up to 4 binaries at a time
@@ -68,10 +68,53 @@ def _build_test(bld, take_compl=[]):
 									use = 'sferes2',
 									uselib = libs,
 									target = tag+'_damage_cmaescheck',
-									cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=5",
+									cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
 									"-DNUM_CORES="+str(os.environ.get('NUM_CORES',"1"))],   # damage
 									variants = ['BINARY'])
 
+def _build_envirchecks(bld):
+	libs = 'RHEX_DART RHEX_CONTROLLER DART EIGEN BOOST_DART BOOST TBB '
+	cxxflags = bld.get_env()['CXXFLAGS']
+	num_cores = os.environ.get('NUM_CORES',1)
+	if os.environ.get('BUILD_GRAPHIC',"False") == "True":
+		cxxflags+=["-DGRAPHIC"]
+		libs += 'DART_GRAPHIC'
+
+	if os.environ.get('BUILD_DEBUG',"False") == "True":
+		cxxflags+=['-g']
+
+	if os.environ.get('BUILD_TYPE',"False") == "meta":
+		sferes.create_variants(bld,
+							source = 'rhex_metaCMAES.cpp',
+							use = 'sferes2',
+							uselib = libs,
+							target = 'rhex_metaCMAES_envir_meta',
+							cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
+							"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
+							variants = ['BINARY'])
+		sferes.create_variants(bld,
+							source = 'rhex_metaCMAES.cpp',
+							use = 'sferes2',
+							uselib = libs,
+							target = 'rhex_metaCMAES_damage_meta',
+							cxxflags = cxxflags + ['-g','-march=native',"-DEXPERIMENT_TYPE=0",
+							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
+							variants = ['BINARY'])
+
+def _build_testgenotype(bld):
+	libs = 'RHEX_DART RHEX_CONTROLLER DART EIGEN BOOST_DART BOOST TBB '
+	cxxflags = bld.get_env()['CXXFLAGS']
+	num_cores = os.environ.get('NUM_CORES',1)
+	cxxflags+=["-DGRAPHIC"]
+	libs += 'DART_GRAPHIC'
+	cxxflags+=['-g']
+	sferes.create_variants(bld,
+							source = 'test_genotype.cpp',
+							use = 'sferes2',
+							uselib = libs,
+							target = 'rhex_metaCMAES_testgenotype',
+							cxxflags = cxxflags + ['-march=native'],   # -march=native
+							variants = ['BINARY'])
 def _build_evolution(bld):
 	libs = 'RHEX_DART RHEX_CONTROLLER DART EIGEN BOOST_DART BOOST TBB '
 	cxxflags = bld.get_env()['CXXFLAGS']
@@ -81,14 +124,14 @@ def _build_evolution(bld):
 		libs += 'DART_GRAPHIC'
 	if os.environ.get('BUILD_DEBUG',"False") == "True":
 		cxxflags+=['-g']
-	if os.environ.get('BUILD_META',"False") == "True":
+	if os.environ.get('BUILD_TYPE',"control") == "meta":
 		sferes.create_variants(bld,
 							source = 'rhex_metaCMAES.cpp',
 							use = 'sferes2',
 							uselib = libs,
 							target = 'rhex_metaCMAES_envir_meta',
 							cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
-							,"-DBEHAV_DIM=4"],   # -march=native
+							"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 		sferes.create_variants(bld,
 							source = 'rhex_metaCMAES.cpp',
@@ -96,22 +139,36 @@ def _build_evolution(bld):
 							uselib = libs,
 							target = 'rhex_metaCMAES_damage_meta',
 							cxxflags = cxxflags + ['-g','-march=native',"-DEXPERIMENT_TYPE=0",
-							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4"],   # -march=native
+							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
-	elif os.environ.get("BUILD_TYPE","False") == "aurora":
-            bld.env.LIBPATH_KDTREE = '/usr/local/lib/'
-            bld.env.LIB_KDTREE = []
-            bld.env.INCLUDES_KDTREE = '/usr/local/include/'
+	elif os.environ.get("BUILD_TYPE","control") == "aurora":
+			bld.env.LIBPATH_KDTREE = '/usr/local/lib/'
+			bld.env.LIB_KDTREE = []
+			bld.env.INCLUDES_KDTREE = '/usr/local/include/'
 
- 
-            sferes.create_variants(bld,source = 'planarCMAES.cpp',
-					use = 'sferes2',
-					uselib = libs + " KDTREE ",
-					target = 'planarCMAES_aurora',
-					cxxflags = cxxflags + ['-DWITH_RNN=0','-DWITH_CNN=1','-march=native','-DBEHAV_DIM=4',
-					"-DEXPERIMENT_TYPE=2","-DNUM_CORES="+str(num_cores)],   # -march=native
-					variants = ['BINARY'])
-
+	
+			sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',
+								use = 'sferes2',
+								uselib = libs + " KDTREE ",
+								target = 'planarCMAES_aurora',
+								cxxflags = cxxflags + ['-DWITH_RNN=0','-DWITH_CNN=1','-march=native','-DBEHAV_DIM=4',
+								"-DEXPERIMENT_TYPE=2","-DNUM_CORES="+str(num_cores)],   # -march=native
+								variants = ['BINARY'])
+	elif os.environ.get("BUILD_TYPE","control") == "cmaes_check": 
+		sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',    # check how CMAES performs on individual damages/environments
+								use = 'sferes2',
+								uselib = libs,
+								target = 'rhex_metaCMAES_envircheck',
+								cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR",
+								"-DNUM_CORES="+str(num_cores),"-DEXPERIMENT_TYPE=3","-DBEHAV_DIM=1"],   # -march=native
+								variants = ['BINARY'])
+		sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',    # check how CMAES performs on individual damages/environments
+								use = 'sferes2',
+								uselib = libs,
+								target = 'rhex_metaCMAES_damagecheck',
+								cxxflags = cxxflags + ['-march=native',
+								"-DNUM_CORES="+str(num_cores),"-DEXPERIMENT_TYPE=3","-DBEHAV_DIM=1"],   # -march=native
+								variants = ['BINARY'])
 	else:  
 		sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',
 								use = 'sferes2',
@@ -123,10 +180,12 @@ def _build_evolution(bld):
 								
 def build(bld):
 	
-	if os.environ.get('BUILD_TEST',"False") == "True":
+	if os.environ.get('BUILD_PHASE',"evolution") == "TEST":
 		_build_test(bld,take_compl=["-DTAKE_COMPLEMENT"])
-	elif os.environ.get('BUILD_TRAIN',"False") == "True":
+	elif os.environ.get('BUILD_PHASE',"evolution") == "TRAIN":
 		_build_test(bld)
+	elif os.environ.get('BUILD_PHASE',"evolution") == "TEST_GENOTYPE":
+		_build_testgenotype(bld)
 	else:
 		_build_evolution(bld)
        

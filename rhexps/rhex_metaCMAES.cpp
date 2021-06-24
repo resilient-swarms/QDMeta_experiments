@@ -12,8 +12,8 @@
 #define AURORA() EXPERIMENT_TYPE == CONDITION_AURORA
 
 #define CMAES_CHECK() EXPERIMENT_TYPE == CONDITION_CMAES_CHECK
-#define ENVIR_TESTS() EVAL_ENVIR == 1 && (TEST || META())
-#define DAMAGE_TESTS() EVAL_ENVIR == 0 && (TEST || META())
+#define ENVIR_TESTS() EVAL_ENVIR == 1 && (TEST || META() || CMAES_CHECK())
+#define DAMAGE_TESTS() EVAL_ENVIR == 0 && (TEST || META() || CMAES_CHECK())
 
 #ifdef GRAPHIC
 #define NO_PARALLEL
@@ -57,27 +57,49 @@
 #include <meta-cmaes/stat_pop.hpp>
 #include <meta-cmaes/params.hpp>
 #include <meta-cmaes/parameter_control.hpp>
+#include <meta-cmaes/bottom_typedefs.hpp>
 #elif CMAES_CHECK()
 #include <meta-cmaes/cmaescheck_fitness.hpp>
 #include <meta-cmaes/cmaes.hpp>
-#include <sferes/stat/best_fit.hpp>
-typedef boost::fusion::vector<sferes::stat::BestFit<phen_t, CMAESCHECKParams>> stat_t;
-
+#include <meta-cmaes/stat_bestgenotype.hpp>
+typedef boost::fusion::vector<sferes::stat::BestGenotype<phen_t, CMAESCHECKParams>> stat_t;
 typedef modif::Dummy<> modifier_t;
 typedef sferes::ea::Cmaes<phen_t, eval_t, stat_t, modifier_t,CMAESCHECKParams> ea_t;
+#elif AURORA()
+#include <aurora/aurora.hpp>
+double Params::nov::l = 0.01;
+#include <meta-cmaes/bottom_typedefs.hpp>
 #else
 #include <meta-cmaes/control_typedefs.hpp>
+
+#include <sferes/ea/ea.hpp>
+
+#ifdef CVT_ME
+#include <meta-cmaes/cvt_utils.hpp>
+typedef boost::fusion::vector<sferes::stat::Map<phen_t, BottomParams>> stat_t;
+
+typedef modif::Dummy<> modifier_t;
+typedef sferes::ea::CVTMapElites<phen_t, eval_t, stat_t, modifier_t, BottomParams> ea_t;
+
+#else
 #ifdef TEST
 #include <meta-cmaes/stat_map.hpp>
 #else
 #include <modules/map_elites/stat_map.hpp>
 #endif
-#include <sferes/ea/ea.hpp>
 #include <modules/map_elites/map_elites.hpp>
 typedef boost::fusion::vector<sferes::stat::Map<phen_t, BottomParams>> stat_t;
 
 typedef modif::Dummy<> modifier_t;
 typedef sferes::ea::MapElites<phen_t, eval_t, stat_t, modifier_t, BottomParams> ea_t;
+#include <meta-cmaes/bottom_typedefs.hpp>
+#endif
+
+#endif
+
+
+#ifdef CVT_ME
+std::vector<BottomParams::ea::point_t> BottomParams::ea::centroids;
 #endif
 
 #include <sferes/run.hpp>
@@ -95,6 +117,8 @@ BOOST_CLASS_EXPORT_IMPLEMENT(RLController)
 
 
 #endif
+
+#if !CMAES_CHECK()
 namespace sferes
 {
 namespace gen
@@ -137,12 +161,22 @@ void bottom_gen_t::mutate()
 }
 }
 }
-
+#endif
 
 using namespace sferes;
 
 int main(int argc, char **argv)
 {
+    size_t index = 0;
+    for (size_t i = 0; i < argc; ++i)
+    {
+        if (std::string(argv[i]) == "--d")
+        {
+            index = i + 1;
+            break;
+        }
+    }
+    global::outputdir=argv[index];
     long seed = atoi(argv[1]);
     std::srand(seed); //use experiment number as seed for random generator. mostly for Eigen
     
@@ -153,22 +187,19 @@ int main(int argc, char **argv)
 #endif
 
 #if CMAES_CHECK()
+#ifdef EVAL_ENVIR
+    global::envir_index = atoi(argv[2]);
+    std::cout << "will do envir " << global::envir_index << std::endl;
+#else
     global::damage_index = atoi(argv[2]);
     std::cout << "will do damage " << global::damage_index << std::endl;
+#endif
+
 #elif CONTROL() || AURORA()
     global::set_condition(argv[2]);
     
 #elif META()
-    size_t index = 0;
-    for (size_t i = 0; i < argc; ++i)
-    {
-        if (std::string(argv[i]) == "--d")
-        {
-            index = i + 1;
-	    break;
-        }
-    }
-    sferes::eval::param_ctrl = init_parameter_control(seed, std::string(argv[2]), argv[index]);
+    sferes::eval::param_ctrl = init_parameter_control(seed, std::string(argv[2]), global::outputdir);
 #endif
 
 
@@ -177,7 +208,7 @@ int main(int argc, char **argv)
 #endif
 
     // initialisation of the simulation and the simulated robot, robot morphology currently set to raised.skel only
-    global::init_simu(std::string(argv[1]), std::string(std::getenv("RESIBOTS_DIR")) + "/share/rhex_models/SKEL/raised.skel");
+    global::init_simu(std::string(argv[1]), std::string(std::getenv("BOTS_DIR")) + "/share/rhex_models/SKEL/raised.skel");
     run_ea(argc, argv, ea);
 
     global::global_robot.reset();
