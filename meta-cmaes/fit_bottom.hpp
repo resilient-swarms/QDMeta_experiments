@@ -268,7 +268,7 @@ namespace sferes
             {
 
                 std::vector<double> results;
-                simu.get_descriptor<rhex_dart::descriptors::Trajectory, std::vector<double>>(results);
+                simu.get_descriptor<rhex_dart::descriptors::FullTrajectory, std::vector<double>>(results);
 
                 for (size_t i = 0; i < results.size(); ++i)
                 {
