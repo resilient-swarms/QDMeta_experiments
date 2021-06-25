@@ -10,28 +10,32 @@
 
 #include <rhex_dart/rhex.hpp>
 
-namespace rhex_dart {
+namespace rhex_dart
+{
 
-    namespace descriptors {
+    namespace descriptors
+    {
 
-        struct DescriptorBase {
+        struct DescriptorBase
+        {
         public:
             using robot_t = std::shared_ptr<Rhex>;
 
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
                 assert(false);
             }
 
             template <typename T>
-            void get(T& results)
+            void get(T &results)
             {
                 assert(false);
             }
         };
 
-        struct DutyCycle : public DescriptorBase {
+        struct DutyCycle : public DescriptorBase
+        {
         public:
             DutyCycle()
             {
@@ -43,23 +47,29 @@ namespace rhex_dart {
             // thus check all the segments in the leg for collision with the gound, if collision detected
             // then record it and don't continue checking the rest of the leg.
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
-                const dart::collision::CollisionResult& col_res = simu.world()->getLastCollisionResult();
-                for (size_t i = 0; i < 6; ++i) {
-                    if (rob->is_broken(i)) {
+                const dart::collision::CollisionResult &col_res = simu.world()->getLastCollisionResult();
+                for (size_t i = 0; i < 6; ++i)
+                {
+                    if (rob->is_broken(i))
+                    {
                         _contacts[i].push_back(0);
                     }
-                    else {
-                        for (size_t j = 1; j <= 8; ++j) {
+                    else
+                    {
+                        for (size_t j = 1; j <= 8; ++j)
+                        {
                             std::string leg_segment = "leg_" + std::to_string(i) + "_" + std::to_string(j);
                             dart::dynamics::BodyNodePtr segment_to_check = rob->skeleton()->getBodyNode(leg_segment);
-                            if (col_res.inCollision(segment_to_check)){
+                            if (col_res.inCollision(segment_to_check))
+                            {
                                 _contacts[i].push_back(col_res.inCollision(segment_to_check));
                                 break;
                             }
 
-                            if (j == 8){
+                            if (j == 8)
+                            {
                                 _contacts[i].push_back(0);
                             }
                         }
@@ -67,9 +77,10 @@ namespace rhex_dart {
                 }
             }
 
-            void get(std::vector<double>& results)
+            void get(std::vector<double> &results)
             {
-                for (size_t i = 0; i < 6; i++) {
+                for (size_t i = 0; i < 6; i++)
+                {
                     results.push_back(std::round(std::accumulate(_contacts[i].begin(), _contacts[i].end(), 0.0) / double(_contacts[i].size()) * 100.0) / 100.0);
                 }
             }
@@ -79,18 +90,19 @@ namespace rhex_dart {
         };
 
         // intended leg phases, these are not observed behaviourally
-        struct ControlPhase : public DescriptorBase {
+        struct ControlPhase : public DescriptorBase
+        {
         public:
-            ControlPhase(){}
+            ControlPhase() {}
 
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
                 std::vector<double> param = simu.controller().parameters();
-                _phases = std::vector<double> (param.begin() + 18, param.end());
+                _phases = std::vector<double>(param.begin() + 18, param.end());
             }
 
-            void get(std::vector<double>& results)
+            void get(std::vector<double> &results)
             {
                 results = _phases;
             }
@@ -100,7 +112,8 @@ namespace rhex_dart {
         };
 
         // describes endurance, the lower, the better.
-        struct SpecificResistance : public DescriptorBase {
+        struct SpecificResistance : public DescriptorBase
+        {
         public:
             SpecificResistance()
             {
@@ -109,7 +122,7 @@ namespace rhex_dart {
             }
 
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
 
                 _mass = rob->skeleton()->getMass();
@@ -121,10 +134,9 @@ namespace rhex_dart {
                 _velocities.push_back(velocity[0]);
                 Eigen::VectorXd state = rob->skeleton()->getForces().array().abs() * simu.world()->getTimeStep();
                 _powers.push_back(state.sum());
-
             }
 
-            void get(double& result)
+            void get(double &result)
             {
                 double avg_vel = std::accumulate(_velocities.begin(), _velocities.end(), 0.0) / _velocities.size();
                 double avg_pow = std::accumulate(_powers.begin(), _powers.end(), 0.0) / _powers.size();
@@ -140,12 +152,13 @@ namespace rhex_dart {
         };
 
         // average velocity in xyz directions
-        struct AvgCOMVelocities : public DescriptorBase {
+        struct AvgCOMVelocities : public DescriptorBase
+        {
         public:
-            AvgCOMVelocities(){}
+            AvgCOMVelocities() {}
 
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
                 Eigen::Vector3d velocity = rob->skeleton()->getCOMLinearVelocity();
                 _vel_x.push_back(velocity[0]);
@@ -153,7 +166,7 @@ namespace rhex_dart {
                 _vel_z.push_back(velocity[2]);
             }
 
-            void get(Eigen::Vector3d& results)
+            void get(Eigen::Vector3d &results)
             {
                 results[0] = std::accumulate(_vel_x.begin(), _vel_x.end(), 0.0) / _vel_x.size();
                 results[1] = std::accumulate(_vel_y.begin(), _vel_y.end(), 0.0) / _vel_y.size();
@@ -164,12 +177,13 @@ namespace rhex_dart {
             std::vector<double> _vel_x, _vel_y, _vel_z;
         };
 
-        struct PositionTraj : public DescriptorBase {
+        struct PositionTraj : public DescriptorBase
+        {
         public:
             PositionTraj() {}
 
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
                 Eigen::Vector6d pose = rob->pose();
                 Eigen::Matrix3d rot = dart::math::expMapRot({pose[0], pose[1], pose[2]});
@@ -184,7 +198,7 @@ namespace rhex_dart {
                 _pos_traj.push_back({pos[0], pos[1], pos[2]});
             }
 
-            void get(std::vector<Eigen::Vector3d>& results)
+            void get(std::vector<Eigen::Vector3d> &results)
             {
                 results = _pos_traj;
             }
@@ -192,12 +206,13 @@ namespace rhex_dart {
         protected:
             std::vector<Eigen::Vector3d> _pos_traj;
         };
-	struct RotationTraj : public DescriptorBase {
+        struct RotationTraj : public DescriptorBase
+        {
         public:
             RotationTraj() {}
 
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
                 // roll-pitch-yaw
                 Eigen::Matrix3d rot = dart::math::expMapRot(rob->rot());
@@ -207,7 +222,7 @@ namespace rhex_dart {
                 _rotation_traj.push_back(rpy);
             }
 
-            void get(std::vector<Eigen::Vector3d>& results)
+            void get(std::vector<Eigen::Vector3d> &results)
             {
                 results = _rotation_traj;
             }
@@ -215,54 +230,52 @@ namespace rhex_dart {
         protected:
             std::vector<Eigen::Vector3d> _rotation_traj;
         };
-	// centre-of-mass + rpy trajectory
-        struct FullTrajectory : public DescriptorBase {
+        // centre-of-mass + rpy trajectory
+        struct FullTrajectory : public DescriptorBase
+        {
         public:
-	    
             FullTrajectory() {}
 
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
-		this->_pos_traj(simu,rob,init_trans);
-		this->_rot_traj(simu,rob,init_trans);
+                this->_pos_traj(simu, rob, init_trans);
+                this->_rot_traj(simu, rob, init_trans);
             }
 
-            void get(std::vector<double>& results)
+            void get(std::vector<double> &results)
             {
-		std::vector<Eigen::Vector3d> positions,rotations;
-		this->_pos_traj.get(positions);
-		this->_rot_traj.get(rotations);
-		for(size_t i=0; i < positions.size(); ++i)
-		{
+                std::vector<Eigen::Vector3d> positions, rotations;
+                this->_pos_traj.get(positions);
+                this->_rot_traj.get(rotations);
+                for (size_t i = 0; i < positions.size(); ++i)
+                {
 
-		    _traj.push_back(positions[i][0]);
-		    _traj.push_back(positions[i][1]);
-		    _traj.push_back(rotations[i][0]);
-		    _traj.push_back(rotations[i][1]);
-		    _traj.push_back(rotations[i][2]);
+                    _traj.push_back(positions[i][0]);
+                    _traj.push_back(positions[i][1]);
+                    _traj.push_back(rotations[i][0]);
+                    _traj.push_back(rotations[i][1]);
+                    _traj.push_back(rotations[i][2]);
 #ifdef GRAPHIC
-		std::ofstream ofs("/home/david/RHex_experiments/Results/fulltrajectory_log.txt",std::ios::app);
-		ofs << *(_traj.end() - 5) << " " << *(_traj.end() - 4) << " " << *(_traj.end() - 3) << " " <<*(_traj.end() - 2) << " " << *(_traj.end() - 1) << std::endl;
+                    std::ofstream ofs("/home/david/RHex_experiments/Results/fulltrajectory_log.txt", std::ios::app);
+                    ofs << *(_traj.end() - 5) << " " << *(_traj.end() - 4) << " " << *(_traj.end() - 3) << " " << *(_traj.end() - 2) << " " << *(_traj.end() - 1) << std::endl;
 #endif
-		}
-                
+                }
             }
 
         protected:
-	    PositionTraj _pos_traj;
-	    RotationTraj _rot_traj;
+            PositionTraj _pos_traj;
+            RotationTraj _rot_traj;
             std::vector<double> _traj;
         };
 
-
-
-        struct BodyOrientation : public DescriptorBase {
+        struct BodyOrientation : public DescriptorBase
+        {
         public:
             BodyOrientation() {}
 
             template <typename Simu, typename robot>
-            void operator()(Simu& simu, std::shared_ptr<robot> rob, const Eigen::Vector6d& init_trans)
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
             {
                 // roll-pitch-yaw
                 Eigen::Matrix3d rr = dart::math::expMapRot(rob->rot());
@@ -274,16 +287,16 @@ namespace rhex_dart {
                 _yaw_vec.push_back(rpy(2));
             }
 
-            void get(std::vector<double>& results)
+            void get(std::vector<double> &results)
             {
                 double threshold = (_perc_threshold / 100.0) * dart::math::constants<double>::pi();
                 results.clear();
-                results.push_back(std::round(std::count_if(_roll_vec.begin(), _roll_vec.end(), [&threshold](double i) {return i>threshold; }) / double(_roll_vec.size()) * 100.0) / 100.0);
-                results.push_back(std::round(std::count_if(_roll_vec.begin(), _roll_vec.end(), [&threshold](double i) {return i<-threshold; }) / double(_roll_vec.size()) * 100.0) / 100.0);
-                results.push_back(std::round(std::count_if(_pitch_vec.begin(), _pitch_vec.end(), [&threshold](double i) {return i>threshold; }) / double(_pitch_vec.size()) * 100.0) / 100.0);
-                results.push_back(std::round(std::count_if(_pitch_vec.begin(), _pitch_vec.end(), [&threshold](double i) {return i<-threshold; }) / double(_pitch_vec.size()) * 100.0) / 100.0);
-                results.push_back(std::round(std::count_if(_yaw_vec.begin(), _yaw_vec.end(), [&threshold](double i) {return i>threshold; }) / double(_yaw_vec.size()) * 100.0) / 100.0);
-                results.push_back(std::round(std::count_if(_yaw_vec.begin(), _yaw_vec.end(), [&threshold](double i) {return i<-threshold; }) / double(_yaw_vec.size()) * 100.0) / 100.0);
+                results.push_back(std::round(std::count_if(_roll_vec.begin(), _roll_vec.end(), [&threshold](double i) { return i > threshold; }) / double(_roll_vec.size()) * 100.0) / 100.0);
+                results.push_back(std::round(std::count_if(_roll_vec.begin(), _roll_vec.end(), [&threshold](double i) { return i < -threshold; }) / double(_roll_vec.size()) * 100.0) / 100.0);
+                results.push_back(std::round(std::count_if(_pitch_vec.begin(), _pitch_vec.end(), [&threshold](double i) { return i > threshold; }) / double(_pitch_vec.size()) * 100.0) / 100.0);
+                results.push_back(std::round(std::count_if(_pitch_vec.begin(), _pitch_vec.end(), [&threshold](double i) { return i < -threshold; }) / double(_pitch_vec.size()) * 100.0) / 100.0);
+                results.push_back(std::round(std::count_if(_yaw_vec.begin(), _yaw_vec.end(), [&threshold](double i) { return i > threshold; }) / double(_yaw_vec.size()) * 100.0) / 100.0);
+                results.push_back(std::round(std::count_if(_yaw_vec.begin(), _yaw_vec.end(), [&threshold](double i) { return i < -threshold; }) / double(_yaw_vec.size()) * 100.0) / 100.0);
             }
 
         protected:
@@ -293,7 +306,7 @@ namespace rhex_dart {
 
             std::vector<double> _roll_vec, _pitch_vec, _yaw_vec;
         };
-    }
-}
+    } // namespace descriptors
+} // namespace rhex_dart
 
 #endif

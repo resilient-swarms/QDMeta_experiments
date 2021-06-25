@@ -262,11 +262,48 @@ namespace sferes
 #endif
                 }
             }
+#ifdef FEATURE_SETS
+            // cf. skeleton : .54 .39 .139
+            inline float correct_lv_x(float v_x)
+            {
+                return std::min(1.0, std::max(0.0, (v_x - 0.20 * global::BODY_LENGTH) / (2.2 * global::BODY_LENGTH))); // [0.1, 2.1] body lengths (moving backwards is unlikely; .54 is body length)
+            }
 
+            inline float correct_lv_y(float v_y)
+            {
+                return std::min(1.0, std::max(0.0, (v_y + 1.0 * global::BODY_WIDTH) / (2.00 * global::BODY_WIDTH))); // [-1.0,1.0] body widths, body cannot suddenly rotate heavily
+            }
+            inline float correct_lv_z(float v_z)
+            {
+                return std::min(1.0, std::max(0.0, (v_z + 0.25 * global::BODY_HEIGHT) / (0.50 * global::BODY_HEIGHT))); // [-0.25,0.25] body heights; body usually tilts backwards
+            }
+
+#endif
             /* the included descriptors determine the base-features */
             void get_base_features(base_features_t & base_features, simulator_t & simu)
             {
 
+#ifdef FEATURE_SETS
+                std::vector<double> results;
+                simu.get_descriptor<rhex_dart::descriptors::DutyCycle, std::vector<double>>(results);
+
+                for (size_t i = 0; i < results.size(); ++i)
+                {
+                    base_features(i, 0) = results[i];
+                }
+
+                simu.get_descriptor<rhex_dart::descriptors::BodyOrientation, std::vector<double>>(results);
+                for (size_t i = 0; i < results.size(); ++i)
+                {
+                    base_features(i + 6, 0) = results[i];
+                }
+                Eigen::Vector3d velocities;
+                simu.get_descriptor<rhex_dart::descriptors::AvgCOMVelocities, Eigen::Vector3d>(velocities);
+                base_features(12, 0) = correct_lv_x(velocities[0]);
+                base_features(13, 0) = correct_lv_y(velocities[1]);
+                base_features(14, 0) = correct_lv_z(velocities[2]);
+
+#else
                 std::vector<double> results;
                 simu.get_descriptor<rhex_dart::descriptors::FullTrajectory, std::vector<double>>(results);
 
@@ -274,9 +311,11 @@ namespace sferes
                 {
                     base_features(i, 0) = results[i];
                 }
+#endif
             }
-        };
-    } // namespace fit
-} // namespace sferes
+
+            };
+        } // namespace fit
+    }     // namespace fit
 
 #endif

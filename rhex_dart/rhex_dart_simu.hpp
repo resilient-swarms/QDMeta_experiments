@@ -66,7 +66,7 @@ namespace rhex_dart
             using rhex_control_t = RhexControlBuehler;
             // using safety_measures_t = boost::fusion::vector<safety_measures::MaxHeight, safety_measures::BodyColliding, safety_measures::TurnOver>;
             using safety_measures_t = boost::fusion::vector<safety_measures::TurnOver>;
-            using descriptors_t = boost::fusion::vector<descriptors::DutyCycle, descriptors::SpecificResistance, descriptors::AvgCOMVelocities>;
+            using descriptors_t = boost::fusion::vector<descriptors::DutyCycle, descriptors::BodyOrientation, descriptors::AvgCOMVelocities>;
             using viz_t = boost::fusion::vector<visualizations::HeadingArrow, visualizations::RobotTrajectory>;
         };
 
@@ -86,7 +86,7 @@ namespace rhex_dart
                                                                                                                                                                      _controller(ctrl, robot, damages),
                                                                                                                                                                      _world_option(world_option),
                                                                                                                                                                      _old_index(0),
-                                                                                                                                                                     _desc_period(2),
+                                                                                                                                                                     _desc_period(DESC_PERIOD),
                                                                                                                                                                      _break(false)
         {
             _world->getConstraintSolver()->setCollisionDetector(dart::collision::DARTCollisionDetector::create());

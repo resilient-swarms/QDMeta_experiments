@@ -130,7 +130,7 @@ def _build_evolution(bld):
 							use = 'sferes2',
 							uselib = libs,
 							target = 'rhex_metaCMAES_envir_meta',
-							cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
+							cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
 							"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 		sferes.create_variants(bld,
@@ -138,7 +138,24 @@ def _build_evolution(bld):
 							use = 'sferes2',
 							uselib = libs,
 							target = 'rhex_metaCMAES_damage_meta',
-							cxxflags = cxxflags + ['-g','-march=native',"-DEXPERIMENT_TYPE=0",
+							cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native',"-DEXPERIMENT_TYPE=0",
+							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
+							variants = ['BINARY'])
+	elif os.environ.get('BUILD_TYPE',"control") == "meta_featuresets":
+		sferes.create_variants(bld,
+							source = 'rhex_metaCMAES.cpp',
+							use = 'sferes2',
+							uselib = libs,
+							target = 'rhex_metaCMAES_envir_meta_featuresets',
+							cxxflags = cxxflags + ['-DDESC_PERIOD=2','-DFEATURE_SETS','-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
+							"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
+							variants = ['BINARY'])
+		sferes.create_variants(bld,
+							source = 'rhex_metaCMAES.cpp',
+							use = 'sferes2',
+							uselib = libs,
+							target = 'rhex_metaCMAES_damage_meta_featuresets',
+							cxxflags = cxxflags + ['-DDESC_PERIOD=2','-DFEATURE_SETS','-march=native',"-DEXPERIMENT_TYPE=0",
 							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 	elif os.environ.get("BUILD_TYPE","control") == "aurora":
