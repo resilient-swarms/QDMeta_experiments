@@ -15,7 +15,7 @@ namespace rhex_dart
 
     namespace descriptors
     {
-        // maximal x,y,roll,pitch,yaw obtained from the trajectories; rounded to two decimals
+        // maximal absolute x,y,roll,pitch,yaw change obtained from the trajectories; rounded to two decimals
         const std::vector<double> max_deltas = {1.05, 1.15, 1.05, 1.55, 1.27}; 
         struct DescriptorBase
         {
