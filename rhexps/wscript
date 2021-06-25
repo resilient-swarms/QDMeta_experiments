@@ -43,14 +43,14 @@ def _build_test(bld, take_compl=[]):
 								uselib = libs,
 								target = tag+'_envir_meta',
 								cxxflags = take_compl + cxxflags + ['-DTEST','-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0",
-								"-DNUM_CORES=1"],   # environment
+								"-DNUM_CORES=1","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
 								variants = ['BINARY'])
 	else:							
 		sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',
 								use = 'sferes2',
 								uselib = libs,
 								target = tag+'_damage_meta',
-								cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=0","-DNUM_CORES=1"],   # damage
+								cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=0","-DNUM_CORES=1","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # damage
 								variants = ['BINARY'])
 										
 	sferes.create_variants(bld,
@@ -90,7 +90,7 @@ def _build_envirchecks(bld):
 							uselib = libs,
 							target = 'rhex_metaCMAES_envir_meta',
 							cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
-							"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
+							"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 		sferes.create_variants(bld,
 							source = 'rhex_metaCMAES.cpp',
@@ -98,7 +98,7 @@ def _build_envirchecks(bld):
 							uselib = libs,
 							target = 'rhex_metaCMAES_damage_meta',
 							cxxflags = cxxflags + ['-g','-march=native',"-DEXPERIMENT_TYPE=0",
-							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
+							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 
 def _build_testgenotype(bld):
@@ -131,7 +131,7 @@ def _build_evolution(bld):
 							uselib = libs,
 							target = 'rhex_metaCMAES_envir_meta',
 							cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
-							"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
+							"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 		sferes.create_variants(bld,
 							source = 'rhex_metaCMAES.cpp',
@@ -139,7 +139,7 @@ def _build_evolution(bld):
 							uselib = libs,
 							target = 'rhex_metaCMAES_damage_meta',
 							cxxflags = cxxflags + ['-g','-march=native',"-DEXPERIMENT_TYPE=0",
-							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE=10","-DFEATUREMAP=2"],   # -march=native
+							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 	elif os.environ.get("BUILD_TYPE","control") == "aurora":
 			bld.env.LIBPATH_KDTREE = '/usr/local/lib/'
