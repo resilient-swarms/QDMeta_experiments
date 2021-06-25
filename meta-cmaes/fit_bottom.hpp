@@ -106,7 +106,7 @@ namespace sferes
                 if (global::condition == global::ConditionType::tra)
                 {
                     //std::cout << "pol "<<std::endl;
-                    simu.get_descriptor<rhex_dart::descriptors::FullTrajectory, std::vector<double>>(vec);
+                    simu.get_descriptor<rhex_dart::descriptors::DeltaFullTrajectory, std::vector<double>>(vec);
                 }
                 else
                 {
@@ -305,7 +305,7 @@ namespace sferes
 
 #else
                 std::vector<double> results;
-                simu.get_descriptor<rhex_dart::descriptors::FullTrajectory, std::vector<double>>(results);
+                simu.get_descriptor<rhex_dart::descriptors::DeltaFullTrajectory, std::vector<double>>(results);
 
                 for (size_t i = 0; i < results.size(); ++i)
                 {

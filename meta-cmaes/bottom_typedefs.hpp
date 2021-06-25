@@ -38,7 +38,7 @@ typedef boost::fusion::vector<rhex_dart::safety_measures::TurnOver> base_safe_t;
 #ifdef FEATURE_SETS
 typedef boost::fusion::vector<rhex_dart::descriptors::DutyCycle, rhex_dart::descriptors::BodyOrientation, rhex_dart::descriptors::AvgCOMVelocities> base_desc_t;
 #else
-typedef boost::fusion::vector<rhex_dart::descriptors::FullTrajectory> base_desc_t;
+typedef boost::fusion::vector<rhex_dart::descriptors::DeltaFullTrajectory> base_desc_t;
 #endif
 #ifdef PARALLEL_RUN
      typedef sferes::eval::CSharedMem shared_memory_t ;	

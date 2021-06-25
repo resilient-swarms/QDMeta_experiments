@@ -15,7 +15,8 @@ namespace rhex_dart
 
     namespace descriptors
     {
-
+        // maximal x,y,roll,pitch,yaw obtained from the trajectories; rounded to two decimals
+        const std::vector<double> max_deltas = {1.05, 1.15, 1.05, 1.55, 1.27}; 
         struct DescriptorBase
         {
         public:
@@ -267,6 +268,57 @@ namespace rhex_dart
             PositionTraj _pos_traj;
             RotationTraj _rot_traj;
             std::vector<double> _traj;
+        };
+
+        // centre-of-mass + rpy trajectory
+        struct DeltaFullTrajectory : public DescriptorBase
+        {
+        public:
+            DeltaFullTrajectory() {}
+
+            template <typename Simu, typename robot>
+            void operator()(Simu &simu, std::shared_ptr<robot> rob, const Eigen::Vector6d &init_trans)
+            {
+                this->_pos_traj(simu, rob, init_trans);
+                this->_rot_traj(simu, rob, init_trans);
+            }
+
+            void get(std::vector<double> &results)
+            {
+                std::vector<Eigen::Vector3d> positions, rotations;
+                this->_pos_traj.get(positions);
+                this->_rot_traj.get(rotations);
+                std::vector<double> temp;
+                for (size_t i = 0; i < positions.size(); ++i)
+                {
+                    temp.push_back(positions[i][0]);
+                    temp.push_back(positions[i][1]);
+                    temp.push_back(rotations[i][0]);
+                    temp.push_back(rotations[i][1]);
+                    temp.push_back(rotations[i][2]);
+                }
+
+                for (size_t i=5; i < temp.size(); i+=5 )
+                {
+                    for(size_t j=0; j<5; ++j)
+                    {
+                        _traj.push_back(_get_delta(temp[i+j-5],temp[i+j],j));
+                    }
+                }
+            }
+            
+
+        protected:
+            PositionTraj _pos_traj;
+            RotationTraj _rot_traj;
+            std::vector<double> _traj;
+
+            double _get_delta(double before, double after, size_t index)
+            {
+                double delta = (after - before) / max_deltas[index];//[-1,1]
+                delta = (1.0 + delta)/2.0;//[0,1]
+                return std::min(1.0,std::max(0.0,delta));//clip
+            }
         };
 
         struct BodyOrientation : public DescriptorBase
