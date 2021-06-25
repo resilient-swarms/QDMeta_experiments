@@ -9,7 +9,7 @@
 
 #include <meta-cmaes/fit_bottom.hpp>
 #ifdef PARALLEL_RUN
-#include <meta-cmaes/eval_parallel.hpp>
+#include <meta-cmaes/eval_parallel_control.hpp>
 #else
 #include <sferes/eval/eval.hpp>
 #endif
@@ -26,7 +26,7 @@ typedef sferes::fit::FitBottom<BottomParams> fit_t;
 typedef sferes::phen::Parameters<bottom_gen_t, fit_t, BottomParams> phen_t;
 typedef boost::shared_ptr<phen_t> bottom_indiv_t;
 #ifdef PARALLEL_RUN
-    typedef sferes::eval::EvalParallelIndividuals<BottomParams> eval_t;
+    typedef sferes::eval::EvalParallelControl<BottomParams> eval_t;
 #else
     typedef sferes::eval::Eval<BottomParams> eval_t;
 #endif
