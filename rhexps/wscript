@@ -42,7 +42,7 @@ def _build_test(bld, take_compl=[]):
 								use = 'sferes2',
 								uselib = libs,
 								target = tag+'_envir_meta',
-								cxxflags = take_compl + cxxflags + ['-DTEST','-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0",
+								cxxflags = take_compl + cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0",
 								"-DNUM_CORES=1","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
 								variants = ['BINARY'])
 	else:							
@@ -50,7 +50,7 @@ def _build_test(bld, take_compl=[]):
 								use = 'sferes2',
 								uselib = libs,
 								target = tag+'_damage_meta',
-								cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=0","-DNUM_CORES=1","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # damage
+								cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DEXPERIMENT_TYPE=0","-DNUM_CORES=1","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # damage
 								variants = ['BINARY'])
 										
 	sferes.create_variants(bld,
@@ -58,7 +58,7 @@ def _build_test(bld, take_compl=[]):
 							use = 'sferes2',
 							uselib = libs,
 							target = tag+'_damage_control',
-							cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',
+							cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',
 							"-DEXPERIMENT_TYPE=2","-DNUM_CORES="+str(os.environ.get('NUM_CORES',"1"))],   # damage
 							variants = ['BINARY'])
 	if do_cmaes_check:
@@ -68,7 +68,7 @@ def _build_test(bld, take_compl=[]):
 									use = 'sferes2',
 									uselib = libs,
 									target = tag+'_damage_cmaescheck',
-									cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
+									cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
 									"-DNUM_CORES="+str(os.environ.get('NUM_CORES',"1"))],   # damage
 									variants = ['BINARY'])
 
@@ -89,7 +89,7 @@ def _build_envirchecks(bld):
 							use = 'sferes2',
 							uselib = libs,
 							target = 'rhex_metaCMAES_envir_meta',
-							cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
+							cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
 							"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 		sferes.create_variants(bld,
@@ -97,7 +97,7 @@ def _build_envirchecks(bld):
 							use = 'sferes2',
 							uselib = libs,
 							target = 'rhex_metaCMAES_damage_meta',
-							cxxflags = cxxflags + ['-g','-march=native',"-DEXPERIMENT_TYPE=0",
+							cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native',"-DEXPERIMENT_TYPE=0",
 							"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
 							variants = ['BINARY'])
 
@@ -168,7 +168,7 @@ def _build_evolution(bld):
 								use = 'sferes2',
 								uselib = libs + " KDTREE ",
 								target = 'planarCMAES_aurora',
-								cxxflags = cxxflags + ['-DWITH_RNN=0','-DWITH_CNN=1','-march=native','-DBEHAV_DIM=4',
+								cxxflags = cxxflags + ['-DDESC_PERIOD=100','-DWITH_RNN=0','-DWITH_CNN=1','-march=native','-DBEHAV_DIM=4',
 								"-DEXPERIMENT_TYPE=2","-DNUM_CORES="+str(num_cores)],   # -march=native
 								variants = ['BINARY'])
 	elif os.environ.get("BUILD_TYPE","control") == "cmaes_check": 
@@ -176,14 +176,14 @@ def _build_evolution(bld):
 								use = 'sferes2',
 								uselib = libs,
 								target = 'rhex_metaCMAES_envircheck',
-								cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR",
+								cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native',"-DEVAL_ENVIR",
 								"-DNUM_CORES="+str(num_cores),"-DEXPERIMENT_TYPE=3","-DBEHAV_DIM=1"],   # -march=native
 								variants = ['BINARY'])
 		sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',    # check how CMAES performs on individual damages/environments
 								use = 'sferes2',
 								uselib = libs,
 								target = 'rhex_metaCMAES_damagecheck',
-								cxxflags = cxxflags + ['-march=native',
+								cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native',
 								"-DNUM_CORES="+str(num_cores),"-DEXPERIMENT_TYPE=3","-DBEHAV_DIM=1"],   # -march=native
 								variants = ['BINARY'])
 	else:  
@@ -191,7 +191,7 @@ def _build_evolution(bld):
 								use = 'sferes2',
 								uselib = libs,
 								target = 'rhex_metaCMAES_cvt50D',
-								cxxflags = cxxflags + ['-march=native',"-DEXPERIMENT_TYPE=1",
+								cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native',"-DEXPERIMENT_TYPE=1",
 								"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM=50","-DCVT_ME=1"],   # -march=native
 								variants = ['BINARY'])
 								
