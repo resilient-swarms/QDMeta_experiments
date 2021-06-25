@@ -20,6 +20,9 @@
 //#include <boost/circular_buffer.hpp>
 //#include <meta-cmaes/circular_buffer_serialisation.hpp>
 #include <meta-cmaes/sampled.hpp>
+#ifdef PARALLEL_RUN
+#include <meta-cmaes/eval_parallel.hpp>
+#endif
 #include <stdexcept>
 
 ////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////////
@@ -36,6 +39,9 @@ typedef boost::fusion::vector<rhex_dart::safety_measures::TurnOver> base_safe_t;
 typedef boost::fusion::vector<rhex_dart::descriptors::DutyCycle, rhex_dart::descriptors::BodyOrientation, rhex_dart::descriptors::AvgCOMVelocities> base_desc_t;
 #else
 typedef boost::fusion::vector<rhex_dart::descriptors::FullTrajectory> base_desc_t;
+#endif
+#ifdef PARALLEL_RUN
+     typedef sferes::eval::CSharedMem shared_memory_t ;	
 #endif
 typedef rhex_controller::RhexControllerBuehler base_controller_t;
 typedef rhex_dart::RhexDARTSimu<rhex_dart::safety<base_safe_t>, rhex_dart::desc<base_desc_t>> simulator_t;
