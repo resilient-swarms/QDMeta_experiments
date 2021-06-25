@@ -59,7 +59,7 @@ def _build_test(bld, take_compl=[]):
 							uselib = libs,
 							target = tag+'_damage_control',
 							cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',
-							"-DEXPERIMENT_TYPE=2","DNUM_CORES="+str(os.environ.get('NUM_CORES',"1"))],   # damage
+							"-DEXPERIMENT_TYPE=2","-DNUM_CORES="+str(os.environ.get('NUM_CORES',"1"))],   # damage
 							variants = ['BINARY'])
 	if do_cmaes_check:
 		# note this is not a meta-condition but can only generate up to 4 binaries at a time
