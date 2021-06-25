@@ -113,7 +113,7 @@ def _build_testgenotype(bld):
 							use = 'sferes2',
 							uselib = libs,
 							target = 'rhex_metaCMAES_testgenotype',
-							cxxflags = cxxflags + ['-march=native'],   # -march=native
+							cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native'],   # -march=native
 							variants = ['BINARY'])
 def _build_evolution(bld):
 	libs = 'RHEX_DART RHEX_CONTROLLER DART EIGEN BOOST_DART BOOST TBB '

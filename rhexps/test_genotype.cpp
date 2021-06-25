@@ -39,9 +39,9 @@ int main(int argc, char **argv)
     }
 
     //note: boost fusion vector at most 10 template arguments
-    using desc_t = boost::fusion::vector<rhex_dart::descriptors::Trajectory>;
+    using desc_t = boost::fusion::vector<rhex_dart::descriptors::FullTrajectory>;
 
-    using safe_t = boost::fusion::vector<>;
+    using safe_t = boost::fusion::vector<rhex_dart::safety_measures::TurnOver>;
     using viz_t = boost::fusion::vector<rhex_dart::visualizations::HeadingArrow, rhex_dart::visualizations::RobotTrajectory>;
     using simu_t = rhex_dart::RhexDARTSimu<rhex_dart::desc<desc_t>, rhex_dart::safety<safe_t>, rhex_dart::viz<viz_t>>;
     // const std::vector<double> &ctrl,
@@ -53,7 +53,7 @@ int main(int argc, char **argv)
     double time = 5.0;
     simu.run(time);
     std::vector<double> v;
-    simu.get_descriptor<rhex_dart::descriptors::Trajectory>(v);
+    simu.get_descriptor<rhex_dart::descriptors::FullTrajectory>(v);
     std::cout << "TRA:" << std::endl;
     for (size_t i = 0; i < v.size(); i++)
     {
