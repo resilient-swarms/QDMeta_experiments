@@ -9,10 +9,7 @@ int main(int argc, char **argv)
     // using the same model as the hexapod and so the robot has a damages parameter but is set to 0
     std::vector<rhex_dart::RhexDamage> damages(0);
     size_t world_option = 0;
-    int ctrl_size = 24;
-
-    srand(1); //set seed
-
+    int ctrl_size = 24;  
     // loads the robot with name RHex, not a URDF file, and blank damage
     std::string model_file = std::string(std::getenv("BOTS_DIR")) + "/share/rhex_models/SKEL/raised.skel";
     std::string robot_name = "Rhex";
@@ -29,16 +26,18 @@ int main(int argc, char **argv)
     // int world_option = 0
     // double friction = 1.0
     // std::vector<rhex_dart::RhexDamage> damages = {}
-    size_t required_solutions = 100000;
-    std::ofstream ofs("centroid_trajectories.txt");
+    size_t required_solutions = 1000;
+    std::ofstream ofs("centroid_trajectories"+std::string(argv[1])+".txt");
     size_t legal_solutions = 0;
+    std::mt19937 gen(std::atoi(argv[1]));
+    std::uniform_real_distribution<double> dis(0.0, 1.0);
     while (legal_solutions < required_solutions)
     {
 
         std::vector<double> ctrl;
         for (int j = 1; j <= ctrl_size; ++j)
         {
-            double r = (double)std::rand() / RAND_MAX;
+            double r = dis(gen);
             ctrl.push_back(r);
             std::cout << r << " ";
         }
