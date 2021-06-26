@@ -104,7 +104,7 @@ struct BottomParams
         SFERES_CONST float epsilon = 0.00;
     };
 
-    // our values for each gait parameter can take on any one of these    ????????????????????
+    // our values for each gait parameter can take on any one of these
     struct sampled
     {
         SFERES_ARRAY(float, values, 0.00, 0.025, 0.05, 0.075, 0.10, 0.125, 0.15, 0.175,
@@ -129,8 +129,6 @@ struct BottomParams
 #endif
         // NOTE: multiply size by 2 to obtain the actual batch ! !
         SFERES_CONST unsigned size = 200; //---> 400 individuals; note this is the size per map, for each bottom generation (total of 10,000 evals for bottom-level)
-        //  --> leads to a total of at most 20,000 evaluations per meta-generation (400*25 + 0.10*4,096*25) for the environments case, and at most 1/1 ratio
-        // filling up all or even half of the cells is quite unlikely though , so not too many worries for the damage case !
 
         // NOTE: do NOT multiply by 2 to get initial size
         SFERES_CONST unsigned init_size = 2000;
@@ -184,11 +182,11 @@ struct CMAESParams
     // save map every 50 iterations
     struct pop
     {
-        SFERES_CONST unsigned nb_gen = 100001; // overestimate, will hit max_evals before that
-        SFERES_CONST int dump_period = 200;    //
+        SFERES_CONST unsigned nb_gen = 10001; // huge overestimate, will hit max_evals before that
+        SFERES_CONST int dump_period = 10;    //
         SFERES_CONST int size = META_POP_SIZE; // number of maps
         SFERES_CONST int initial_aleat = 1;
-        SFERES_CONST unsigned max_evals = 100000000; //100M is equal to the bottomparams: 400*250000
+        SFERES_CONST unsigned max_evals = 10000000; //10M is equal to the bottomparams: (400*5*10 + a few evals within meta-fitness) * (a bit below 500 generations)
     };
 
     struct parameters
