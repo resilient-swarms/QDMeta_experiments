@@ -197,10 +197,14 @@ int main(int argc, char **argv)
 #endif
 
 #elif CONTROL() || AURORA()
+#ifndef TEST
     global::set_condition(argv[2]);
+#endif
     
 #elif META()
+#ifndef TEST
     sferes::eval::param_ctrl = init_parameter_control(seed, std::string(argv[2]), argv[index]);
+#endif
 #endif
 
 
