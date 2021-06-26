@@ -115,6 +115,16 @@ def _build_testgenotype(bld):
 							target = 'rhex_metaCMAES_testgenotype',
 							cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native'],   # -march=native
 							variants = ['BINARY'])
+def _build_cvt_trajectories(bld):
+	libs = 'RHEX_DART RHEX_CONTROLLER DART EIGEN BOOST_DART BOOST TBB '
+	cxxflags = bld.get_env()['CXXFLAGS']
+	sferes.create_variants(bld,
+							source = 'cvt_trajectories.cpp',
+							use = 'sferes2',
+							uselib = libs,
+							target = 'rhex_metaCMAES_cvttrajectories',
+							cxxflags = cxxflags + ['-DDESC_PERIOD=100','-march=native'],   # -march=native
+							variants = ['BINARY'])
 def _build_evolution(bld):
 	libs = 'RHEX_DART RHEX_CONTROLLER DART EIGEN BOOST_DART BOOST TBB '
 	cxxflags = bld.get_env()['CXXFLAGS']
@@ -203,6 +213,8 @@ def build(bld):
 		_build_test(bld)
 	elif os.environ.get('BUILD_PHASE',"evolution") == "TEST_GENOTYPE":
 		_build_testgenotype(bld)
+	elif os.environ.get('BUILD_PHASE',"evolution") == "TRAJECTORIES":
+		_build_cvt_trajectories(bld)
 	else:
 		_build_evolution(bld)
        

@@ -262,6 +262,7 @@ namespace rhex_dart
                     ofs << *(_traj.end() - 5) << " " << *(_traj.end() - 4) << " " << *(_traj.end() - 3) << " " << *(_traj.end() - 2) << " " << *(_traj.end() - 1) << std::endl;
 #endif
                 }
+                results = _traj;
             }
 
         protected:
@@ -305,6 +306,7 @@ namespace rhex_dart
                         _traj.push_back(_get_delta(temp[i+j-5],temp[i+j],j));
                     }
                 }
+                results = _traj;
             }
             
 
