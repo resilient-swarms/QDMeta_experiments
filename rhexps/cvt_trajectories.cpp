@@ -26,7 +26,7 @@ int main(int argc, char **argv)
     // int world_option = 0
     // double friction = 1.0
     // std::vector<rhex_dart::RhexDamage> damages = {}
-    size_t required_solutions = 1000;
+    size_t required_solutions = 10000;
     std::ofstream ofs("centroid_trajectories"+std::string(argv[1])+".txt");
     size_t legal_solutions = 0;
     std::mt19937 gen(std::atoi(argv[1]));
@@ -39,7 +39,7 @@ int main(int argc, char **argv)
         {
             double r = dis(gen);
             ctrl.push_back(r);
-            std::cout << r << " ";
+            //std::cout << r << " ";
         }
         std::cout << std::endl;
         simu_t simu(ctrl, global_robot->clone(), world_option, 1.0, damages);
@@ -51,7 +51,7 @@ int main(int argc, char **argv)
 
         if (dead > simu.covered_distance())
         {
-            std::cout << "dead" << std::endl;
+            //std::cout << "dead" << std::endl;
             continue;
         }
         else
