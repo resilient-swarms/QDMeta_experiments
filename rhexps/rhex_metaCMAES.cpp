@@ -180,7 +180,9 @@ int main(int argc, char **argv)
     global::outputdir=argv[index];
     long seed = atoi(argv[1]);
     std::srand(seed); //use experiment number as seed for random generator. mostly for Eigen
-    
+#ifdef CVT_ME
+    BottomParams::ea::centroids = load_centroids(std::string(std::getenv("BOTS_DIR")) + "/include/meta-cmaes/centroids/centroids_" + std::to_string(BottomParams::ea::number_of_clusters) + "_" + std::to_string(BottomParams::ea::number_of_dimensions) + ".dat");
+#endif    
     ea_t ea;
     
 #ifdef PARALLEL_RUN
@@ -208,9 +210,7 @@ int main(int argc, char **argv)
 #endif
 
 
-#ifdef CVT_ME
-    BottomParams::ea::centroids = load_centroids(std::string(std::getenv("BOTS_DIR")) + "/include/meta-cmaes/centroids/centroids_" + std::to_string(BottomParams::ea::number_of_clusters) + "_" + std::to_string(BottomParams::ea::number_of_dimensions) + ".dat");
-#endif
+
 
     // initialisation of the simulation and the simulated robot, robot morphology currently set to raised.skel only
     global::init_simu(std::string(argv[1]), std::string(std::getenv("BOTS_DIR")) + "/share/rhex_models/SKEL/raised.skel");
