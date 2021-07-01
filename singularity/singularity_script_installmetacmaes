@@ -39,11 +39,16 @@ export BUILD_TYPE=control
 ./waf configure --exp Rhexps 
 ./waf --exp Rhexps 
 
+# build trajectory creation for cvt
+export BUILD_PHASE=TRAJECTORIES
+./waf configure --exp Rhexps 
+./waf --exp Rhexps 
+
 # build test
-#export BUILD_PHASE=TEST
-#./waf configure  --exp Rhexps 
-#./waf  --exp Rhexps 
+export BUILD_PHASE=TEST
+./waf configure  --exp Rhexps 
+./waf  --exp Rhexps 
 # build test
-#export BUILD_ENVIR=True
-#./waf configure  --exp Rhexps 
-#./waf  --exp Rhexps 
+export BUILD_ENVIR=True
+./waf configure  --exp Rhexps 
+./waf  --exp Rhexps 

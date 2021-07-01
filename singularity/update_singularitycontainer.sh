@@ -1,4 +1,4 @@
 #!/bin/bash
 
-sudo singularity build planar_metacmaes_installed.sif singularity_script_installmetacmaes 
+sudo singularity build rhex_metacmaes_installed.sif singularity_script_installmetacmaes 
 
