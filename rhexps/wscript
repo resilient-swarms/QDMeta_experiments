@@ -47,7 +47,7 @@ def _build_test(bld, take_compl=[]):
 								uselib = libs,
 								target = tag+'meta',
 								cxxflags = take_compl + cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
-								"-DNUM_CORES=1","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
+								"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
 								variants = ['BINARY'])
 										
 	sferes.create_variants(bld,
