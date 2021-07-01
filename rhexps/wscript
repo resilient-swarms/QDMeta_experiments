@@ -49,6 +49,14 @@ def _build_test(bld, take_compl=[]):
 								cxxflags = take_compl + cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
 								"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
 								variants = ['BINARY'])
+
+	sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',
+								use = 'sferes2',
+								uselib = libs,
+								target = tag+'meta_featuresets',
+								cxxflags = take_compl + cxxflags + ['-DFEATURE_SETS','-DDESC_PERIOD=2','-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
+								"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=4","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
+								variants = ['BINARY'])
 										
 	sferes.create_variants(bld,
 							source = 'rhex_metaCMAES.cpp',
@@ -56,7 +64,7 @@ def _build_test(bld, take_compl=[]):
 							uselib = libs,
 							target = tag+'control',
 							cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DBEHAV_DIM=50",
-							"-DEXPERIMENT_TYPE=1","-DNUM_CORES="+str(os.environ.get('NUM_CORES',"1")),"-DCVT_ME=1"],   # damage
+							"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
 							variants = ['BINARY'])
 	if do_cmaes_check:
 		# note this is not a meta-condition but can only generate up to 4 binaries at a time
@@ -66,7 +74,7 @@ def _build_test(bld, take_compl=[]):
 									uselib = libs,
 									target = tag+'_damage_cmaescheck',
 									cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
-									"-DNUM_CORES="+str(os.environ.get('NUM_CORES',"1"))],   # damage
+									"-DNUM_CORES=1"],   # damage
 									variants = ['BINARY'])
 
 def _build_envirchecks(bld):
