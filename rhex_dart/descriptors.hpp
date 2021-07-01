@@ -319,7 +319,7 @@ namespace rhex_dart
             {
                 double delta = (after - before) / max_deltas[index];//[-1,1]
                 delta = (1.0 + delta)/2.0;//[0,1]
-                delta = std::min(0.99999999999,std::max(0.0,delta));//clip
+                return std::min(0.99999999999,std::max(0.0,delta));//clip
             }
         };
 
