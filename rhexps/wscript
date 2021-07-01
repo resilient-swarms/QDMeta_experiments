@@ -62,7 +62,7 @@ def _build_test(bld, take_compl=[]):
 							source = 'rhex_metaCMAES.cpp',
 							use = 'sferes2',
 							uselib = libs,
-							target = tag+'control',
+							target = tag+'cvt50D',
 							cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DBEHAV_DIM=50",
 							"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
 							variants = ['BINARY'])
