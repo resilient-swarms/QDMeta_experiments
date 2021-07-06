@@ -123,7 +123,7 @@ struct BottomParams
     {
 #if CONTROL()
         // number of generations
-        SFERES_CONST unsigned nb_gen = 25000; // at most 20,000 evaluations for each of 500 meta-generations for meta-learning --> 10M evals (take a bit more just in case there is time enough)
+        SFERES_CONST unsigned nb_gen = 50000; // at most 20,000 evaluations for each of 500 meta-generations for meta-learning --> 10M evals (take a bit more just in case there is time enough)
         // how often should the result file be written (here, each 250 generations == 100,000 ; on 16-cores is every 1-2 hours)
         SFERES_CONST int dump_period = 250; //20
 #endif
@@ -186,7 +186,7 @@ struct CMAESParams
         SFERES_CONST int dump_period = 10;    //
         SFERES_CONST int size = META_POP_SIZE; // number of maps
         SFERES_CONST int initial_aleat = 1;
-        SFERES_CONST unsigned max_evals = 10000000; //10M is equal to the bottomparams: (400*5*10 + a few evals within meta-fitness) * (a bit below 500 generations)
+        SFERES_CONST unsigned max_evals = 25000000; //25M is equal to the bottomparams: (400*5*10 + a few evals within meta-fitness) * (a bit below 1250 generations)
     };
 
     struct parameters
