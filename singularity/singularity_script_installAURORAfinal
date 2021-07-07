@@ -1,5 +1,5 @@
 Bootstrap: localimage
-From: planar_metacmaes_auroracomplete.sif
+From: metacmaes_auroracomplete.sif
 
 %post
  export HOME_CONTAINER=/singularity_home/ 
@@ -25,8 +25,8 @@ rm sferes2/examples/*
 echo 'def build(bld):\n    return' >> sferes2/examples/wscript
 
 #clone AURORA 
+git clone https://github.com/resilient-swarms/RHex_experiments.git
 cd $HOME_CONTAINER/RHex_experiments/
-git pull
 git clone https://github.com/adaptive-intelligent-robotics/AURORA.git
 export BUILD_TYPE=AURORA # choose AURORA for new version or aurora for old version
 cp -arv $HOME_CONTAINER/RHex_experiments/meta-cmaes/* ${BOTS_DIR}/include/meta-cmaes/
