@@ -46,7 +46,7 @@ namespace aurora
 
             static inline int get_one_obs_size()
             {
-                if (env == aurora::env::Env::robotarm)
+                if (env == aurora::env::Env::RHex)
                 { // In this case consider the Ground truth = (r,theta)
                     return 2;
                 }
@@ -139,4 +139,4 @@ namespace aurora
     } // namespace env
 } // namespace aurora
 
-#endif //AURORA_PARAMS_ROBOTARM_HPP
+#endif //AURORA_PARAMS_RHEX_HPP

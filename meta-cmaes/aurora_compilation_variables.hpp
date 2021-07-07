@@ -25,7 +25,7 @@ namespace aurora
 
     namespace env {
         enum class Env {
-            robotarm
+            RHex
         };
     }
 
@@ -46,7 +46,7 @@ namespace aurora
 
     constexpr env::Env get_env()
     {
-        return env::Env::robotarm;
+        return env::Env::RHex;
     }
 
     constexpr bool is_env_hard_maze()

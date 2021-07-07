@@ -6,7 +6,7 @@
 #include "meta-cmaes/aurora_definitions_aurora.hpp"
 #include "meta-cmaes/aurora_algorithms_factory.hpp"
 
-#include "meta-cmaes/aurora_params_robotarm.hpp"
+#include "meta-cmaes/aurora_params_rhex.hpp"
 
 
 namespace aurora {
@@ -44,7 +44,7 @@ namespace aurora {
     struct DefaultParamsFactory {};
 
 	template<typename SpecificParameters>
-  struct DefaultParamsFactory<env::Env::robotarm, SpecificParameters> {
+  struct DefaultParamsFactory<env::Env::RHex, SpecificParameters> {
     typedef env::ParamsRHex<SpecificParameters> default_params_t;
   };
 
