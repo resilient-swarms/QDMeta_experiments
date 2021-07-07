@@ -8,7 +8,7 @@
 #include <mutex>
 #include <cstdlib>
 
-#include <planar_dart/planar_dart_simu.hpp>
+#include <rhex_dart/rhex_dart_simu.hpp>
 #include <chrono>
 
 #include <sferes/stc.hpp>
