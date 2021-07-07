@@ -1,0 +1,45 @@
+Bootstrap: localimage
+From: planar_metacmaes_auroracomplete.sif
+
+%post
+ export HOME_CONTAINER=/singularity_home/ 
+ export BOTS_DIR=$HOME_CONTAINER/Resibots 
+ export SFERES_DIR=$HOME_CONTAINER/sferes2
+ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu:/lib:/usr/lib:/usr/local/lib:/usr/lib/x86_64-linux-gnu:$BOTS_DIR/lib:/opt/miniconda3/envs/py3.8/lib/python3.8/site-packages/torch/lib
+ export NUM_CORES=1
+ echo "will use $NUM_CORES cores"
+
+. /opt/miniconda3/etc/profile.d/conda.sh
+conda activate py3.8
+conda list -f pytorch
+
+#meta-cmaes etc
+cd $BOTS_DIR/include/meta-cmaes/
+git pull
+
+# get correct sferes branch
+rm -rf $SFERES_DIR
+cd $HOME_CONTAINER 
+git clone https://github.com/Lookatator/sferes2/ --branch AURORA
+rm sferes2/examples/*
+echo 'def build(bld):\n    return' >> sferes2/examples/wscript
+
+#clone AURORA 
+cd $HOME_CONTAINER/RHex_experiments/
+git pull
+git clone https://github.com/adaptive-intelligent-robotics/AURORA.git
+export BUILD_TYPE=AURORA # choose AURORA for new version or aurora for old version
+cp -arv $HOME_CONTAINER/RHex_experiments/meta-cmaes/* ${BOTS_DIR}/include/meta-cmaes/
+cp -arv $HOME_CONTAINER/RHex_experiments/$BUILD_TYPE ${BOTS_DIR}/include/
+mkdir ${SFERES_DIR}/exp/Rhexps
+cp -av kd_tree.h /usr/local/include/ssrc/spatial/
+cp -av meta-cmaes/network_loader_pytorch.hpp $BOTS_DIR/include/AURORA/cpp/modifier/
+cp -arv $HOME_CONTAINER/RHex_experiments/meta-cmaes/ ${BOTS_DIR}/include
+cp -arv $HOME_CONTAINER/RHex_experiments/rhexps ${SFERES_DIR}/exp/  # copy wscript to correct folder
+cp -arv $HOME_CONTAINER/RHex_experiments/rhex_dart/*  $BOTS_DIR/include/rhex_dart/
+export NUM_CORES=5
+export LIBTORCH_LOCATION="/opt/miniconda3/envs/py3.8/lib/python3.8/site-packages/torch"
+cd $SFERES_DIR
+./waf distclean
+./waf configure --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+./waf --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib

@@ -186,6 +186,57 @@ def _build_evolution(bld):
 								cxxflags = cxxflags + ['-DDESC_PERIOD=100','-DWITH_RNN=0','-DWITH_CNN=1','-march=native','-DBEHAV_DIM=4',
 								"-DEXPERIMENT_TYPE=2","-DNUM_CORES="+str(num_cores)],   # -march=native
 								variants = ['BINARY'])
+        elif os.environ.get("BUILD_TYPE","False") == "AURORA":
+		#bld.env.LIBPATH_KDTREE = '/usr/local/lib/'
+		#bld.env.LIB_KDTREE = ['kdtree']
+		#bld.env.INCLUDES_KDTREE = '/usr/local/include/'
+		libpath=os.environ["LIBTORCH_LOCATION"]
+		print(libpath)
+		bld.env.LIBPATH_PYTORCH = libpath+"/lib/"
+		bld.env.LIB_PYTORCH = 'torch_cpu torch_global_deps shm torch c10'.split(' ')
+		bld.env.INCLUDES_PYTORCH = [libpath+'/include/', libpath+'/include/torch/csrc/api/include/']
+
+		bld.env.LIBPATH_BOOST = "/usr/local/lib/"
+		bld.env.LIB_BOOST = 'boost_filesystem boost_program_options boost_regex boost_serialization boost_thread boost_system'.split(' ')
+		#bld.env.LIB_PYTORCH = 'torch_cpu torch_global_deps shm torch'.split(' ')
+		bld.env.INCLUDES_BOOST = ['/usr/local/include/']
+
+
+		#bld.env.LIBPATH_CUDA = '/usr/local/cuda/lib64/'
+		# bld.env.LIB_PYTORCH = 'torch c10 c10_cuda caffe2_detectron_ops_gpu caffe2_module_test_dynamic caffe2_nvrtc'.split(
+		#    ' ')
+		#bld.env.LIB_CUDA = 'cudart'.split(' ')
+		#bld.env.INCLUDES_CUDA = ['/usr/local/cuda/include']
+
+		# sferes
+		libs = ' PLANAR_DART TBB BOOST EIGEN PTHREAD BOOST_DART DART  PYTORCH  '  # 
+		bld.env['MPI_ENABLED']=False
+		# building main experiment executables: 
+		#both use aurora_uniform with CSC based on the results in paper (CSC is set by not setting VAT macro)
+		#encoder was either MLP or convolutional network, try both here
+		sferes.create_variants(bld,
+							   source='aurora.cpp',
+							   use="sferes2",
+							   target="planarCMAES_AURORA_MLP",
+							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp",'/usr/local/include/'],
+							   uselib=libs,
+							   cxxflags= cxxflags + ['-DENVIRONMENT="RHex"',
+							   '-DALGORITHM="aurora_uniform"',
+							   '-DENCODER_TYPE="mlp_ae"',
+							   '-march=native','-std=c++14',# libtorch requires '-std=c++14',
+							   '-DBEHAV_DIM=4',"-DEXPERIMENT_TYPE=4",'-D_GLIBCXX_USE_CXX11_ABI=1'], #,'-D_GLIBCXX_USE_CXX11_ABI=0' remove c10 linking error
+							   variants=["BINARY"] )
+		sferes.create_variants(bld,
+							   source='aurora.cpp',
+							   use="sferes2",
+							   target="planarCMAES_AURORA_CNN",
+							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp"],
+							   uselib=libs,
+							   cxxflags= cxxflags + ['-DENVIRONMENT="RHex"',
+							   '-DALGORITHM="aurora_uniform"',
+							   '-DENCODER_TYPE="cnn_ae"','-std=c++14', # libtorch requires  '-std=c++14',
+							  '-march=native','-DBEHAV_DIM=4',"-DEXPERIMENT_TYPE=4",'-D_GLIBCXX_USE_CXX11_ABI=1'],# ,'-D_GLIBCXX_USE_CXX11_ABI=0'
+							   variants=["BINARY"] )
 	elif os.environ.get("BUILD_TYPE","control") == "cmaes_check": 
 		sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',    # check how CMAES performs on individual damages/environments
 								use = 'sferes2',
