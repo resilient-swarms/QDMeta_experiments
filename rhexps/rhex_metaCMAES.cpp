@@ -129,6 +129,9 @@ namespace sferes
 }
 #endif
 
+
+#if META()
+#ifndef TEST
 boost::shared_ptr<ParameterControl> init_parameter_control_additionalopts(long seed, std::string choice, const char *resultsdir)
 {
     mutationlogfile = std::string(resultsdir) + std::string("/mutation_log.txt");
@@ -277,6 +280,8 @@ boost::shared_ptr<ParameterControl> init_parameter_control_additionalopts(long s
         throw std::runtime_error("not expected argument for parameter control " + choice);
     }
 }
+#endif
+#endif
 
 using namespace sferes;
 
