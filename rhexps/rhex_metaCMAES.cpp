@@ -32,7 +32,7 @@
 #include <meta-cmaes/stat_bestgenotype.hpp>
 typedef boost::fusion::vector<sferes::stat::BestGenotype<phen_t, CMAESCHECKParams>> stat_t;
 typedef modif::Dummy<> modifier_t;
-typedef sferes::ea::Cmaes<phen_t, eval_t, stat_t, modifier_t,CMAESCHECKParams> ea_t;
+typedef sferes::ea::Cmaes<phen_t, eval_t, stat_t, modifier_t, CMAESCHECKParams> ea_t;
 #elif AURORA()
 #include <aurora/aurora.hpp>
 double Params::nov::l = 0.01;
@@ -65,7 +65,6 @@ typedef sferes::ea::MapElites<phen_t, eval_t, stat_t, modifier_t, BottomParams> 
 
 #endif
 
-
 #ifdef CVT_ME
 std::vector<BottomParams::ea::point_t> BottomParams::ea::centroids;
 #endif
@@ -83,53 +82,201 @@ BOOST_CLASS_EXPORT_IMPLEMENT(BothEndogenous)
 BOOST_CLASS_EXPORT_IMPLEMENT(RL)
 BOOST_CLASS_EXPORT_IMPLEMENT(RLController)
 
-
 #endif
 
 #if NOT_CMAES_CHECK()
 namespace sferes
 {
-namespace gen
-{
-template <>
-void bottom_gen_t::mutate()
-{
-    if (BottomParams::sampled::ordered)
+    namespace gen
     {
-        for (size_t i = 0; i < _data.size(); ++i)
-	{
-#if META()
-	    float mutation_rate = sferes::eval::param_ctrl->get_mutation_rate();
-#else
-	    float mutation_rate = BottomParams::sampled::mutation_rate;
-#endif
-            if (misc::rand<float>() < mutation_rate)
+        template <>
+        void bottom_gen_t::mutate()
+        {
+            if (BottomParams::sampled::ordered)
             {
-                if (misc::flip_coin())
-                    _data[i] = std::max(0, (int)_data[i] - 1);
-                else
-                    _data[i] = std::min((int)BottomParams::sampled::values_size() - 1,
-                                        (int)_data[i] + 1);
+                for (size_t i = 0; i < _data.size(); ++i)
+                {
+#if META()
+                    float mutation_rate = sferes::eval::param_ctrl->get_mutation_rate();
+#else
+                    float mutation_rate = BottomParams::sampled::mutation_rate;
+#endif
+                    if (misc::rand<float>() < mutation_rate)
+                    {
+                        if (misc::flip_coin())
+                            _data[i] = std::max(0, (int)_data[i] - 1);
+                        else
+                            _data[i] = std::min((int)BottomParams::sampled::values_size() - 1,
+                                                (int)_data[i] + 1);
+                    }
+                }
             }
-       }
+            else
+            {
+#if META()
+                float mutation_rate = sferes::eval::param_ctrl->get_mutation_rate();
+#else
+                float mutation_rate = BottomParams::sampled::mutation_rate;
+#endif
+                BOOST_FOREACH (size_t &v, _data)
+                    if (misc::rand<float>() < mutation_rate)
+                        v = misc::rand<size_t>(0, BottomParams::sampled::values_size());
+                _check_invariant();
+            }
+            _check_invariant();
+        }
+    }
+}
+#endif
+
+boost::shared_ptr<ParameterControl> init_parameter_control_additionalopts(long seed, std::string choice, const char *resultsdir)
+{
+    mutationlogfile = std::string(resultsdir) + std::string("/mutation_log.txt");
+    epochslogfile = std::string(resultsdir) + std::string("/epochs_log.txt");
+    rewardlogfile = std::string(resultsdir) + std::string("/reward_log.txt");
+    if (choice == "b1p1")
+    {
+        return boost::make_shared<ParameterControl>(1.f, 1.f);
+    }
+    else if (choice == "b1p2")
+    {
+        return boost::make_shared<ParameterControl>(1.f, 2.f);
+    }
+    else if (choice == "b1p5")
+    {
+        return boost::make_shared<ParameterControl>(1.f, 5.f);
+    }
+    else if (choice == "b1p10")
+    {
+        return boost::make_shared<ParameterControl>(1.f, 10.f); //100%
+    }
+    else if (choice == "b2p1")
+    {
+        return boost::make_shared<ParameterControl>(2.f, 1.f);
+    }
+    else if (choice == "b2p2")
+    {
+        return boost::make_shared<ParameterControl>(2.f, 2.f);
+    }
+    else if (choice == "b2p5")
+    {
+        return boost::make_shared<ParameterControl>(2.f, 5.f);
+    }
+    else if (choice == "b2p10")
+    {
+        return boost::make_shared<ParameterControl>(2.f, 10.f); //100%
+    }
+    else if (choice == "b5p1")
+    {
+        return boost::make_shared<ParameterControl>(5.f, 1.f);
+    }
+    else if (choice == "b5p2")
+    {
+        return boost::make_shared<ParameterControl>(5.f, 2.f);
+    }
+    else if (choice == "b5p5")
+    {
+        return boost::make_shared<ParameterControl>(5.f, 5.f);
+    }
+    else if (choice == "b5p10")
+    {
+        return boost::make_shared<ParameterControl>(5.f, 10.f); //100%
+    }
+    else if (choice == "b10p1")
+    {
+        return boost::make_shared<ParameterControl>(10.f, 1.f);
+    }
+    else if (choice == "b10p2")
+    {
+        return boost::make_shared<ParameterControl>(10.f, 2.f);
+    }
+    else if (choice == "b10p5")
+    {
+        return boost::make_shared<ParameterControl>(10.f, 5.f);
+    }
+    else if (choice == "b10p10")
+    {
+        return boost::make_shared<ParameterControl>(10.f, 10.f); //100%
+    }
+    else if (choice == "b1p1m1")
+    {
+        return boost::make_shared<ParameterControl>(1.f, 1.f, 1.f);
+    }
+    else if (choice == "b1p1m2")
+    {
+        return boost::make_shared<ParameterControl>(1.f, 1.f, 2.f);
+    }
+    else if (choice == "b1p1m4")
+    {
+        return boost::make_shared<ParameterControl>(1.f, 1.f, 4.f);
+    }
+    else if (choice == "b1p1m8")
+    {
+        return boost::make_shared<ParameterControl>(1.f, 1.f, 8.f); //100%
+    }
+    else if (choice == "epochannealing_b2p1")
+    {
+
+        return boost::make_shared<EpochAnnealing>(2.f, 1.f);
+    }
+    else if (choice == "epochannealing_b10p1")
+    {
+        return boost::make_shared<EpochAnnealing>(10.f, 1.f);
+    }
+    else if (choice == "epochendogeneous_b10p1")
+    {
+        return boost::make_shared<EpochEndogenous>(10.f, 1.f);
+    }
+    else if (choice == "epochrl_b10p1")
+    {
+        std::string parameter = "bottom_epochs";
+        return boost::make_shared<RL>(seed, parameter, 10.f, 1.f, 1.f);
+    }
+    else if (choice == "epochrl_b2p1")
+    {
+        std::string parameter = "bottom_epochs";
+        return boost::make_shared<RL>(seed, parameter, 2.f, 1.f, 1.f);
+    }
+    else if (choice == "epochrl_b2p10")
+    {
+        std::string parameter = "bottom_epochs";
+        return boost::make_shared<RL>(seed, parameter, 2.f, 10.f, 1.f);
+    }
+    else if (choice == "mutationannealing_b1p1m2")
+    {
+        return boost::make_shared<MutationAnnealing>(1.f, 1.f, 2.f);
+    }
+    else if (choice == "mutationannealing_b1p1m8")
+    {
+        return boost::make_shared<MutationAnnealing>(1.f, 1.f, 8.f);
+    }
+    else if (choice == "mutationendogeneous_b1p1m8")
+    {
+        return boost::make_shared<MutationEndogenous>(1.f, 1.f, 8.f);
+    }
+    else if (choice == "mutationrl_b1p1m8")
+    {
+        std::string parameter = "mutation_rate";
+        return boost::make_shared<RL>(seed, parameter, 1.f, 1.f, 8.f);
+    }
+    else if (choice == "bothendogeneous_b10p1m8")
+    {
+        return boost::make_shared<BothEndogenous>(10.f, 1.f, 8.f);
+    }
+    else if (choice == "bothrl_b10p1m8")
+    {
+        std::string parameter = "both";
+        return boost::make_shared<RL>(seed, parameter, 10.f, 1.f, 8.f);
+    }
+    else if (choice == "bothannealing_b10p1m8")
+    {
+        return boost::make_shared<BothAnnealing>(10.f, 1.f, 8.f);
     }
     else
     {
-#if META()
-	float mutation_rate = sferes::eval::param_ctrl->get_mutation_rate();
-#else
-	float mutation_rate = BottomParams::sampled::mutation_rate;
-#endif
-        BOOST_FOREACH (size_t &v, _data)
-            if (misc::rand<float>() < mutation_rate)
-                v = misc::rand<size_t>(0, BottomParams::sampled::values_size());
-        _check_invariant();
+        throw std::runtime_error("not expected argument for parameter control " + choice);
     }
-    _check_invariant();
 }
-}
-}
-#endif
 
 using namespace sferes;
 
@@ -144,14 +291,14 @@ int main(int argc, char **argv)
             break;
         }
     }
-    global::outputdir=argv[index];
+    global::outputdir = argv[index];
     long seed = atoi(argv[1]);
     std::srand(seed); //use experiment number as seed for random generator. mostly for Eigen
 #ifdef CVT_ME
     BottomParams::ea::centroids = load_centroids(std::string(std::getenv("BOTS_DIR")) + "/include/meta-cmaes/centroids/centroids_" + std::to_string(BottomParams::ea::number_of_clusters) + "_" + std::to_string(BottomParams::ea::number_of_dimensions) + ".dat");
-#endif    
+#endif
     ea_t ea;
-    
+
 #ifdef PARALLEL_RUN
     sferes::eval::init_shared_mem<sferes::eval::CSharedMem>();
 #endif
@@ -169,15 +316,12 @@ int main(int argc, char **argv)
 #ifndef TEST
     global::set_condition(argv[2]);
 #endif
-    
+
 #elif META()
 #ifndef TEST
-    sferes::eval::param_ctrl = init_parameter_control(seed, std::string(argv[2]), argv[index]);
+    sferes::eval::param_ctrl = init_parameter_control_additionalopts(seed, std::string(argv[2]), argv[index]);
 #endif
 #endif
-
-
-
 
     // initialisation of the simulation and the simulated robot, robot morphology currently set to raised.skel only
     global::init_simu(std::string(argv[1]), std::string(std::getenv("BOTS_DIR")) + "/share/rhex_models/SKEL/raised.skel");
