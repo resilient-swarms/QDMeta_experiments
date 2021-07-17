@@ -223,7 +223,6 @@ namespace sferes
             float _value = 0.0f;
             std::vector<float> _desc;
 #elif AURORA()
-            float _entropy=-1.0f;
             std::vector<float> _sgt;            // not used though
             std::vector<float> _gt;             // the 'ground truth' descriptor you would use for novelty search; for us we are interested in diversity over trajectories so same as base-BD
             float _entropy = -1;                //surprise-based selection and stats; value only set in the dimensionality_reduction.hpp modifier

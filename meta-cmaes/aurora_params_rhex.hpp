@@ -95,6 +95,12 @@ namespace aurora
                 SFERES_CONST float max = 1.0f;
             };
 
+
+            // simulation time
+            struct simu
+            {
+                SFERES_CONST size_t time = 5;
+            };
             struct selector
             {
                 SFERES_CONST float proba_picking_selector_1{0.5f};
