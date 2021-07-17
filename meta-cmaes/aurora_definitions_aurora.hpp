@@ -14,6 +14,8 @@
 #include "algorithms/value_sorter/value_sorter_variable.hpp"
 
 #include "stat/stat_offspring.hpp"
+#include "meta-cmaes/aurora_encoder_factory.hpp"
+
 
 namespace aurora {
   namespace algo {
@@ -48,8 +50,7 @@ namespace aurora {
       typedef sferes::eval::Parallel<param_t> eval_t;
       // typedef eval::Eval<Params> eval_t;
 
-      typedef boost::fusion::vector<sferes::stat::CurrentGen<phen_t, param_t>,
-                                    sferes::stat::QdContainer<phen_t, param_t>,
+      typedef boost::fusion::vector<sferes::stat::QdContainer<phen_t, param_t>,
                                     sferes::stat::QdProgress<phen_t, param_t>,
                                     sferes::stat::Projection<phen_t, param_t>,
                                     sferes::stat::Modifier<phen_t, param_t>>
