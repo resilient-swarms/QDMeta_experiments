@@ -46,7 +46,12 @@ namespace sferes
             {
                 return _gt;
             }
-            float &loss() { return _loss; }
+            const std::vector<float> &successive_gt() const
+            {
+                #warning "successive gt not defined; this is OK if not using LSTM"
+                return {};
+            }
+            float &entropy() { return _entropy; }  // network fit; used for surprise value selector and reconstruction stats
             template <typename block_t>
             void get_flat_observations(block_t & data) const
             {
@@ -62,12 +67,24 @@ namespace sferes
                 return _gt.size();
             }
 
+            double &entropy()
+            {
+
+                return _entropy;
+            }
+
+            float &implicit_fitness_value() { return this->_implicit_fitness_value; }
+            const float &implicit_fitness_value() const { return this->_implicit_fitness_value; }
+
 #endif
             inline void set_fitness(float fFitness)
             {
 #if CONTROL()
                 this->_objs.resize(1);
                 this->_objs[0] = fFitness;
+#endif
+#if AURORA()
+                this->_implicit_fitness_value = fFitness;
 #endif
                 this->_value = fFitness;
             }
@@ -95,6 +112,16 @@ namespace sferes
             {
                 ar &BOOST_SERIALIZATION_NVP(this->_value);
                 ar &BOOST_SERIALIZATION_NVP(this->_desc);
+                ar &BOOST_SERIALIZATION_NVP(this->_dead);
+#if AURORA()
+                ar &BOOST_SERIALIZATION_NVP(this->_novelty);
+                ar &BOOST_SERIALIZATION_NVP(this->_curiosity);
+                ar &BOOST_SERIALIZATION_NVP(this->_lq);
+
+                ar &BOOST_SERIALIZATION_NVP(this->_entropy);
+                ar &BOOST_SERIALIZATION_NVP(this->_implicit_fitness_value);
+                ar &BOOST_SERIALIZATION_NVP(this->_gt);
+#endif
             }
 
             bool dead() { return _dead; }
@@ -196,8 +223,9 @@ namespace sferes
             float _value = 0.0f;
             std::vector<float> _desc;
 #elif AURORA()
-            std::vector<float> _gt;
-            float _loss = INFINITY;
+            std::vector<float> _gt;// the 'ground truth' descriptor you would use for novelty search; for us we are interested in diversity over trajectories so same as base-BD
+            float _entropy = -1;//surprise-based selection and stats; value only set in the dimensionality_reduction.hpp modifier
+            float _implicit_fitness_value = -1;// will be equal to the fitness for our case as we don't use pure divergent search
 #endif
 
             // descriptor work done here, in this case duty cycle
@@ -313,9 +341,8 @@ namespace sferes
                 }
 #endif
             }
-
-            };
-        } // namespace fit
-    }     // namespace fit
+        };
+    } // namespace fit
+} // namespace fit
 
 #endif
