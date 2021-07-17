@@ -4,8 +4,6 @@
 #define AURORA_PARAMETERS_FACTORY_HPP
 
 #include "meta-cmaes/aurora_definitions_aurora.hpp"
-#include "meta-cmaes/aurora_algorithms_factory.hpp"
-
 #include "meta-cmaes/aurora_params_rhex.hpp"
 
 

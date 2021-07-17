@@ -269,7 +269,12 @@ namespace sferes
 #ifdef PRINTING
                     std::cout << " get desc " << std::endl;
 #endif
-                    this->_gt = get_desc(simu, b);
+                    get_base_features(b, simu);
+                    this->_gt.clear();
+                    for (size_t i = 0; i < NUM_BASE_FEATURES; ++i)
+                    {
+                        this->_gt.push_back(_b(i, 0));
+                    }
 #ifdef PRINTING
                     std::cout << " end get desc " << std::endl;
 #endif

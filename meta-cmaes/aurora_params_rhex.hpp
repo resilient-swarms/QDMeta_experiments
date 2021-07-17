@@ -129,7 +129,7 @@ namespace aurora
         };
 
         template <typename SpecificParams>
-        double ParamsRHexSpecificParams>::nov::l;
+        double ParamsRHex<SpecificParams>::nov::l;
         template <typename SpecificParams>
         bool ParamsRHex<SpecificParams>::nov::use_fixed_l;
         template <typename SpecificParams>
