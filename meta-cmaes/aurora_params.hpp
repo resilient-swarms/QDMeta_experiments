@@ -12,7 +12,7 @@ typedef aurora::DefaultParamsFactory<environment,
                                      specific_params_t>::default_params_t default_params_t;
                                 
 typedef aurora::ParamsAlgo<algorithm, default_params_t, specific_params_t> params_t;
-typedef params_t BottomParams;//
+typedef default_params_t BottomParams;//
 
 
 #endif

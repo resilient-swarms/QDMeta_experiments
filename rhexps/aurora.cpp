@@ -177,7 +177,7 @@ int main(int argc, char **argv)
         (params_t::encoder_type != aurora::EncoderType::lstm_ae) || (params_t::use_videos),
         "Use of LSTM AE => need for use_videos");
 
-    typedef aurora::env::Environment<environment, BottomParams> env_t;
+    typedef aurora::env::Environment<environment, params_t> env_t;
     typedef aurora::algo::AlgorithmFactory<algorithm, env_t>::algo_t algo_t;
 
     algo_t::update_parameters();
@@ -195,7 +195,7 @@ int main(int argc, char **argv)
 
     global::init_simu(std::string(argv[1]), std::string(std::getenv("BOTS_DIR")) + "/share/armBody.skel");
 
-    run_ea(argc, argv, ea, desc);
+    sferes::run_ea(argc, argv, ea, desc);
 
     return 0;
 }
