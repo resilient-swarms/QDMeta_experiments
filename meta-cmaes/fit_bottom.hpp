@@ -57,8 +57,7 @@ namespace sferes
             const std::vector<float> &successive_gt() const
             {
 #warning "successive gt not defined; this is OK if not using LSTM"
-                std::vector<float> sgt = {};
-                return sgt;
+                return _sgt;
             }
             float &entropy() { return _entropy; } // network fit; used for surprise value selector and reconstruction stats
             template <typename block_t>
@@ -233,6 +232,7 @@ namespace sferes
             float _value = 0.0f;
             std::vector<float> _desc;
 #elif AURORA()
+            std::vector<float> _sgt;// not used though
             std::vector<float> _gt;             // the 'ground truth' descriptor you would use for novelty search; for us we are interested in diversity over trajectories so same as base-BD
             float _entropy = -1;                //surprise-based selection and stats; value only set in the dimensionality_reduction.hpp modifier
             float _implicit_fitness_value = -1; // will be equal to the fitness for our case as we don't use pure divergent search

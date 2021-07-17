@@ -53,8 +53,7 @@ namespace aurora {
                                     sferes::stat::QdProgress<phen_t, param_t>,
                                     sferes::stat::Projection<phen_t, param_t>,
                                     //                    sferes::stat::ModelAutoencoder<phen_t, param_t>,
-                                    sferes::stat::Modifier<phen_t, param_t>,
-                                    sferes::stat::SuccessiveGT<phen_t, param_t>>
+                                    sferes::stat::Modifier<phen_t, param_t>
         stat_t;
 
       typedef TSelector selector_t;
