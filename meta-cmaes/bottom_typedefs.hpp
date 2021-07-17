@@ -3,11 +3,16 @@
 
 
 
+
 #include <rhex_dart/descriptors.hpp>
 #include <sferes/eval/eval.hpp>
 
-#include <meta-cmaes/params.hpp>
 
+#if AURORA()
+#include <meta-cmaes/aurora_params.hpp>
+#else
+#include <meta-cmaes/params.hpp>
+#endif
 
 #include <meta-cmaes/global.hpp>
 

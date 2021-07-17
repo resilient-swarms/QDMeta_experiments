@@ -52,7 +52,7 @@
 // replacing physics with fit_hexa
 // #include "minimal_physics.hpp"
 
-#include "meta-cmaes/aurora_compilation_variables.hpp"
+
 
 #include "modifier/network_loader_pytorch.hpp"
 #include "modifier/dimensionality_reduction.hpp"
@@ -91,13 +91,7 @@ namespace aurora
         arg.number_threads = vm["number-threads"].as<size_t>();
     }
 } // namespace aurora
-constexpr aurora::env::Env environment = aurora::get_env();
-constexpr aurora::algo::Algo algorithm = aurora::get_algo();
-typedef aurora::SpecificParams specific_params_t;
-typedef aurora::DefaultParamsFactory<environment,
-                                     specific_params_t>::default_params_t default_params_t;
-                                
-typedef aurora::ParamsAlgo<algorithm, default_params_t, specific_params_t> params_t;
+
 
 namespace sferes
 {
