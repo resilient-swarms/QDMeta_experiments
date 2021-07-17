@@ -14,6 +14,15 @@
 #include "algorithms/value_sorter/value_sorter_variable.hpp"
 
 #include "stat/stat_offspring.hpp"
+#include "stat/stat_projection.hpp"
+#include "stat/stat_current_gen.hpp"
+#include "stat/stat_images_observations.hpp"
+#include "stat/stat_images_reconstructions_obs.hpp"
+#include "stat/stat_model_autoencoder.hpp"
+#include "stat/stat_modifier.hpp"
+
+#include "algorithms/selector/variable_selector.hpp"
+#include "algorithms/selector/surprise_value_selector.hpp"
 #include "meta-cmaes/aurora_encoder_factory.hpp"
 
 
@@ -50,7 +59,8 @@ namespace aurora {
       typedef sferes::eval::Parallel<param_t> eval_t;
       // typedef eval::Eval<Params> eval_t;
 
-      typedef boost::fusion::vector<sferes::stat::QdContainer<phen_t, param_t>,
+      typedef boost::fusion::vector<sferes::stat::CurrentGen<phen_t, param_t>,
+					sferes::stat::QdContainer<phen_t, param_t>,
                                     sferes::stat::QdProgress<phen_t, param_t>,
                                     sferes::stat::Projection<phen_t, param_t>,
                                     sferes::stat::Modifier<phen_t, param_t>>
