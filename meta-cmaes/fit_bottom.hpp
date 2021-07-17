@@ -57,7 +57,8 @@ namespace sferes
             const std::vector<float> &successive_gt() const
             {
 #warning "successive gt not defined; this is OK if not using LSTM"
-                return {};
+                std::vector<float> sgt = {};
+                return sgt;
             }
             float &entropy() { return _entropy; } // network fit; used for surprise value selector and reconstruction stats
             template <typename block_t>
