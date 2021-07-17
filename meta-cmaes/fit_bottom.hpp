@@ -42,14 +42,6 @@ namespace sferes
             {
             }
 #elif AURORA()
-            void set_novelty(double nov)
-            {
-
-            }
-            void set_local_quality(double local_q)
-            {
-
-            }
             const std::vector<float> &gt()
             {
                 return _gt;
@@ -59,7 +51,6 @@ namespace sferes
 #warning "successive gt not defined; this is OK if not using LSTM"
                 return _sgt;
             }
-            float &entropy() { return _entropy; } // network fit; used for surprise value selector and reconstruction stats
             template <typename block_t>
             void get_flat_observations(block_t & data) const
             {
@@ -73,12 +64,6 @@ namespace sferes
             {
                 assert(_gt.size());
                 return _gt.size();
-            }
-
-            double &entropy()
-            {
-
-                return _entropy;
             }
 
             float &implicit_fitness_value() { return this->_implicit_fitness_value; }

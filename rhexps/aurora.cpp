@@ -67,7 +67,6 @@
 #include "algorithms/selector/variable_selector.hpp"
 #include "algorithms/selector/surprise_value_selector.hpp"
 
-#include <meta-cmaes/global.hpp>
 #include "meta-cmaes/aurora_encoder_factory.hpp"
 #include <meta-cmaes/aurora_parameters_factory.hpp>
 

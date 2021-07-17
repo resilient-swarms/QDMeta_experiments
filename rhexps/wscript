@@ -220,7 +220,7 @@ def _build_evolution(bld):
 							   target="rhex_metaCMAES_AURORA_MLP",
 							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp",'/usr/local/include/'],
 							   uselib=libs,
-							   cxxflags= cxxflags + ['-DENVIRONMENT="RHex"',
+							   cxxflags= cxxflags + ['-DDESC_PERIOD=100','-DENVIRONMENT="RHex"',
 							   '-DALGORITHM="aurora_uniform"',
 							   '-DENCODER_TYPE="mlp_ae"',
 							   '-march=native','-std=c++14',# libtorch requires '-std=c++14',
@@ -232,7 +232,7 @@ def _build_evolution(bld):
 							   target="rhex_metaCMAES_AURORA_CNN",
 							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp"],
 							   uselib=libs,
-							   cxxflags= cxxflags + ['-DENVIRONMENT="RHex"',
+							   cxxflags= cxxflags + ['-DDESC_PERIOD=100','-DENVIRONMENT="RHex"',
 							   '-DALGORITHM="aurora_uniform"',
 							   '-DENCODER_TYPE="cnn_ae"','-std=c++14', # libtorch requires  '-std=c++14',
 							  '-march=native','-DBEHAV_DIM=4',"-DEXPERIMENT_TYPE=2",'-D_GLIBCXX_USE_CXX11_ABI=1'],# ,'-D_GLIBCXX_USE_CXX11_ABI=0'
