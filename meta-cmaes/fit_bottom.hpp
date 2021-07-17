@@ -79,7 +79,7 @@ namespace sferes
 #endif
             inline void set_fitness(float fFitness)
             {
-#if CONTROL()
+#if CONTROL() || AURORA()
                 this->_objs.resize(1);
                 this->_objs[0] = fFitness;
 #endif
@@ -112,8 +112,9 @@ namespace sferes
             {
                 ar &BOOST_SERIALIZATION_NVP(this->_value);
                 ar &BOOST_SERIALIZATION_NVP(this->_desc);
-                ar &BOOST_SERIALIZATION_NVP(this->_dead);
+                
 #if AURORA()
+                ar &BOOST_SERIALIZATION_NVP(this->_dead);
                 ar &BOOST_SERIALIZATION_NVP(this->_novelty);
                 ar &BOOST_SERIALIZATION_NVP(this->_curiosity);
                 ar &BOOST_SERIALIZATION_NVP(this->_lq);
