@@ -52,7 +52,7 @@
 // replacing physics with fit_hexa
 // #include "minimal_physics.hpp"
 
-
+#include <meta-cmaes/bottom_typedefs.hpp>
 
 #include "modifier/network_loader_pytorch.hpp"
 #include "modifier/dimensionality_reduction.hpp"
