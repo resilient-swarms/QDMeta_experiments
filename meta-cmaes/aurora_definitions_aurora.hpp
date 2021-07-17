@@ -6,6 +6,10 @@
 #include "genotype/all_gen_mutation.hpp"
 #include "phenotype/change_gen_in_phen.hpp"
 
+#include "modifier/network_loader_pytorch.hpp"
+#include "modifier/dimensionality_reduction.hpp"
+#include "modifier/container_update_hand_coded.hpp"
+
 #include "algorithms/container/general_distance_archive.hpp"
 #include "algorithms/container/general_sort_based_storage.hpp"
 #include "algorithms/initialise_global_parameters.hpp"
