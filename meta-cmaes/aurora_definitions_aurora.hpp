@@ -16,8 +16,6 @@
 #include "stat/stat_offspring.hpp"
 #include "stat/stat_projection.hpp"
 #include "stat/stat_current_gen.hpp"
-#include "stat/stat_images_observations.hpp"
-#include "stat/stat_images_reconstructions_obs.hpp"
 #include "stat/stat_model_autoencoder.hpp"
 #include "stat/stat_modifier.hpp"
 
