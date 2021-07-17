@@ -5,12 +5,12 @@
 
 #include "meta-cmaes/aurora_compilation_variables.hpp"
 
-#include "algorithms/taxons/taxons_evolutionary_algorithm.hpp"
+//#include "algorithms/taxons/taxons_evolutionary_algorithm.hpp"
 
-#include "algorithms/taxons/definitions_taxons.hpp"
+//#include "algorithms/taxons/definitions_taxons.hpp"
 
-#include "algorithms/hand_coded/hand_coded_qd.hpp"
-#include "algorithms/hand_coded/novelty_search.hpp"
+//#include "algorithms/hand_coded/hand_coded_qd.hpp"
+//#include "algorithms/hand_coded/novelty_search.hpp"
 
 
 

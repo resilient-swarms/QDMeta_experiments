@@ -3,6 +3,7 @@
 
 #include <meta-cmaes/bottom_typedefs.hpp>
 #include <meta-cmaes/aurora_compilation_variables.hpp>
+#include <meta-cmaes/fit_bottom.hpp>
 
 namespace aurora {
     namespace env {
