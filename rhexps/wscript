@@ -186,7 +186,7 @@ def _build_evolution(bld):
 								cxxflags = cxxflags + ['-DDESC_PERIOD=100','-DWITH_RNN=0','-DWITH_CNN=1','-march=native','-DBEHAV_DIM=4',
 								"-DEXPERIMENT_TYPE=2","-DNUM_CORES="+str(num_cores)],   # -march=native
 								variants = ['BINARY'])
-        elif os.environ.get("BUILD_TYPE","False") == "AURORA":
+    elif os.environ.get("BUILD_TYPE","False") == "AURORA":
 		#bld.env.LIBPATH_KDTREE = '/usr/local/lib/'
 		#bld.env.LIB_KDTREE = ['kdtree']
 		#bld.env.INCLUDES_KDTREE = '/usr/local/include/'

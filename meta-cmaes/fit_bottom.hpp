@@ -10,7 +10,7 @@
 #if CONTROL()
 #include <modules/cvt_map_elites/fit_map.hpp>
 #elif AURORA()
-#include <aurora/fit/fit_qd.hpp>
+#include <sferes/fit/fit_qd.hpp>
 #endif
 
 /* bottom-level fitmap 
@@ -42,16 +42,24 @@ namespace sferes
             {
             }
 #elif AURORA()
+            void set_novelty(double nov)
+            {
+
+            }
+            void set_local_quality(double local_q)
+            {
+
+            }
             const std::vector<float> &gt()
             {
                 return _gt;
             }
             const std::vector<float> &successive_gt() const
             {
-                #warning "successive gt not defined; this is OK if not using LSTM"
+#warning "successive gt not defined; this is OK if not using LSTM"
                 return {};
             }
-            float &entropy() { return _entropy; }  // network fit; used for surprise value selector and reconstruction stats
+            float &entropy() { return _entropy; } // network fit; used for surprise value selector and reconstruction stats
             template <typename block_t>
             void get_flat_observations(block_t & data) const
             {
@@ -112,7 +120,7 @@ namespace sferes
             {
                 ar &BOOST_SERIALIZATION_NVP(this->_value);
                 ar &BOOST_SERIALIZATION_NVP(this->_desc);
-                
+
 #if AURORA()
                 ar &BOOST_SERIALIZATION_NVP(this->_dead);
                 ar &BOOST_SERIALIZATION_NVP(this->_novelty);
@@ -224,9 +232,9 @@ namespace sferes
             float _value = 0.0f;
             std::vector<float> _desc;
 #elif AURORA()
-            std::vector<float> _gt;// the 'ground truth' descriptor you would use for novelty search; for us we are interested in diversity over trajectories so same as base-BD
-            float _entropy = -1;//surprise-based selection and stats; value only set in the dimensionality_reduction.hpp modifier
-            float _implicit_fitness_value = -1;// will be equal to the fitness for our case as we don't use pure divergent search
+            std::vector<float> _gt;             // the 'ground truth' descriptor you would use for novelty search; for us we are interested in diversity over trajectories so same as base-BD
+            float _entropy = -1;                //surprise-based selection and stats; value only set in the dimensionality_reduction.hpp modifier
+            float _implicit_fitness_value = -1; // will be equal to the fitness for our case as we don't use pure divergent search
 #endif
 
             // descriptor work done here, in this case duty cycle
