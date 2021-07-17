@@ -224,7 +224,7 @@ def _build_evolution(bld):
 							   '-DALGORITHM="aurora_uniform"',
 							   '-DENCODER_TYPE="mlp_ae"',
 							   '-march=native','-std=c++14',# libtorch requires '-std=c++14',
-							   '-DBEHAV_DIM=4',"-DEXPERIMENT_TYPE=4",'-D_GLIBCXX_USE_CXX11_ABI=1'], #,'-D_GLIBCXX_USE_CXX11_ABI=0' remove c10 linking error
+							   '-DBEHAV_DIM=4',"-DEXPERIMENT_TYPE=2",'-D_GLIBCXX_USE_CXX11_ABI=1'], #,'-D_GLIBCXX_USE_CXX11_ABI=0' remove c10 linking error
 							   variants=["BINARY"] )
 		sferes.create_variants(bld,
 							   source='aurora.cpp',
@@ -235,7 +235,7 @@ def _build_evolution(bld):
 							   cxxflags= cxxflags + ['-DENVIRONMENT="RHex"',
 							   '-DALGORITHM="aurora_uniform"',
 							   '-DENCODER_TYPE="cnn_ae"','-std=c++14', # libtorch requires  '-std=c++14',
-							  '-march=native','-DBEHAV_DIM=4',"-DEXPERIMENT_TYPE=4",'-D_GLIBCXX_USE_CXX11_ABI=1'],# ,'-D_GLIBCXX_USE_CXX11_ABI=0'
+							  '-march=native','-DBEHAV_DIM=4',"-DEXPERIMENT_TYPE=2",'-D_GLIBCXX_USE_CXX11_ABI=1'],# ,'-D_GLIBCXX_USE_CXX11_ABI=0'
 							   variants=["BINARY"] )
 	elif os.environ.get("BUILD_TYPE","control") == "cmaes_check": 
 		sferes.create_variants(bld,source = 'rhex_metaCMAES.cpp',    # check how CMAES performs on individual damages/environments
