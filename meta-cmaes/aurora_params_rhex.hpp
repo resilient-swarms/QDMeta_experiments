@@ -21,7 +21,7 @@ namespace aurora
             SFERES_CONST size_t
                 image_height = 50;
             SFERES_CONST int
-                resolution = 10000; // influences l
+                resolution = 4096; // influences l
             SFERES_CONST int
                 update_frequency = -1; // -2 means exponentially decaying update frequency
             SFERES_CONST size_t
