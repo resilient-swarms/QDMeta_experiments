@@ -193,7 +193,7 @@ int main(int argc, char **argv)
 #endif
 #endif
 
-    global::init_simu(std::string(argv[1]), std::string(std::getenv("BOTS_DIR")) + "/share/armBody.skel");
+    global::init_simu(std::string(argv[1]), std::string(std::getenv("BOTS_DIR")) + "/share/rhex_models/SKEL/raised.skel");
 
     sferes::run_ea(argc, argv, ea, desc);
 
