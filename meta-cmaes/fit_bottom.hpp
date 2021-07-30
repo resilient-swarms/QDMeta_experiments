@@ -123,8 +123,9 @@ namespace sferes
                 ar &BOOST_SERIALIZATION_NVP(this->_gt);
 #endif
             }
-
+#if NOT_AURORA()
             bool dead() { return _dead; }
+#endif
             std::vector<double> ctrl() { return _ctrl; }
 #if CONTROL()
             std::vector<float> get_desc(simulator_t & simu, base_features_t & b)
@@ -215,7 +216,9 @@ namespace sferes
 
         protected:
             std::vector<double> _ctrl;
+#if NOT_AURORA()
             bool _dead;
+#endif
             base_features_t _b;
 
 #if META() // these are already defined by FitMap
