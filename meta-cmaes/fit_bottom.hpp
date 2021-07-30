@@ -34,7 +34,10 @@ namespace sferes
 #endif
 
         public:
+#if NOT_AURORA()
             FitBottom() : _dead(false){};
+#endif
+
 #if META()
             feature_map_t feature_map;
 
@@ -42,7 +45,7 @@ namespace sferes
             {
             }
 #elif AURORA()
-
+            FitBottom(){};
             float &entropy()
             {
                 return _entropy;
