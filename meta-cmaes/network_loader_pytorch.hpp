@@ -658,7 +658,7 @@ namespace aurora {
     // -> using strong autoencoder
     explicit NetworkLoaderMLPAutoEncoder() :
       TParentLoader(TParams::qd::behav_dim,
-                    torch::nn::AnyModule(aurora::nn::MLPAutoEncoder(TParams::qd::behav_dim, 100)))
+                    torch::nn::AnyModule(aurora::nn::MLPAutoEncoder(TParams::qd::behav_dim, NUM_BASE_FEATURES)))
     {}
 
     typedef Eigen::Matrix<float, Eigen::Dynamic, Eigen::Dynamic, Eigen::RowMajor> MatrixXf_rm;
