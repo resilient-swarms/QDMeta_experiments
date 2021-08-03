@@ -127,9 +127,15 @@ namespace sferes
 #endif
             }
 #if NOT_AURORA()
-            bool dead() { return _dead; }
+            bool dead()
+            {
+                return _dead;
+            }
 #endif
-            std::vector<double> ctrl() { return _ctrl; }
+            std::vector<double> ctrl()
+            {
+                return _ctrl;
+            }
 #if CONTROL()
             std::vector<float> get_desc(simulator_t & simu, base_features_t & b)
             {
@@ -275,22 +281,18 @@ namespace sferes
                 }
                 else
                 {
-                    // convert to final descriptor
-                    base_features_t b;
 #if AURORA()
 #ifdef PRINTING
                     std::cout << " get desc " << std::endl;
 #endif
-                    get_base_features(b, simu);
-                    this->_gt.clear();
-                    for (size_t i = 0; i < NUM_BASE_FEATURES; ++i)
-                    {
-                        this->_gt.push_back(_b(i, 0));
-                    }
+                    get_base_features(simu);
+
 #ifdef PRINTING
                     std::cout << " end get desc " << std::endl;
 #endif
 #else
+                    // convert to final descriptor
+                    base_features_t b;
                     this->_desc = get_desc(simu, b);
 #endif
                     this->_dead = false;
@@ -319,6 +321,45 @@ namespace sferes
             }
 
 #endif
+
+#if AURORA()
+            /* the included descriptors determine the base-features */
+            void get_base_features(simulator_t & simu)
+            {
+                this->_gt.clear();
+#ifdef FEATURE_SETS
+                
+                std::vector<double> results;
+                simu.get_descriptor<rhex_dart::descriptors::DutyCycle, std::vector<double>>(results);
+
+                for (size_t i = 0; i < results.size(); ++i)
+                {
+                    this->_gt.push_back(results[i]);
+                }
+
+                simu.get_descriptor<rhex_dart::descriptors::BodyOrientation, std::vector<double>>(results);
+                for (size_t i = 0; i < results.size(); ++i)
+                {
+                    this->_gt.push_back(results[i]);
+                }
+                Eigen::Vector3d velocities;
+                simu.get_descriptor<rhex_dart::descriptors::AvgCOMVelocities, Eigen::Vector3d>(velocities);
+                this->_gt.push_back(correct_lv_x(velocities[0]));
+                this->_gt.push_back(correct_lv_y(velocities[1]));
+                this->_gt.push_back(correct_lv_z(velocities[2]));
+
+#else
+                std::vector<double> results;
+                simu.get_descriptor<rhex_dart::descriptors::DeltaFullTrajectory, std::vector<double>>(results);
+
+                for (size_t i = 0; i < results.size(); ++i)
+                {
+                    this->_gt.push_back((float)results[i]);
+                }
+#endif
+            }
+
+#else
             /* the included descriptors determine the base-features */
             void get_base_features(base_features_t & base_features, simulator_t & simu)
             {
@@ -349,10 +390,11 @@ namespace sferes
 
                 for (size_t i = 0; i < results.size(); ++i)
                 {
-                    base_features(i, 0) = results[i];
+                    base_features(i, 0) = (float)results[i];
                 }
 #endif
             }
+#endif
         };
     } // namespace fit
 } // namespace sferes

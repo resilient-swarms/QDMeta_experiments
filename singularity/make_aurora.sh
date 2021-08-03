@@ -1,54 +1,9 @@
-Bootstrap: localimage
-From: metacmaes_auroracomplete.sif
-
-%post
+#!/bin/bash
  export HOME_CONTAINER=/singularity_home/ 
  export BOTS_DIR=$HOME_CONTAINER/Resibots 
  export SFERES_DIR=$HOME_CONTAINER/sferes2
  export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu:/lib:/usr/lib:/usr/local/lib:/usr/lib/x86_64-linux-gnu:$BOTS_DIR/lib:/opt/miniconda3/envs/py3.8/lib/python3.8/site-packages/torch/lib
- export NUM_CORES=1
- echo "will use $NUM_CORES cores"
 
-
-#rhex dependencies
-cd $HOME_CONTAINER
-git clone https://github.com/AranBSmith/rhex_common.git
-cd rhex_common/rhex_models
-./waf configure --prefix=$BOTS_DIR
-./waf install
-cd ../rhex_controller
-./waf configure --prefix=$BOTS_DIR
-./waf
-./waf install
-
-cd $HOME_CONTAINER
-git clone https://github.com/AranBSmith/rhex_simu.git
-cd rhex_simu/rhex_dart
-./waf configure --prefix=$BOTS_DIR --dart $BOTS_DIR
-./waf
-./waf install
-
-
-
-#meta-cmaes etc
-cd $BOTS_DIR/include/meta-cmaes/
-git pull
-cp -f rhex_controller_buehler.hpp $BOTS_DIR/include/rhex_controller/
-
-# get correct sferes branch
-rm -rf $SFERES_DIR
-cd $HOME_CONTAINER 
-git clone https://github.com/Lookatator/sferes2/ --branch AURORA
-rm sferes2/examples/*
-echo 'def build(bld):\n    return' >> sferes2/examples/wscript
-
-#clone AURORA 
-git clone https://github.com/resilient-swarms/RHex_experiments.git
-cd $HOME_CONTAINER/RHex_experiments/
-git clone https://github.com/adaptive-intelligent-robotics/AURORA.git
-
-# set up the RHex_experiments
-mkdir ${SFERES_DIR}/exp/Rhexps
 export BUILD_DEBUG=False
 cp -arv $HOME_CONTAINER/RHex_experiments/meta-cmaes/ ${BOTS_DIR}/include
 cp -arv $HOME_CONTAINER/RHex_experiments/rhexps/* ${SFERES_DIR}/exp/Rhexps/  # copy wscript to correct folder
@@ -64,6 +19,3 @@ cd $SFERES_DIR
 ./waf distclean
 ./waf configure --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
 ./waf --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
-
-
-chmod -R o+rX $HOME_CONTAINER
