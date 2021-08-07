@@ -144,13 +144,13 @@ namespace rhex_dart
             _osg_viewer.setUpViewInWindow(0, 0, 640, 480);
             std::string world = std::to_string(_world_option);
             std::string damage;
-            if (_controller._damages.empty())
+            if (_controller.damages().empty())
             {
                 damage = "none";
             }
             else
             {
-                damage = std::string(_controller._damages[0].type) + std::string(_controller._damages[0].data);
+                damage = std::string(_controller.damages()[0].type) + std::string(_controller.damages()[0].data);
             }
             _osg_viewer.record("/home/david/ToyData",                       // folder
                                "video_world" + world + "_damage_" + damage, // prefix
@@ -219,13 +219,13 @@ namespace rhex_dart
                 //osgDB::writeImageFile(*image,std::string("/home/david/ToyData/video")+std::to_string(count)+std::string(".png"));
                 std::string world = std::to_string(_world_option);
                 std::string damage;
-                if (_controller._damages.empty())
+                if (_controller.damages().empty())
                 {
                     damage = "none";
                 }
                 else
                 {
-                    damage = std::string(_controller._damages[0].type) + std::string(_controller._damages[0].data);
+                    damage = std::string(_controller.damages()[0].type) + std::string(_controller.damages()[0].data);
                 }
                 _osg_viewer.record("/home/david/ToyData",                       // folder
                                    "video_world" + world + "_damage_" + damage, // prefix
@@ -238,7 +238,7 @@ namespace rhex_dart
                                                                                 //osg::ref_ptr<osg::Image> image = new osg::Image;
                                                                                 //image->readPixels(x,y,width,height, GL_RGB,GL_UNSIGNED_BYTE);
                                                                                 //std::string world= std::to_string(_world_option);
-                                                                                //std::string damage = "dam" //std::to_string(_controller._damages[0].type)+std::to_string(_controller._damages[0].data);
+                                                                                //std::string damage = "dam" //std::to_string(_controller.damages()[0].type)+std::to_string(_controller.damages()[0].data);
                                                                                 //osgDB::writeImageFile(*image,"video"+world+damage+std::to_string(count) + std::to_string(".png"));
 #endif
 
