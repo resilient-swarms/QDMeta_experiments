@@ -144,13 +144,13 @@ namespace rhex_dart
             _osg_viewer.setUpViewInWindow(0, 0, 640, 480);
             std::string world = std::to_string(_world_option);
             std::string damage;
-            if (_controller.damages().empty())
+            if (_controller._damages.empty())
             {
                 damage = "none";
             }
             else
             {
-                damage = std::string(_controller.damages()[0].type) + std::string(_controller.damages()[0].data);
+                damage = std::string(_controller._damages[0].type) + std::string(_controller._damages[0].data);
             }
             _osg_viewer.record("/home/david/ToyData",                       // folder
                                "video_world" + world + "_damage_" + damage, // prefix
@@ -219,13 +219,13 @@ namespace rhex_dart
                 //osgDB::writeImageFile(*image,std::string("/home/david/ToyData/video")+std::to_string(count)+std::string(".png"));
                 std::string world = std::to_string(_world_option);
                 std::string damage;
-                if (_controller.damages().empty())
+                if (_controller._damages.empty())
                 {
                     damage = "none";
                 }
                 else
                 {
-                    damage = std::string(_controller.damages()[0].type) + std::string(_controller.damages()[0].data);
+                    damage = std::string(_controller._damages[0].type) + std::string(_controller._damages[0].data);
                 }
                 _osg_viewer.record("/home/david/ToyData",                       // folder
                                    "video_world" + world + "_damage_" + damage, // prefix
