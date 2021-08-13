@@ -1,0 +1,207 @@
+#! /usr/bin/env python
+import sys
+sys.path.insert(0, sys.path[0]+'/waf_tools')
+
+import os
+import sferes
+import rhex_dart
+
+
+
+
+def options(opt):
+    opt.load('eigen')
+    opt.load('boost')
+   
+    
+def configure(conf):
+	conf.check_eigen()
+	boost_var = 'BOOST_DART'
+	conf.check_boost(lib='regex system', min_version='1.46', uselib_store=boost_var)
+
+def _build_test(bld, take_compl=[]):
+	DIM = os.environ.get("BUILD_DIMENSION","20")
+	libs = 'EIGEN BOOST TBB '
+	cxxflags = bld.get_env()['CXXFLAGS'] 
+	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+os.environ.get("PERTURB_TYPE")]
+	if take_compl:
+		tag="test"
+	else:
+		tag="train"
+
+	if os.environ.get('BUILD_GRAPHIC',"False") == "True":
+		cxxflags+=["-DGRAPHIC"]
+		libs += 'DART_GRAPHIC'
+	if os.environ.get('BUILD_INDIVIDUAL_DAMAGE',"False") == "True":
+		cxxflags+=["-DINDIVIDUAL_DAMAGE"]
+		do_cmaes_check=True
+	else:
+		do_cmaes_check=False
+	if os.environ.get('BUILD_DEBUG',"False") == "True":
+		cxxflags+=['-g']
+	if os.environ.get('BUILD_ENVIR',"False") == "True":
+		cxxflags+=['-DEVAL_ENVIR']
+		tag+="_envir_"
+	else:
+		tag+="_damage_"
+	sferes.create_variants(bld,source = 'rastrigin.cpp',
+								use = 'sferes2',
+								uselib = libs,
+								target = tag+'meta',
+								cxxflags = take_compl + cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
+								"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=2","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
+								variants = ['BINARY'])
+										
+	sferes.create_variants(bld,
+							source = 'rastrigin.cpp',
+							use = 'sferes2',
+							uselib = libs,
+							target = tag+'cvt50D',
+							cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
+							"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
+							variants = ['BINARY'])
+	if do_cmaes_check:
+		# note this is not a meta-condition but can only generate up to 4 binaries at a time
+		sferes.create_variants(bld,
+									source = 'rastrigin.cpp',
+									use = 'sferes2',
+									uselib = libs,
+									target = tag+'_damage_cmaescheck',
+									cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
+									"-DNUM_CORES=1"],   # damage
+									variants = ['BINARY'])
+
+# def _build_cvt_trajectories(bld):  # no need for cvt trajectories, always feasible within the hypercube
+
+def _build_evolution(bld):
+	DIM = os.environ.get("BUILD_DIMENSION","20")
+	libs = 'EIGEN BOOST TBB '
+	cxxflags = bld.get_env()['CXXFLAGS'] 
+	perturb_type=os.environ.get("PERTURB_TYPE")
+	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+perturb_type]
+	if perturb_type == "1":
+		tag="dim"
+	elif perturb_type=="2":
+		tag="trans"
+	else:
+		tag=""
+	num_cores = os.environ.get('NUM_CORES',1)
+	if os.environ.get('BUILD_GRAPHIC',"False") == "True":
+		cxxflags+=["-DGRAPHIC"]
+		libs += 'DART_GRAPHIC'
+	if os.environ.get('BUILD_DEBUG',"False") == "True":
+		cxxflags+=['-g']
+	if os.environ.get('BUILD_TYPE',"control") == "meta":
+		sferes.create_variants(bld,
+							source = 'rastrigin.cpp',
+							use = 'sferes2',
+							uselib = libs,
+							target = 'rastrigin_'+tag+'_meta',
+							cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR","-DEXPERIMENT_TYPE=0","-DNUM_CORES="+str(num_cores),
+							"-DBEHAV_DIM=2","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10")),"-DFEATUREMAP=2"],   # -march=native
+							variants = ['BINARY'])
+	elif os.environ.get("BUILD_TYPE","control") == "aurora":
+			bld.env.LIBPATH_KDTREE = '/usr/local/lib/'
+			bld.env.LIB_KDTREE = []
+			bld.env.INCLUDES_KDTREE = '/usr/local/include/'
+
+	
+			sferes.create_variants(bld,source = 'rastrigin.cpp',
+								use = 'sferes2',
+								uselib = libs + " KDTREE ",
+								target = 'planarCMAES_aurora',
+								cxxflags = cxxflags + ['-DWITH_RNN=0','-DWITH_CNN=1','-march=native','-DBEHAV_DIM=2',
+								"-DEXPERIMENT_TYPE=2","-DNUM_CORES="+str(num_cores)],   # -march=native
+								variants = ['BINARY'])
+	elif os.environ.get("BUILD_TYPE","False") == "AURORA":
+		#bld.env.LIBPATH_KDTREE = '/usr/local/lib/'
+		#bld.env.LIB_KDTREE = ['kdtree']
+		#bld.env.INCLUDES_KDTREE = '/usr/local/include/'
+		
+		libpath=os.environ["LIBTORCH_LOCATION"]
+		print(libpath)
+		bld.env.LIBPATH_PYTORCH = libpath+"/lib/"
+		bld.env.LIB_PYTORCH = 'torch_cpu torch_global_deps shm torch c10'.split(' ')
+		bld.env.INCLUDES_PYTORCH = [libpath+'/include/', libpath+'/include/torch/csrc/api/include/']
+
+		bld.env.LIBPATH_BOOST = "/usr/local/lib/"
+		bld.env.LIB_BOOST = 'boost_filesystem boost_program_options boost_regex boost_serialization boost_thread boost_system'.split(' ')
+		#bld.env.LIB_PYTORCH = 'torch_cpu torch_global_deps shm torch'.split(' ')
+		bld.env.INCLUDES_BOOST = ['/usr/local/include/']
+
+
+		#bld.env.LIBPATH_CUDA = '/usr/local/cuda/lib64/'
+		# bld.env.LIB_PYTORCH = 'torch c10 c10_cuda caffe2_detectron_ops_gpu caffe2_module_test_dynamic caffe2_nvrtc'.split(
+		#    ' ')
+		#bld.env.LIB_CUDA = 'cudart'.split(' ')
+		#bld.env.INCLUDES_CUDA = ['/usr/local/cuda/include']
+
+		# sferes
+		libs = ' TBB BOOST EIGEN PTHREAD PYTORCH  '  # 
+		bld.env['MPI_ENABLED']=False
+		# building main experiment executables: 
+		#both use aurora_uniform with CSC based on the results in paper (CSC is set by not setting VAT macro)
+		#encoder was either MLP or convolutional network, try both here
+		sferes.create_variants(bld,
+							   source='aurora.cpp',
+							   use="sferes2",
+							   target="rastrigin_AURORA_MLP",
+							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp",'/usr/local/include/'],
+							   uselib=libs,
+							   cxxflags= cxxflags + ['-DENVIRONMENT="RHex"',
+							   '-DALGORITHM="aurora_uniform"',
+							   '-DENCODER_TYPE="mlp_ae"',
+							   '-march=native','-std=c++14',# libtorch requires '-std=c++14',
+							   '-DBEHAV_DIM=2',"-DEXPERIMENT_TYPE=2",'-D_GLIBCXX_USE_CXX11_ABI=1'], #,'-D_GLIBCXX_USE_CXX11_ABI=0' remove c10 linking error
+							   variants=["BINARY"] )
+		sferes.create_variants(bld,
+							   source='aurora.cpp',
+							   use="sferes2",
+							   target="rastrigin_AURORA_CNN",
+							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp"],
+							   uselib=libs,
+							   cxxflags= cxxflags + ['-DENVIRONMENT="RHex"',
+							   '-DALGORITHM="aurora_uniform"',
+							   '-DENCODER_TYPE="cnn_ae"','-std=c++14', # libtorch requires  '-std=c++14',
+							  '-march=native','-DBEHAV_DIM=2',"-DEXPERIMENT_TYPE=2",'-D_GLIBCXX_USE_CXX11_ABI=1'],# ,'-D_GLIBCXX_USE_CXX11_ABI=0'
+							   variants=["BINARY"] )
+	elif os.environ.get("BUILD_TYPE","control") == "cmaes_check": 
+		sferes.create_variants(bld,source = 'rastrigin.cpp',    # check how CMAES performs on individual damages/environments
+								use = 'sferes2',
+								uselib = libs,
+								target = 'rastrigin_envircheck',
+								cxxflags = cxxflags + ['-march=native',"-DEVAL_ENVIR",
+								"-DNUM_CORES="+str(num_cores),"-DEXPERIMENT_TYPE=3","-DBEHAV_DIM=1"],   # -march=native
+								variants = ['BINARY'])
+		sferes.create_variants(bld,source = 'rastrigin.cpp',    # check how CMAES performs on individual damages/environments
+								use = 'sferes2',
+								uselib = libs,
+								target = 'rastrigin_damagecheck',
+								cxxflags = cxxflags + ['-march=native',
+								"-DNUM_CORES="+str(num_cores),"-DEXPERIMENT_TYPE=3","-DBEHAV_DIM=1"],   # -march=native
+								variants = ['BINARY'])
+	else:  
+		sferes.create_variants(bld,source = 'rastrigin.cpp',
+								use = 'sferes2',
+								uselib = libs,
+								target = 'rastrigin_cvt',
+								cxxflags = cxxflags + ['-march=native',"-DEXPERIMENT_TYPE=1",
+								"-DNUM_CORES="+str(num_cores),"-DBEHAV_DIM="+DIM,"-DCVT_ME=1"],   # -march=native
+								variants = ['BINARY'])
+								
+def build(bld):
+	
+	if os.environ.get('BUILD_PHASE',"evolution") == "TEST":
+		_build_test(bld,take_compl=["-DTAKE_COMPLEMENT"])
+	else:
+		_build_evolution(bld)
+       
+
+    # if bld.get_env()['BUILD_GRAPHIC'] == True:
+    #   sferes.create_variants(bld,
+    #                          source = 'hexa_duty.cpp',
+    #                          use = 'sferes2',
+    #                          uselib = graphic_libs,
+    #                          cxxflags = cxxflags + ['-march=native'],
+    #                          target = 'hexa_duty',
+    #                          variants = ['GRAPHIC'])

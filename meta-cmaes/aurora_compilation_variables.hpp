@@ -5,8 +5,10 @@
 
 namespace aurora
 {
-        namespace algo {
-        enum class Algo {
+    namespace algo
+    {
+        enum class Algo
+        {
             aurora_curiosity,
             aurora_novelty,
             aurora_surprise,
@@ -23,13 +25,17 @@ namespace aurora
         };
     }
 
-    namespace env {
-        enum class Env {
-            RHex
+    namespace env
+    {
+        enum class Env
+        {
+            RHex,
+            Fun
         };
     }
 
-    enum class EncoderType {
+    enum class EncoderType
+    {
         none,
         cnn_ae,
         strg_cnn,
@@ -46,7 +52,14 @@ namespace aurora
 
     constexpr env::Env get_env()
     {
-        return env::Env::RHex;
+        if (strings_equal(ENVIRONMENT, "Fun"))
+        {
+            return env::Env::Fun;
+        }
+        else
+        {
+            return env::Env::RHex;
+        }
     }
 
     constexpr bool is_env_hard_maze()
@@ -76,9 +89,10 @@ namespace aurora
         {
             return algo::Algo::aurora_uniform;
         }
-       else{
-	    return algo::Algo::aurora_uniform;
-	}
+        else
+        {
+            return algo::Algo::aurora_uniform;
+        }
     }
 
     constexpr bool is_algo_hand_coded()
@@ -279,6 +293,5 @@ namespace aurora
 #endif
     }
 } // namespace aurora
-
 
 #endif
