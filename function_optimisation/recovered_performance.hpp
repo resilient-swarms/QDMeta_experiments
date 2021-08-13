@@ -15,8 +15,8 @@ namespace sferes
     {
         const std::vector<float> b_neg_range = {-1.0, 0.};
         const std::vector<float> b_pos_range = {0., 1.0};
-        const std::vector<float> a_neg_range = {-2.5, -0.4};
-        const std::vector<float> a_pos_range = {0.4, 2.5};
+        const std::vector<float> a_neg_range = {-2.5, -1.0};
+        const std::vector<float> a_pos_range = {1.0, 2.5};
         template <typename Phen>
         struct RecoveredPerformance
         {
@@ -99,6 +99,7 @@ namespace sferes
             static float evaluate_rastrigin_translation(std::vector<float> &x, size_t world_option)
             {
                 float a, b;
+                // a > 1: expand
                 if (world_option == 0)
                 {
                     a = negative_a();
@@ -117,6 +118,27 @@ namespace sferes
                 else if (world_option == 3)
                 {
                     a = positive_a();
+                    b = positive_b();
+                }
+                // a < 1: shrink
+                else if (world_option == 4)
+                {
+                    a = 1.0f /negative_a();
+                    b = negative_b();
+                }
+                else if (world_option == 5)
+                {
+                    a = 1.0f/ negative_a();
+                    b = positive_b();
+                }
+                else if (world_option == 6)
+                {
+                    a = 1.0f/ positive_a();
+                    b = negative_b();
+                }
+                else if (world_option == 7)
+                {
+                    a = 1.0f / positive_a();
                     b = positive_b();
                 }
                 else

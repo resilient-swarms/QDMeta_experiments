@@ -169,7 +169,7 @@ namespace global
         std::ofstream ofs("dimension_options_" + seed + ".txt");
         std::seed_seq seed2(seed.begin(), seed.end());
         std::mt19937 gen(seed2);
-        std::set<size_t> types = global::_fullSet(4);
+        std::set<size_t> types = global::_fullSet(8);
         std::cout << "world options :" << std::endl;
 
         ofs << "{";
