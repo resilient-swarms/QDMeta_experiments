@@ -254,6 +254,7 @@ struct RL : public ParameterControl
     virtual void set_stats(EvalStats &eval_stats)
     {
         this->eval_stats = eval_stats;
+        this->eval_stats.best_metafitness = MAXFIT + this->eval_stats.best_metafitness;
         float cf = this->eval_stats.best_metafitness;
         float ratio = 0;
         float rwrd;

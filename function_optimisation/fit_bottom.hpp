@@ -137,7 +137,7 @@ namespace sferes
                 return _ctrl;
             }
 #if CONTROL()
-            std::vector<float> get_desc(base_features_t & b)
+            std::vector<float> get_descriptor(base_features_t & b)
             {
                 return ctrl();
             }
@@ -146,6 +146,7 @@ namespace sferes
             {
                 //get the base_features
                 get_base_features(b);
+                set_b(b);
                 // get descriptor
                 return get_desc(b);
             }
@@ -175,13 +176,16 @@ namespace sferes
             }
             void set_b(const base_features_t &features)
             {
-                _b = features;
+                for (size_t i = 0; i < NUM_BASE_FEATURES; ++i)
+                {
+                    _b(i, 0) = -1.0f + 2.0f*features(i,0);
+                }
             }
             void set_b(const std::vector<float> &vec)
             {
                 for (size_t i = 0; i < NUM_BASE_FEATURES; ++i)
                 {
-                    _b(i, 0) = vec[i];
+                    _b(i, 0) = -1.0f + 2.0f*vec[i];
                 }
             }
             mode::mode_t mode() const
@@ -297,10 +301,9 @@ namespace sferes
                     this->_desc = get_descriptor(b);
 #endif
                     this->_dead = false;
-#if META()
-                    set_b(b);
-#endif
-#ifdef PRINTING
+
+#ifdef GRAPHIC
+                    std::cout << " base-features " << _b.transpose() << std::endl;
                     std::cout << " fitness is " << this->_value << std::endl;
 #endif
                 }

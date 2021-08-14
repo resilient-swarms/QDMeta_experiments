@@ -165,7 +165,7 @@ namespace sferes
 #ifdef GRAPHIC
                         std::cout << "not in bounds: stop " << std::endl;
 #endif
-                        return -1000.f;
+                        return -MAXFIT;
                     }
                     sum += (x[i] * x[i] - A * std::cos(2 * M_PI * x[i]));
                 }

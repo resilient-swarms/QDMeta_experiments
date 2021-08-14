@@ -16,20 +16,20 @@ using namespace sferes::gen::evo_float;
 struct BottomParams
 {
 #if META()
-    static const size_t MAX_DATABASE_SIZE = 500000;
+    static const size_t MAX_DATABASE_SIZE = 200000;
     static const size_t bottom_epochs = 5;
 #endif
     // grid properties, discretise 3 dimensions into 10 bins each
     struct ea
     {
 #ifdef CVT_ME
-        SFERES_CONST size_t number_of_clusters = 900;
+        SFERES_CONST size_t number_of_clusters = 10000;
         SFERES_CONST size_t number_of_dimensions = BEHAV_DIM;
         typedef boost::array<double, number_of_dimensions> point_t;
         static std::vector<point_t> centroids;
 #else
         SFERES_CONST size_t behav_dim = 2;
-        SFERES_ARRAY(size_t, behav_shape, 30,30); // 900 cells for each bottom-level map
+        SFERES_ARRAY(size_t, behav_shape, 100,100); // 900 cells for each bottom-level map
 #endif
         SFERES_CONST float epsilon = 0.00;
     };
@@ -60,9 +60,9 @@ struct BottomParams
         SFERES_CONST int dump_period = 100; //20
 #endif
         // NOTE: multiply size by 2 to obtain the actual batch ! !
-        SFERES_CONST unsigned size = 40;
+        SFERES_CONST unsigned size = 200;
         // NOTE: do NOT multiply by 2 to get initial size
-        SFERES_CONST unsigned init_size = 400;
+        SFERES_CONST unsigned init_size = 2000;
         ; //initial population for all maps
         SFERES_CONST int initial_aleat = 1;
     };

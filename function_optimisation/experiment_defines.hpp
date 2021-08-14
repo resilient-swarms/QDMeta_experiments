@@ -18,6 +18,8 @@
 #define NO_PARALLEL
 #endif
 
+#define MAXFIT 10000.0f
+
 #ifndef TEST
 #if NUM_CORES > 1
 	#define PARALLEL_RUN

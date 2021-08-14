@@ -10,8 +10,18 @@ cp -arv ~/RHex_experiments/function_optimisation/*  $BOTS_DIR/include/meta-cmaes
 #./waf configure --prefix=$BOTS_DIR
 #./waf
 #./waf install
+export BUILD_TYPE=meta
+export PERTURB_TYPE=1
 cd $SFERES_DIR
-./waf distclean
+#./waf distclean
+./waf configure --exp funexps 
+./waf --exp funexps 
+
+export PERTURB_TYPE=2
+./waf configure --exp funexps 
+./waf --exp funexps 
+
+export BUILD_TYPE=control
 ./waf configure --exp funexps 
 ./waf --exp funexps 
 
