@@ -16,7 +16,7 @@ using namespace sferes::gen::evo_float;
 struct BottomParams
 {
 #if META()
-    static const size_t MAX_DATABASE_SIZE = 200000;
+    static const size_t MAX_DATABASE_SIZE = 500000;
     static const size_t bottom_epochs = 5;
 #endif
     // grid properties, discretise 3 dimensions into 10 bins each
