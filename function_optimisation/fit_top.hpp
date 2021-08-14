@@ -56,9 +56,9 @@ public:
         return sferes::fit::RecoveredPerformance<Phen>::_eval_all(indiv);
     }
 
-    std::tuple<float, size_t> avg_value(float val, size_t num_individuals)
+    std::tuple<float, size_t> avg_value(float val)
     {
-        _nb_evals = num_individuals * global::world_options.size(); // no need to divide
+        _nb_evals = global::world_options.size(); // no need to divide
         val = val / (float)(_nb_evals);
         return std::tuple<float, size_t>{val, _nb_evals};
     }

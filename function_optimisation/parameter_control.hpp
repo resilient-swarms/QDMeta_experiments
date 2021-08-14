@@ -229,7 +229,7 @@ struct RL : public ParameterControl
     RL() {}
     RL(long seed, std::string &parameter, float bf, float pf, float mf) : ParameterControl(bf, pf, mf)
     {
-        scale = CMAESParams::pop::size * (BottomParams::bottom_epochs * 2 * BottomParams::pop::size + CMAESParams::percentage_evaluated * 900.0f);
+        scale = CMAESParams::pop::size * (BottomParams::bottom_epochs * 2 * BottomParams::pop::size + CMAESParams::percentage_evaluated * 10000.0f);
         controller = RLController();
         if (parameter == "bottom_epochs")
         {
@@ -254,7 +254,7 @@ struct RL : public ParameterControl
     virtual void set_stats(EvalStats &eval_stats)
     {
         this->eval_stats = eval_stats;
-        this->eval_stats.best_metafitness = MAXFIT + this->eval_stats.best_metafitness;
+        this->eval_stats.best_metafitness = this->eval_stats.best_metafitness;
         float cf = this->eval_stats.best_metafitness;
         float ratio = 0;
         float rwrd;

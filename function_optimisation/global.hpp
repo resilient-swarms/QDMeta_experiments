@@ -178,6 +178,7 @@ namespace global
             size_t option = el; // world 0 has been removed that is why +1
 #ifndef TAKE_COMPLEMENT
             world_options.push_back(option);
+            world_options.push_back(option); // two of each type
 #endif
             std::cout << option << ", ";
             ofs << option << ", ";

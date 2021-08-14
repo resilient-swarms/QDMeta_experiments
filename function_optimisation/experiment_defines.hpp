@@ -18,7 +18,10 @@
 #define NO_PARALLEL
 #endif
 
-#define MAXFIT 10000.0f
+#define MAXFIT 2000.0f   // use for out-of-bound solutions in meta-fitness and scaling param control
+#define RASTRI_MIN -5.12f
+#define RASTRI_MAX 5.12f
+#define RASTRI_RANGE 2*RASTRI_MAX
 
 #ifndef TEST
 #if NUM_CORES > 1

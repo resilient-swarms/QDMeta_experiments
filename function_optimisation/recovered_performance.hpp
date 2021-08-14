@@ -13,10 +13,10 @@ namespace sferes
 
     namespace fit
     {
-        const std::vector<float> b_neg_range = {-1.0, 0.};
-        const std::vector<float> b_pos_range = {0., 1.0};
-        const std::vector<float> a_neg_range = {-2.5, -1.0};
-        const std::vector<float> a_pos_range = {1.0, 2.5};
+        const std::vector<float> b_neg_range = {-0.50, 0.};
+        const std::vector<float> b_pos_range = {0., 0.5};
+        const std::vector<float> a_neg_range = {-1.10, -1.0};
+        const std::vector<float> a_pos_range = {1.0, 1.10};
         template <typename Phen>
         struct RecoveredPerformance
         {
@@ -28,7 +28,7 @@ namespace sferes
                 _ctrl.clear();
 
                 for (size_t i = 0; i < RASTRI_DIM; i++)
-                    _ctrl.push_back(-5.12 + 10.24 * indiv.gen().data(i));
+                    _ctrl.push_back(RASTRI_MIN + RASTRI_RANGE * indiv.gen().data(i));
 
 #ifdef GRAPHIC
                 std::string fileprefix = "video" + std::to_string(world_option);
@@ -45,13 +45,13 @@ namespace sferes
 #endif
                 // these assume a behaviour descriptor of size 6.
 
-                return fitness;
+                return MAXFIT + std::max(-MAXFIT,fitness);
             }
 
             static float
             evaluate_rastrigin_dimension(const std::vector<float> &x, size_t world_option)
             {
-                float sum = 10.0f * RASTRI_DIM;
+                float sum = 10.0f * (RASTRI_DIM - 1);
                 float A = 10.0f;
                 for (size_t i = 0; i < RASTRI_DIM; ++i)
                 {
@@ -160,7 +160,7 @@ namespace sferes
 #ifdef GRAPHIC
                     std::cout << "after: " << x[i] << std::endl;
 #endif
-                    if (std::abs(x[i]) > 5.12f)
+                    if (std::abs(x[i]) > RASTRI_MAX)
                     {
 #ifdef GRAPHIC
                         std::cout << "not in bounds: stop " << std::endl;

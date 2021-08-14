@@ -113,11 +113,11 @@ struct CMAESParams
     // save map every 50 iterations
     struct pop
     {
-        SFERES_CONST unsigned nb_gen = 10001; // huge overestimate, will hit max_evals before that
-        SFERES_CONST int dump_period = 5;    //
+        SFERES_CONST unsigned nb_gen = 100001; // huge overestimate, will hit max_evals before that
+        SFERES_CONST int dump_period = 20;    //
         SFERES_CONST int size = META_POP_SIZE; // number of maps
         SFERES_CONST int initial_aleat = 1;
-        SFERES_CONST unsigned max_evals = 25000000; //25M is equal to the bottomparams: (400*5*10 + a few evals within meta-fitness) * (a bit below 1250 generations)
+        SFERES_CONST unsigned max_evals = 100000000; //
     };
 
     struct parameters

@@ -178,14 +178,14 @@ namespace sferes
             {
                 for (size_t i = 0; i < NUM_BASE_FEATURES; ++i)
                 {
-                    _b(i, 0) = -1.0f + 2.0f*features(i,0);
+                    _b(i, 0) = -1.0f + 2.0f * features(i, 0);
                 }
             }
             void set_b(const std::vector<float> &vec)
             {
                 for (size_t i = 0; i < NUM_BASE_FEATURES; ++i)
                 {
-                    _b(i, 0) = -1.0f + 2.0f*vec[i];
+                    _b(i, 0) = -1.0f + 2.0f * vec[i];
                 }
             }
             mode::mode_t mode() const
@@ -234,23 +234,23 @@ namespace sferes
             float _entropy = -1;                //surprise-based selection and stats; value only set in the dimensionality_reduction.hpp modifier
             float _implicit_fitness_value = -1; // will be equal to the fitness for our case as we don't use pure divergent search
 #endif
-            static float evaluate_rastrigin(std::vector<float>& xx)
+            static float evaluate_rastrigin(std::vector<float> & xx)
             {
-                float sum = 10.0f*RASTRI_DIM;
+                float sum = 10.0f * RASTRI_DIM;
                 float A = 10.0f;
                 std::vector<float> x = xx;
-                for (size_t i=0; i < RASTRI_DIM; ++i)
+                for (size_t i = 0; i < RASTRI_DIM; ++i)
                 {
-                    x[i] = -5.12 + 10.24*xx[i];
+                    x[i] = RASTRI_MIN + RASTRI_RANGE * xx[i];
 #ifdef GRAPHIC
-                     std::cout << x[i] << " "  ;
-#endif 
-                    sum+= (x[i]*x[i] - A*std::cos(2*M_PI*x[i]));
+                    std::cout << x[i] << " ";
+#endif
+                    sum += (x[i] * x[i] - A * std::cos(2 * M_PI * x[i]));
                 }
 #ifdef GRAPHIC
                 std::cout << "f(x)=" << -sum << std::endl;
 #endif
-                return  -sum;//maximisation rather than minimisation
+                return -sum; //maximisation rather than minimisation
             }
             // descriptor work done here, in this case duty cycle
             template <typename Indiv>
@@ -261,52 +261,32 @@ namespace sferes
                 _ctrl.clear();
 
                 for (size_t i = 0; i < RASTRI_DIM; i++)
-                    _ctrl.push_back(indiv.data(i));// [0,1] -> [-5.12,5.12]
+                    _ctrl.push_back(indiv.data(i)); // [0,1] -> [-5.12,5.12]
 
                 set_fitness(evaluate_rastrigin(_ctrl));
 
                 std::vector<float> desc;
 
-                float dead = -1000.0f;
-                // these assume a behaviour descriptor of size 6.
-                if (dead > this->_value)
-                {
-                    // this means that something bad happened in the simulation
-                    // we kill this individual
-                    this->_dead = true; // no need to do anything
-                                        // desc.resize(6);
-                                        // desc[0] = 0;
-                                        // desc[1] = 0;
-                                        // desc[2] = 0;
-                                        // desc[3] = 0;
-                                        // desc[4] = 0;
-                                        // desc[5] = 0;
-                                        // this->_value = -1000.0f;// note this causes troubles;
-                                        // -> due to optimisation (presumably) the code is evaluated within if first, therefore the above condition seems to always be true
-                }
-                else
-                {
 #if AURORA()
 #ifdef PRINTING
-                    std::cout << " get desc " << std::endl;
+                std::cout << " get desc " << std::endl;
 #endif
-                    get_base_features();
+                get_base_features();
 
 #ifdef PRINTING
-                    std::cout << " end get desc " << std::endl;
+                std::cout << " end get desc " << std::endl;
 #endif
 #else
-                    // convert to final descriptor
-                    base_features_t b;
-                    this->_desc = get_descriptor(b);
+                // convert to final descriptor
+                base_features_t b;
+                this->_desc = get_descriptor(b);
 #endif
-                    this->_dead = false;
+                this->_dead = false;
 
 #ifdef GRAPHIC
-                    std::cout << " base-features " << _b.transpose() << std::endl;
-                    std::cout << " fitness is " << this->_value << std::endl;
+                std::cout << " base-features " << _b.transpose() << std::endl;
+                std::cout << " fitness is " << this->_value << std::endl;
 #endif
-                }
             }
 
 #if AURORA()
@@ -327,9 +307,9 @@ namespace sferes
                     base_features(i, 0) = _ctrl[i];
                 }
 #endif
-            }
-        };
-    } // namespace fit
+        }
+    };
+} // namespace fit
 } // namespace sferes
 
 #endif

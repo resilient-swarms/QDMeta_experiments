@@ -27,7 +27,7 @@ struct _eval_serial_meta
                   // evaluate the individual
                   value += Fit::_eval_all(*pop[i]);
             }
-            std::tuple<float, int> results = meta_i.fit().avg_value(value, pop.size());
+            std::tuple<float, int> results = meta_i.fit().avg_value(value);
             value = std::get<0>(results);
             nb_evals = std::get<1>(results);
       }
@@ -70,7 +70,7 @@ struct _eval_parallel_meta : public _eval_parallel_individuals<CSharedMem,base_p
                   std::cout << "parent fitness " << i << " " << temp << std::endl;
 #endif
             }
-            std::tuple<float, size_t> results = meta_indiv.fit().avg_value(value, this->_pop.size());
+            std::tuple<float, size_t> results = meta_indiv.fit().avg_value(value);
             value = std::get<0>(results);
             nb_evals = std::get<1>(results);
       }
