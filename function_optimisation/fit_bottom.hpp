@@ -306,10 +306,10 @@ namespace sferes
                 {
                     base_features(i, 0) = _ctrl[i];
                 }
+            }
 #endif
-        }
-    };
-} // namespace fit
+        };
+    } // namespace fit
 } // namespace sferes
 
 #endif
