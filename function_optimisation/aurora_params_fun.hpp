@@ -79,9 +79,9 @@ namespace aurora
             struct evo_float
             {
                 // we choose the polynomial mutation type
-                SFERES_CONST mutation_t mutation_type = gaussian;
+                SFERES_CONST sferes::gen::evo_float::mutation_t mutation_type = sferes::gen::evo_float::gaussian;
                 // we choose the polynomial cross-over type
-                SFERES_CONST cross_over_t cross_over_type = no_cross_over;
+                SFERES_CONST sferes::gen::evo_float::cross_over_t cross_over_type = sferes::gen::evo_float::no_cross_over;
                 // the mutation rate of the real-valued vector
                 SFERES_CONST float mutation_rate = 0.1f;
                 // the cross rate of the real-valued vector
