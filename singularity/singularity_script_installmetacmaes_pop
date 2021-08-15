@@ -1,0 +1,61 @@
+Bootstrap: localimage
+From: planar_metacmaes.sif
+
+%post
+ export HOME_CONTAINER=/singularity_home/ 
+ export BOTS_DIR=$HOME_CONTAINER/Resibots 
+ export SFERES_DIR=$HOME_CONTAINER/sferes2
+ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu:/lib:/usr/lib:/usr/local/lib:/usr/lib/x86_64-linux-gnu:$BOTS_DIR/lib
+ export NUM_CORES=1
+ echo "will use $NUM_CORES cores"
+
+cd $SFERES_DIR
+./waf distclean #clean once
+
+cd $BOTS_DIR/include/meta-cmaes/
+git pull
+cd $HOME_CONTAINER/dynamicplanar_metacmaes/planar_dart
+git pull
+#clean once
+./waf distclean
+
+mkdir ${SFERES_DIR}/exp/dynamicplanar_cmaes
+cp -arv $HOME_CONTAINER/dynamicplanar_metacmaes/planar_cmaes/* ${SFERES_DIR}/exp/dynamicplanar_cmaes
+cp -avr $HOME_CONTAINER/dynamicplanar_metacmaes/meta-cmaes/ ${BOTS_DIR}/include
+cp -avr ${HOME_CONTAINER}/dynamicplanar_metacmaes/planar_dart/src/armBody.skel ${BOTS_DIR}/share/armBody.skel
+cp -av ${HOME_CONTAINER}/dynamicplanar_metacmaes/planar_dart/include/planar_dart/ ${BOTS_DIR}/include/
+cp -avr ${HOME_CONTAINER}/dynamicplanar_metacmaes/planar_dart/src/meshes ${BOTS_DIR}/share/
+#build meta
+export BUILD_DEBUG=False
+
+pops="1 3 5 10 20"
+
+
+
+
+
+for pop in  $pops; do
+	export BUILD_TYPE=damage_meta
+	export META_POP_SIZE="$pop"
+	./waf configure --prefix=$BOTS_DIR
+	./waf
+	./waf install
+
+	cd $SFERES_DIR
+	./waf configure  --exp dynamicplanar_cmaes --dart ${BOTS_DIR}
+	./waf  --exp dynamicplanar_cmaes  --dart ${BOTS_DIR}
+
+
+	export BUILD_TYPE=envir_meta
+	./waf configure --prefix=$BOTS_DIR
+	./waf
+	./waf install
+
+	cd $SFERES_DIR
+	./waf configure  --exp dynamicplanar_cmaes --dart ${BOTS_DIR}
+	./waf  --exp dynamicplanar_cmaes  --dart ${BOTS_DIR}
+ 
+done
+
+
+cp -av /singularity_home/dynamicplanar_metacmaes/planar_dart/include/planar_dart/bin_locations.txt ${BOTS_DIR}/include/planar_dart/

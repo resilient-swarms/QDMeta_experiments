@@ -16,7 +16,7 @@ mkdir $RESULTS_DIR
 mkdir $RESULTS_DIR/${binary_type}
 outputdir="${RESULTS_DIR}/${binary_type}/exp${replicate_number}"
 mkdir ${outputdir}
-binary=${SFERES_DIR}/build/exp/Rhexps/rhex_metaCMAES_${binary_type}_binary
+binary=${SFERES_DIR}/build/exp/funexps/rastrigin_${binary_type}_binary
 currentdir=$PWD
 # get the last filename
 max="-1"
@@ -42,8 +42,8 @@ cd $currentdir
 echo "am now in $PWD"
 if (( $max > 0 )); then
 	echo "will resume at ${outputdir}/gen_$max"
-	${binary} ${replicate_number} --d ${outputdir} --number-threads 40 --resume ${outputdir}/gen_$max >> ${outputdir}/log.txt
+	${binary} ${replicate_number} --d ${outputdir} --number-threads 1 --resume ${outputdir}/gen_$max >> ${outputdir}/log.txt
 else
 	echo "will start new run"
-	${binary} ${replicate_number} --d ${outputdir} --number-threads 40 >> ${outputdir}/log.txt
+	${binary} ${replicate_number} --d ${outputdir} --number-threads 1 >> ${outputdir}/log.txt
 fi

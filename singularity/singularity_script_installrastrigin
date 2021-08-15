@@ -1,0 +1,44 @@
+Bootstrap: localimage
+From: planar_metacmaes.sif
+
+%post
+ export HOME_CONTAINER=/singularity_home/ 
+ export BOTS_DIR=$HOME_CONTAINER/Resibots 
+ export SFERES_DIR=$HOME_CONTAINER/sferes2
+ export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:/lib/x86_64-linux-gnu:/lib:/usr/lib:/usr/local/lib:/usr/lib/x86_64-linux-gnu:$BOTS_DIR/lib
+ export NUM_CORES=1
+ echo "will use $NUM_CORES cores"
+
+
+
+cd $BOTS_DIR/include/meta-cmaes/
+git pull
+cp -f rhex_controller_buehler.hpp $BOTS_DIR/include/rhex_controller/
+mkdir ${SFERES_DIR}/exp/Rhexps
+cd $HOME_CONTAINER/RHex_experiments
+git pull
+export BUILD_DEBUG=False
+
+
+#build meta
+export NUM_CORES=1
+cp -arv $HOME_CONTAINER/RHex_experiments/meta-cmaes/ ${BOTS_DIR}/include
+cp -arv $HOME_CONTAINER/RHex_experiments/funexps ${SFERES_DIR}/exp/  # copy wscript to correct folder
+cp -arv $HOME_CONTAINER/RHex_experiments/function_optimisation/*  $BOTS_DIR/include/meta-cmaes/
+
+#$HOME/rhex_simu/rhex_dart/include/rhex_dart/
+
+export BUILD_TYPE=meta
+export PERTURB_TYPE=1
+cd $SFERES_DIR
+#./waf distclean
+./waf configure --exp funexps 
+./waf --exp funexps 
+
+export PERTURB_TYPE=2
+./waf configure --exp funexps 
+./waf --exp funexps 
+
+export BUILD_TYPE=control
+./waf configure --exp funexps 
+./waf --exp funexps 
