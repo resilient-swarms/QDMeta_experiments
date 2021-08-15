@@ -114,7 +114,7 @@ struct CMAESParams
     struct pop
     {
         SFERES_CONST unsigned nb_gen = 100001; // huge overestimate, will hit max_evals before that
-        SFERES_CONST int dump_period = 20;    //
+        SFERES_CONST int dump_period = 100;    //
         SFERES_CONST int size = META_POP_SIZE; // number of maps
         SFERES_CONST int initial_aleat = 1;
         SFERES_CONST unsigned max_evals = 100000000; //
