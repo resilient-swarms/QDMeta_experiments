@@ -1,7 +1,7 @@
 #define LATENT_SPACE_SIZE BEHAV_DIM
 
 #include <meta-cmaes/experiment_defines.hpp>
-#include <meta-cmaes/aurora_compilation_variables.hpp>
+
 
 #include <boost/random.hpp>
 #include <iostream>
@@ -47,8 +47,8 @@
 #include <sferes/qd/selector/value_selector.hpp>
 #include <sferes/qd/selector/score_proportionate.hpp>
 
-// replacing physics with fit_hexa
-// #include "minimal_physics.hpp"
+
+#include <meta-cmaes/aurora_compilation_variables.hpp>
 
 #include <meta-cmaes/bottom_typedefs.hpp>
 

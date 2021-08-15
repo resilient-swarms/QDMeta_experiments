@@ -21,7 +21,7 @@ namespace aurora
             SFERES_CONST size_t
                 image_height = 50;
             SFERES_CONST int
-                resolution = 900; // influences l; 30 bins per dimension
+                resolution = 10000; // influences l; 30 bins per dimension
             SFERES_CONST int
                 update_frequency = -1; // -2 means exponentially decaying update frequency
             SFERES_CONST size_t
@@ -135,13 +135,13 @@ namespace aurora
         };
 
         template <typename SpecificParams>
-        double ParamsRHex<SpecificParams>::nov::l;
+        double ParamsFun<SpecificParams>::nov::l;
         template <typename SpecificParams>
-        bool ParamsRHex<SpecificParams>::nov::use_fixed_l;
+        bool ParamsFun<SpecificParams>::nov::use_fixed_l;
         template <typename SpecificParams>
-        tbb::mutex ParamsRHex<SpecificParams>::fit_data::sdl_mutex;
+        tbb::mutex ParamsFun<SpecificParams>::fit_data::sdl_mutex;
         template <typename SpecificParams>
-        int ParamsRHex<SpecificParams>::step_measures = 10;
+        int ParamsFun<SpecificParams>::step_measures = 10;
     } // namespace env
 } // namespace aurora
 
