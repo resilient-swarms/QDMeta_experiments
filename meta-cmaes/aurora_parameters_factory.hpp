@@ -5,7 +5,7 @@
 
 #include "meta-cmaes/aurora_definitions_aurora.hpp"
 #include "meta-cmaes/aurora_params_rhex.hpp"
-#include "meta-cmaes/aurora_params.hpp"
+#include "meta-cmaes/aurora_params_fun.hpp"
 
 namespace aurora
 {
