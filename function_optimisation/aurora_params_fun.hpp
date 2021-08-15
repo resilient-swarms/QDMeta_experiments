@@ -69,32 +69,35 @@ namespace aurora
             struct pop
             {
                 // size of a batch
-                SFERES_CONST size_t init_size = 400; // for eval_parallel
-                SFERES_CONST size_t size = 80;// note: this looks like double the other conditions but is the same due to incrementing with +=2 in quality_diversity.hpp vs +=1 in map_elites.hpp and cvt_map_elites.hpp
-                SFERES_CONST size_t nb_gen = 50001;
+                SFERES_CONST size_t init_size = 2000; // for eval_parallel
+                SFERES_CONST size_t size = 400;       // note: this looks like double the other conditions but is the same due to incrementing with +=2 in quality_diversity.hpp vs +=1 in map_elites.hpp and cvt_map_elites.hpp
+                SFERES_CONST size_t nb_gen = 2500001;
                 SFERES_CONST size_t dump_period = 100;
                 SFERES_CONST size_t dump_period_aurora = 100;
             };
 
-            struct sampled
+            struct evo_float
             {
-                SFERES_ARRAY(float, values, 0.00f, 0.025f, 0.05f, 0.075f, 0.10f, 0.125f, 0.15f, 0.175f,
-                             0.20f, 0.225f, 0.25f, 0.275f, 0.30f, 0.325f, 0.35f,
-                             0.375f, 0.40f, 0.425f, 0.45f, 0.475f, 0.50f, 0.525f,
-                             0.55f, 0.575f, 0.60f, 0.625f, 0.65f, 0.675f, 0.70f,
-                             0.725f, 0.75f, 0.775f, 0.80f, 0.825f, 0.85f, 0.875f,
-                             0.90f, 0.925f, 0.95f, 0.975f, 1.0f);
-
-                SFERES_CONST float mutation_rate = 0.125f; //1 divided by number of genes
-                SFERES_CONST float cross_rate = 0.00f;
-                SFERES_CONST bool ordered = true; //increment or decrement rather than random selection
+                // we choose the polynomial mutation type
+                SFERES_CONST mutation_t mutation_type = gaussian;
+                // we choose the polynomial cross-over type
+                SFERES_CONST cross_over_t cross_over_type = no_cross_over;
+                // the mutation rate of the real-valued vector
+                SFERES_CONST float mutation_rate = 0.1f;
+                // the cross rate of the real-valued vector
+                SFERES_CONST float cross_rate = 0.0f;
+                // // a parameter of the polynomial mutation
+                // SFERES_CONST float eta_m = 15.0f;
+                // // a parameter of the polynomial cross-over
+                // SFERES_CONST float eta_c = 10.0f;
+                SFERES_CONST float sigma = 0.05f;
             };
+
             struct parameters
             {
                 SFERES_CONST float min = 0.0f;
                 SFERES_CONST float max = 1.0f;
             };
-
 
             // simulation time
             struct simu

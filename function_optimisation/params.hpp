@@ -55,7 +55,7 @@ struct BottomParams
     {
 #if CONTROL()
         // number of generations
-        SFERES_CONST unsigned nb_gen = 250000; // at most 20,000 evaluations for each of 500 meta-generations for meta-learning --> 10M evals (take a bit more just in case there is time enough)
+        SFERES_CONST unsigned nb_gen = 250001; // at most 20,000 evaluations for each of 500 meta-generations for meta-learning --> 10M evals (take a bit more just in case there is time enough)
         // how often should the result file be written (here, each 250 generations == 100,000 ; on 16-cores is every 1-2 hours)
         SFERES_CONST int dump_period = 100; //20
 #endif
