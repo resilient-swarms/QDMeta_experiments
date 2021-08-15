@@ -1,7 +1,7 @@
 #define LATENT_SPACE_SIZE BEHAV_DIM
 
 #include <meta-cmaes/experiment_defines.hpp>
-
+#include <meta-cmaes/aurora_compilation_variables.hpp>
 
 #include <boost/random.hpp>
 #include <iostream>
@@ -92,42 +92,6 @@ namespace aurora
 } // namespace aurora
 
 
-namespace sferes
-{
-    namespace gen
-    {
-        template <>
-        void bottom_gen_t::mutate()
-        {
-            if (default_params_t::sampled::ordered)
-            {
-                for (size_t i = 0; i < _data.size(); ++i)
-                {
-
-                    float mutation_rate = default_params_t::sampled::mutation_rate;
-                    if (misc::rand<float>() < mutation_rate)
-                    {
-                        if (misc::flip_coin())
-                            _data[i] = std::max(0, (int)_data[i] - 1);
-                        else
-                            _data[i] = std::min((int)default_params_t::sampled::values_size() - 1,
-                                                (int)_data[i] + 1);
-                    }
-                }
-            }
-            else
-            {
-                float mutation_rate = default_params_t::sampled::mutation_rate;
-                BOOST_FOREACH (size_t &v, _data)
-                    if (misc::rand<float>() < mutation_rate)
-                        v = misc::rand<size_t>(0, default_params_t::sampled::values_size());
-                _check_invariant();
-            }
-            _check_invariant();
-        }
-    } // namespace gen
-} // namespace sferes
-
 int main(int argc, char **argv)
 {
 
@@ -191,7 +155,7 @@ int main(int argc, char **argv)
 #endif
 #endif
 
-    global::init_simu(std::string(argv[1]), std::string(std::getenv("BOTS_DIR")) + "/share/rhex_models/SKEL/raised.skel");
+    global::init_world(std::string(argv[1]));
 
     sferes::run_ea(argc, argv, ea, desc);
 
