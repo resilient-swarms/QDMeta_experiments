@@ -20,7 +20,7 @@ def _build_test(bld, take_compl=[]):
 	DIM = os.environ.get("BUILD_DIMENSION","20")
 	libs = 'EIGEN BOOST TBB '
 	cxxflags = bld.get_env()['CXXFLAGS'] 
-	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+os.environ.get("PERTURB_TYPE")]
+	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+os.environ.get("PERTURB_TYPE","0")]
 	if take_compl:
 		tag="test"
 	else:
@@ -74,7 +74,7 @@ def _build_evolution(bld):
 	DIM = os.environ.get("BUILD_DIMENSION","20")
 	libs = 'EIGEN BOOST TBB '
 	cxxflags = bld.get_env()['CXXFLAGS'] 
-	perturb_type=os.environ.get("PERTURB_TYPE")
+	perturb_type=os.environ.get("PERTURB_TYPE","0")
 	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+perturb_type]
 	if perturb_type == "1":
 		tag="dim"
