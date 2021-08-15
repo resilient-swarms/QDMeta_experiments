@@ -5,13 +5,13 @@
 #include <meta-cmaes/aurora_compilation_variables.hpp>
 #include <meta-cmaes/fit_bottom.hpp>
 
-namespace aurora {
-    namespace env {
-        template<Env, typename Params>
-        struct Environment {};
-
-        template<typename Params>
-        struct Environment<aurora::env::Env::RHex, Params> {
+namespace aurora
+{
+    namespace env
+    {
+        template <Env, typename Params>
+        struct Environment
+        {
             typedef Params param_t;
             typedef sferes::fit::FitBottom<Params> fit_t;
             typedef bottom_gen_t gen_t;
