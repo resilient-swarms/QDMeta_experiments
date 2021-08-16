@@ -34,10 +34,10 @@ namespace sferes
                               value += Fit::_eval_all(*pop[i]);
 #if DIMENSION_TESTS()
 
-                              base_features_t pos = 0.5* pop[i]->fit().b();//[-1,1] -> [-0.5,0.5]
+                              base_features_t pos = 0.5f* pop[i]->fit().b();//[-1,1] -> [-0.5,0.5]
                               for (size_t j = i + 1; j < pop.size(); ++j)
                               {
-                                    base_features_t pos2 = 0.5*pop[j]->fit().b();
+                                    base_features_t pos2 = 0.5f*pop[j]->fit().b();
 #ifdef GRAPHIC
                                     std::cout << "pos " << pos.transpose() << std::endl;
                                     std::cout << "pos2 " << pos2.transpose() << std::endl;
