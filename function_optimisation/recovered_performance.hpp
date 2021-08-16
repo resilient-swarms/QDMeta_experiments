@@ -45,7 +45,7 @@ namespace sferes
 #endif
                 // these assume a behaviour descriptor of size 6.
 
-                return MAXFIT + std::max(-MAXFIT,fitness);
+                return MAXFIT + std::max(-MAXFIT, fitness);
             }
 
             static float
@@ -123,17 +123,17 @@ namespace sferes
                 // a < 1: shrink
                 else if (world_option == 4)
                 {
-                    a = 1.0f /negative_a();
+                    a = 1.0f / negative_a();
                     b = negative_b();
                 }
                 else if (world_option == 5)
                 {
-                    a = 1.0f/ negative_a();
+                    a = 1.0f / negative_a();
                     b = positive_b();
                 }
                 else if (world_option == 6)
                 {
-                    a = 1.0f/ positive_a();
+                    a = 1.0f / positive_a();
                     b = negative_b();
                 }
                 else if (world_option == 7)

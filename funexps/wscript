@@ -20,7 +20,8 @@ def _build_test(bld, take_compl=[]):
 	DIM = os.environ.get("BUILD_DIMENSION","20")
 	libs = 'EIGEN BOOST TBB '
 	cxxflags = bld.get_env()['CXXFLAGS'] 
-	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+os.environ.get("PERTURB_TYPE","0")]
+	perturb_type=os.environ.get("PERTURB_TYPE","0")
+	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+perturb_type]
 	if take_compl:
 		tag="test"
 	else:
@@ -36,11 +37,12 @@ def _build_test(bld, take_compl=[]):
 		do_cmaes_check=False
 	if os.environ.get('BUILD_DEBUG',"False") == "True":
 		cxxflags+=['-g']
-	if os.environ.get('BUILD_ENVIR',"False") == "True":
-		cxxflags+=['-DEVAL_ENVIR']
-		tag+="_envir_"
+	if perturb_type == "1":
+		tag="dimension"
+	elif perturb_type=="2":
+		tag="trans"
 	else:
-		tag+="_damage_"
+		tag=""
 	sferes.create_variants(bld,source = 'rastrigin.cpp',
 								use = 'sferes2',
 								uselib = libs,
@@ -77,7 +79,7 @@ def _build_evolution(bld):
 	perturb_type=os.environ.get("PERTURB_TYPE","0")
 	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+perturb_type]
 	if perturb_type == "1":
-		tag="dim"
+		tag="dimension"
 	elif perturb_type=="2":
 		tag="trans"
 	else:
