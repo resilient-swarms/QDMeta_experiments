@@ -28,6 +28,7 @@ cp -arv $HOME_CONTAINER/RHex_experiments/function_optimisation/*  $BOTS_DIR/incl
 
 #$HOME/rhex_simu/rhex_dart/include/rhex_dart/
 
+export BUILD_GRAPHIC=True
 export BUILD_TYPE=meta
 export PERTURB_TYPE=1
 cd $SFERES_DIR
