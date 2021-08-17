@@ -33,37 +33,45 @@ namespace sferes
                               // evaluate the individual
                               value += Fit::_eval_all(*pop[i]);
 #if DIMENSION_TESTS()
-
-                              base_features_t pos = 0.5f* pop[i]->fit().b();//[-1,1] -> [-0.5,0.5]
+                              base_features_t pos1;
+                              get_pos(pos1, *pop[i]);
                               for (size_t j = i + 1; j < pop.size(); ++j)
                               {
-                                    base_features_t pos2 = 0.5f*pop[j]->fit().b();
+                                    base_features_t pos2;
+                                    get_pos(pos2, *pop[j]);
 #ifdef GRAPHIC
-                                    std::cout << "pos " << pos.transpose() << std::endl;
+                                    std::cout << "pos " << pos1.transpose() << std::endl;
                                     std::cout << "pos2 " << pos2.transpose() << std::endl;
 #endif
-                                    spwd += (pos - pos2).norm(); // [0,\sqrt(RASTRI_DIM)]  
+                                    spwd += (pos1 - pos2).norm(); // [0,\sqrt(RASTRI_DIM)]
                               }
 
 #endif
                         }
 #ifdef GRAPHIC
                         std::cout << "value  " << value << std::endl;
-#endif 
+#endif
 
 #if DIMENSION_TESTS()
                         float scaled_spwd = spwd * spwd_scale;
-                        value+=scaled_spwd;
+                        value += scaled_spwd;
 #ifdef GRAPHIC
                         std::cout << "spwd " << spwd << std::endl;
                         std::cout << "scaled spwd " << scaled_spwd << std::endl;
                         std::cout << "value + scaled_pwd " << value << std::endl;
 #endif
-                        
+
 #endif
                         std::tuple<float, int> results = meta_i.fit().avg_value(value);
                         value = std::get<0>(results);
                         nb_evals = std::get<1>(results);
+                  }
+                  void get_pos(base_features_t &pos, const base_phen_t &indiv)
+                  {
+                        for (size_t i = 0; i < pos.size(); ++i)
+                        {
+                              pos(i, 0) = indiv.gen().data(i);
+                        }
                   }
             };
 

@@ -170,7 +170,7 @@ namespace sferes
 #endif
                 }
             }
-            base_features_t b()
+            base_features_t b()  //note: only use for setting database; after reconstruction, only fitness and desc can be used
             {
                 return _b;
             }
