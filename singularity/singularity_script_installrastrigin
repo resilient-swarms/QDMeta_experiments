@@ -26,9 +26,9 @@ cp -arv $HOME_CONTAINER/RHex_experiments/meta-cmaes/ ${BOTS_DIR}/include
 cp -arv $HOME_CONTAINER/RHex_experiments/funexps ${SFERES_DIR}/exp/  # copy wscript to correct folder
 cp -arv $HOME_CONTAINER/RHex_experiments/function_optimisation/*  $BOTS_DIR/include/meta-cmaes/
 
-#$HOME/rhex_simu/rhex_dart/include/rhex_dart/
 
-export BUILD_GRAPHIC=True
+# evolution
+
 export BUILD_TYPE=meta
 export PERTURB_TYPE=1
 cd $SFERES_DIR
@@ -43,3 +43,25 @@ export PERTURB_TYPE=2
 export BUILD_TYPE=control
 ./waf configure --exp funexps 
 ./waf --exp funexps 
+
+
+# test
+
+export BUILD_PHASE=TEST
+
+export BUILD_TYPE=meta
+export PERTURB_TYPE=1
+cd $SFERES_DIR
+#./waf distclean
+./waf configure --exp funexps 
+./waf --exp funexps 
+
+export PERTURB_TYPE=2
+./waf configure --exp funexps 
+./waf --exp funexps 
+
+export BUILD_TYPE=control
+./waf configure --exp funexps 
+./waf --exp funexps 
+
+

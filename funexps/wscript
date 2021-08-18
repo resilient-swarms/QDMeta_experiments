@@ -38,9 +38,9 @@ def _build_test(bld, take_compl=[]):
 	if os.environ.get('BUILD_DEBUG',"False") == "True":
 		cxxflags+=['-g']
 	if perturb_type == "1":
-		tag="dimension"
+		tag="test_dimension_"
 	elif perturb_type=="2":
-		tag="trans"
+		tag="test_trans_"
 	else:
 		tag=""
 	sferes.create_variants(bld,source = 'rastrigin.cpp',
@@ -55,7 +55,7 @@ def _build_test(bld, take_compl=[]):
 							source = 'rastrigin.cpp',
 							use = 'sferes2',
 							uselib = libs,
-							target = tag+'cvt50D',
+							target = tag+'cvt',
 							cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
 							"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
 							variants = ['BINARY'])
@@ -65,7 +65,7 @@ def _build_test(bld, take_compl=[]):
 									source = 'rastrigin.cpp',
 									use = 'sferes2',
 									uselib = libs,
-									target = tag+'_damage_cmaescheck',
+									target = tag+'cmaescheck',
 									cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
 									"-DNUM_CORES=1"],   # damage
 									variants = ['BINARY'])
