@@ -128,6 +128,7 @@ namespace sferes
                 float b_max = b_pos_range[1];
                 return b_min + (b_max - b_min) * global::rng->nextFloat();
             }
+#if TRANSLATION_TESTS()
             static float evaluate_rastrigin_translationtest(std::vector<float> &x, size_t world_option)
             {
                 
@@ -164,6 +165,7 @@ namespace sferes
 #endif
                 return -sum; //maximisation rather than minimisation
             }
+#endif
             static float evaluate_rastrigin_translation(std::vector<float> &x, size_t world_option)
             {
                 float a, b;
