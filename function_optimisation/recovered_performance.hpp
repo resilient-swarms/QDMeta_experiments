@@ -94,7 +94,7 @@ namespace sferes
                         // subtract higher-frequency sine wave (misleading phase shift and no x^2 penalty
                         // --> different optima spread across the space)
                         // averages out to zero though ("noise" -> hopefully can ignore)
-                        sum-=A* std::sin(6.0f * M_PI * x[i]);
+                        sum -= A * std::sin(6.0f * M_PI * x[i]);
                         continue;
                     }
                     sum += (x[i] * x[i] - A * std::cos(2 * M_PI * x[i]));
@@ -127,6 +127,42 @@ namespace sferes
                 float b_min = b_pos_range[0];
                 float b_max = b_pos_range[1];
                 return b_min + (b_max - b_min) * global::rng->nextFloat();
+            }
+            static float evaluate_rastrigin_translationtest(std::vector<float> &x, size_t world_option)
+            {
+                
+                // test set (see global.hpp)
+                float a = global::get_test_a(world_option);
+                float b = global::get_test_b(world_option);
+                
+                float sum = 10.0f * RASTRI_DIM;
+#ifdef GRAPHIC
+                std::cout << "translation with a=" << a << " b=" << b << std::endl;
+#endif
+                float A = 10.0f;
+                for (size_t i = 0; i < RASTRI_DIM; ++i)
+                {
+#ifdef GRAPHIC
+                    std::cout << "before: " << x[i] << std::endl;
+#endif
+                    x[i] = a * x[i] + b;
+
+#ifdef GRAPHIC
+                    std::cout << "after: " << x[i] << std::endl;
+#endif
+                    if (std::abs(x[i]) > RASTRI_MAX)
+                    {
+#ifdef GRAPHIC
+                        std::cout << "not in bounds: stop " << std::endl;
+#endif
+                        return -MAXFIT;
+                    }
+                    sum += (x[i] * x[i] - A * std::cos(2 * M_PI * x[i]));
+                }
+#ifdef GRAPHIC
+                std::cout << "f(x)=" << -sum << std::endl;
+#endif
+                return -sum; //maximisation rather than minimisation
             }
             static float evaluate_rastrigin_translation(std::vector<float> &x, size_t world_option)
             {
@@ -206,7 +242,6 @@ namespace sferes
 #endif
                 return -sum; //maximisation rather than minimisation
             }
-
             //             static float evaluate_rastrigin_noise(const std::vector<float> &x, size_t world_option)
             //             {
             //                 float sum = 10.0f * RASTRI_DIM;

@@ -145,17 +145,17 @@ namespace global
         ofs << "}";
         std::cout << std::endl;
 #ifdef TEST
-        types = global::_fullSet(20); // we will select 20 random perturbations
+        types = global::_fullSet(50); // we will select 50 random perturbations
         ofs << "test:" << std::endl;
         ofs << "{";
-        for (size_t i: types ) 
+        for (size_t i : types)
         {
             world_options.push_back(i);
-            std::set<size_t> pair = global::_pickSet(RASTRI_DIM, 2, gen);// each perturbation is a 2-combinations of dimensions
-            world_option_pairs.push_back(pair); // world 0 has been removed that is why +1
+            std::set<size_t> pair = global::_pickSet(RASTRI_DIM, 2, gen); // each perturbation is a 2-combinations of dimensions
+            world_option_pairs.push_back(pair);                           // world 0 has been removed that is why +1
             std::cout << "{";
             ofs << "{";
-            for( size_t j: pair)
+            for (size_t j : pair)
             {
                 std::cout << j << ", ";
                 ofs << j << ", ";
@@ -169,6 +169,18 @@ namespace global
 #endif
     }
 #elif TRANSLATION_TESTS()
+    float get_test_a(size_t world_option)
+    {
+        std::vector<float> as = {-1.5, -1.25, -1.01, -1.0 / 1.01, -1.0 / 1.25, -1.0 / 1.5,
+                                 1.0 / 1.50, 1.0 / 1.25, 1.0 / 1.01, 1.01, 1.25, 1.50};
+        
+        return as[world_option/10];
+    }
+    float get_test_b(size_t world_option)
+    {
+        std::vector<float> bs = {-1.0, -0.75,-0.50, -0.25,-0.01,0.01,0.25,0.50,0.75,1.0};
+        return bs[world_option%12];
+    }
     void init_world(std::string seed)
     {
         rng = new RNG((long)stoi(seed));
@@ -185,7 +197,7 @@ namespace global
         for (size_t el : types)
         {
             size_t option = el; // world 0 has been removed that is why +1
-#ifndef TAKE_COMPLEMENT
+#ifndef TEST
             world_options.push_back(option);
             world_options.push_back(option); // two of each type
 #endif
@@ -194,10 +206,16 @@ namespace global
         }
         ofs << "}";
         std::cout << std::endl;
-#ifdef TAKE_COMPLEMENT
-#warning "make sure you implement this separately in the recovered_peformance"
+        ofs << std::endl;
+#ifdef TEST
+        types = global::_fullSet(120); // 12 settings of a and 10 settings of b
+        for (size_t el: types)
+        {
+            world_options.push_back(el);
+            std::cout << el << ": a=" << global::get_test_a(el) << " b="<< global::get_test_b(el)<< std::endl;
+            ofs << el << ": a=" << global::get_test_a(el) << " b="<< global::get_test_b(el)<< std::endl;
+        }
 #endif
-
 #endif
     }
 #else
