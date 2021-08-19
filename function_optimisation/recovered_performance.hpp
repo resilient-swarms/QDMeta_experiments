@@ -43,7 +43,11 @@ namespace sferes
                 float fitness = evaluate_rastrigin_dimension(_ctrl, world_option);
 #endif
 #elif TRANSLATION_TESTS()
+#ifdef TEST
+                float fitness = evaluate_rastrigin_translationtest(_ctrl, world_option);
+#else
                 float fitness = evaluate_rastrigin_translation(_ctrl, world_option);
+#endif
 #else
 #error "not supported perturbation type";
 #endif
@@ -213,7 +217,7 @@ namespace sferes
                 }
                 else
                 {
-                    throw std::runtime_error("can take 4 options only {0,1,2,3}");
+                    throw std::runtime_error("can take 8 options only {0,..,7}");
                 }
                 float sum = 10.0f * RASTRI_DIM;
 #ifdef GRAPHIC
