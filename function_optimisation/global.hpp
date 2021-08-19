@@ -120,7 +120,7 @@ namespace global
     std::vector<size_t> world_options; //
 
 #if DIMENSION_TESTS()
-
+    std::vector<std::set<size_t>> world_option_pairs; //
     void init_world(std::string seed)
     {
 #if CMAES_CHECK()
@@ -136,7 +136,7 @@ namespace global
         for (size_t el : types)
         {
             size_t option = el; // world 0 has been removed that is why +1
-#ifndef TAKE_COMPLEMENT
+#ifndef TEST
             world_options.push_back(option);
 #endif
             std::cout << option << ", ";
@@ -144,15 +144,24 @@ namespace global
         }
         ofs << "}";
         std::cout << std::endl;
-#ifdef TAKE_COMPLEMENT
-        types = global::_take_complement(global::_fullSet(RASTRI_DIM), types);
+#ifdef TEST
+        types = global::_fullSet(20); // we will select 20 random perturbations
         ofs << "test:" << std::endl;
         ofs << "{";
-        for (size_t el : types)
+        for (size_t i: types ) 
         {
-            world_options.push_back(el + 1); // world 0 has been removed that is why +1
-            std::cout << world_options.back() << ", ";
-            ofs << world_options.back() << ", ";
+            world_options.push_back(i);
+            std::set<size_t> pair = global::_pickSet(RASTRI_DIM, 2, gen);// each perturbation is a 2-combinations of dimensions
+            world_option_pairs.push_back(pair); // world 0 has been removed that is why +1
+            std::cout << "{";
+            ofs << "{";
+            for( size_t j: pair)
+            {
+                std::cout << j << ", ";
+                ofs << j << ", ";
+            }
+            std::cout << "}";
+            ofs << "}";
         }
         ofs << "}";
         std::cout << std::endl;

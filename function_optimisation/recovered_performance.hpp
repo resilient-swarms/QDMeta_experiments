@@ -37,7 +37,11 @@ namespace sferes
 #endif
 
 #if DIMENSION_TESTS()
+#ifdef TEST
+                float fitness = evaluate_rastrigin_dimensionpairs(_ctrl, global::world_option_pairs[world_option]);
+#else
                 float fitness = evaluate_rastrigin_dimension(_ctrl, world_option);
+#endif
 #elif TRANSLATION_TESTS()
                 float fitness = evaluate_rastrigin_translation(_ctrl, world_option);
 #else
@@ -63,6 +67,34 @@ namespace sferes
 #ifdef GRAPHIC
                         std::cout << "ignoring dimension " << i << std::endl;
 #endif
+                        continue;
+                    }
+                    sum += (x[i] * x[i] - A * std::cos(2 * M_PI * x[i]));
+                }
+#ifdef GRAPHIC
+                std::cout << "f(x)=" << -sum << std::endl;
+#endif
+                return -sum; //maximisation rather than minimisation
+            }
+            static float
+            evaluate_rastrigin_dimensionpairs(const std::vector<float> &x, std::set<size_t> world_option_pair)
+            {
+                float sum = 10.0f * (RASTRI_DIM - 1);
+                float A = 10.0f;
+                for (size_t i = 0; i < RASTRI_DIM; ++i)
+                {
+#ifdef GRAPHIC
+                    std::cout << x[i] << " ";
+#endif
+                    if (world_option_pair.find(i) != world_option_pair.end())
+                    {
+#ifdef GRAPHIC
+                        std::cout << "ignoring dimension " << i << std::endl;
+#endif
+                        // subtract higher-frequency sine wave (misleading phase shift and no x^2 penalty
+                        // --> different optima spread across the space)
+                        // averages out to zero though ("noise" -> hopefully can ignore)
+                        sum-=A* std::sin(6.0f * M_PI * x[i]);
                         continue;
                     }
                     sum += (x[i] * x[i] - A * std::cos(2 * M_PI * x[i]));
@@ -264,13 +296,15 @@ namespace sferes
 
                 for (size_t k = 0; k < archive.size(); ++k)
                 {
+
                     val = _eval_all(*archive[k]);
                     val /= (float)global::world_options.size();
                     os << val << std::endl;
                 }
             }
             // assess maximal recovery for each damage separately
-            static void test_max_recovery(std::ostream &os, std::vector<boost::shared_ptr<Phen>> &archive)
+            static void
+            test_max_recovery(std::ostream &os, std::vector<boost::shared_ptr<Phen>> &archive)
             {
                 _eval_taskmax(os, archive);
             }

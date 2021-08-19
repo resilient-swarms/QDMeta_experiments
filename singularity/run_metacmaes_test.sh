@@ -14,9 +14,8 @@ control_type=$3   # need to supply argument with the method, e.g. b1p1 for meta,
 replicate_number=$4
 RESULTS_DIR=$5 # destination folder
 
-mkdir $RESULTS_DIR
-mkdir $RESULTS_DIR/${condition_prefix}_${control_type}
-outputdir="${RESULTS_DIR}/${condition_prefix}_${control_type}/exp${replicate_number}"
+mkdir -p $RESULTS_DIR/exp${replicate_number}
+outputdir="${RESULTS_DIR}/exp${replicate_number}"
 
 mkdir ${outputdir}
 
@@ -25,6 +24,7 @@ currentdir=$PWD
 max="-1"
 get_last_filename()
 {
+echo "running last_filename; WARNING: make sure this is what you want; otherwise get the generation for the maxfunevals"
 # get the last filename
 shopt -s extglob
 cd ${outputdir}
@@ -39,10 +39,10 @@ for gen_file in $files; do
 done
 }
 
-get_last_filename
+get_last_filename    # when runs stopped at desired time this is ok
 echo "max generation found is $max"
 cd $currentdir 
 echo "am now in $PWD"
-binary=${SFERES_DIR}/build/exp/Rhexps/${test_type}_${condition_prefix}_binary
+binary=${SFERES_DIR}/build/exp/funexps/${test_type}_${condition_prefix}_binary
 ${binary} ${replicate_number} --load ${outputdir}/gen_${max} --d ${outputdir} -o ${outputdir}/${test_type}_damage_performance >> ${outputdir}/log_${test_type}.txt	
 

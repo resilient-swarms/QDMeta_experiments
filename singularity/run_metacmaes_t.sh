@@ -4,6 +4,6 @@
 #SBATCH --tasks-per-node=1   # Tasks per node
 #SBATCH --nodes=1                # Number of nodes requested
 #SBATCH --time=24:00:00         # walltime
-#SBATCH --job-name=planar_test
+#SBATCH --job-name=funexp_test
 
-singularity exec rhex_metacmaes_installed.sif bash run_metacmaes_test.sh "$1" "$2" "$3" "$4" "$5"
+singularity exec rastrigin_metacmaes_installed.sif bash run_metacmaes_test.sh "$1" "$2" "$3" "$4" "$5"

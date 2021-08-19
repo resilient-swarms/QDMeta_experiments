@@ -27,6 +27,8 @@ cp -arv $HOME_CONTAINER/RHex_experiments/funexps ${SFERES_DIR}/exp/  # copy wscr
 cp -arv $HOME_CONTAINER/RHex_experiments/function_optimisation/*  $BOTS_DIR/include/meta-cmaes/
 
 
+export BUILD_GRAPHIC=True 
+
 # evolution
 
 export BUILD_TYPE=meta

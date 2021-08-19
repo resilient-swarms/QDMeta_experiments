@@ -47,7 +47,7 @@ def _build_test(bld, take_compl=[]):
 								use = 'sferes2',
 								uselib = libs,
 								target = tag+'meta',
-								cxxflags = take_compl + cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
+								cxxflags = take_compl + cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
 								"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=2","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
 								variants = ['BINARY'])
 										
@@ -56,7 +56,7 @@ def _build_test(bld, take_compl=[]):
 							use = 'sferes2',
 							uselib = libs,
 							target = tag+'cvt',
-							cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
+							cxxflags = take_compl +  cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
 							"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
 							variants = ['BINARY'])
 	if do_cmaes_check:
@@ -66,7 +66,7 @@ def _build_test(bld, take_compl=[]):
 									use = 'sferes2',
 									uselib = libs,
 									target = tag+'cmaescheck',
-									cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
+									cxxflags = take_compl +  cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
 									"-DNUM_CORES=1"],   # damage
 									variants = ['BINARY'])
 
@@ -191,7 +191,7 @@ def _build_evolution(bld):
 def build(bld):
 	
 	if os.environ.get('BUILD_PHASE',"evolution") == "TEST":
-		_build_test(bld,take_compl=["-DTAKE_COMPLEMENT"])
+		_build_test(bld)
 	else:
 		_build_evolution(bld)
        
