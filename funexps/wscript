@@ -43,6 +43,9 @@ def _build_test(bld, take_compl=[]):
 		tag="test_trans_"
 	else:
 		tag=""
+	popsize=os.environ.get('META_POP_SIZE',"10")
+	if popsize!="10":
+		tag+="_pop"+popsize
 	sferes.create_variants(bld,source = 'rastrigin.cpp',
 								use = 'sferes2',
 								uselib = libs,
