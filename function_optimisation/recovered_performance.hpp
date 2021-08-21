@@ -49,7 +49,8 @@ namespace sferes
                 float fitness = evaluate_rastrigin_translation(_ctrl, world_option);
 #endif
 #else
-#error "not supported perturbation type";
+#warning "not supported perturbation type";
+                float fitness = 0.0f;
 #endif
                 // these assume a behaviour descriptor of size 6.
 
@@ -300,6 +301,7 @@ namespace sferes
                     }
                 }
             }
+#if NOT_AURORA()
             static void test_recoveredperformance(std::ostream &os, const boost::multi_array<boost::shared_ptr<Phen>, BEHAV_DIM> &archive)
             {
                 float val = 0.0f;
@@ -330,7 +332,7 @@ namespace sferes
                 }
                 _eval_taskmax(os, individuals);
             }
-
+#endif
             static void test_recoveredperformance(std::ostream &os, std::vector<boost::shared_ptr<Phen>> &archive)
             {
                 float val = 0.0f;
