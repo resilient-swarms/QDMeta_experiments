@@ -31,6 +31,7 @@ cp -arv $HOME_CONTAINER/RHex_experiments/function_optimisation/*  $BOTS_DIR/incl
 cp -arv $HOME_CONTAINER/RHex_experiments/AURORA ${BOTS_DIR}/include/
 cp -av kd_tree.h /usr/local/include/ssrc/spatial/
 cp -av meta-cmaes/network_loader_pytorch.hpp $BOTS_DIR/include/AURORA/cpp/modifier/
+cp -av $HOME_CONTAINER/RHex_experiments/meta-cmaes/aurora_qd_container.hpp ${SFERES_DIR}/sferes/stat/qd_container.hpp
 #export NUM_CORES=5
 export LIBTORCH_LOCATION="/opt/miniconda3/envs/py3.8/lib/python3.8/site-packages/torch"
 export BUILD_TYPE=AURORA

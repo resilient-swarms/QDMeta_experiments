@@ -3,7 +3,7 @@
 
 #include <numeric>
 #include <sferes/stat/stat.hpp>
-
+#include <meta-cmaes/recovered_performance.hpp>
 namespace sferes
 {
     namespace stat
@@ -52,12 +52,12 @@ namespace sferes
             {
 #ifdef GRAPHIC // we are just interested in observing a particular individual
                 _archive[k]->develop();
-                float val = sferes::fit::RecoveredPerformance<Phen>::_eval_all(_archive[k]);
+                float val = sferes::fit::RecoveredPerformance<Phen>::_eval_all(_container[k]);
 #else
 #ifdef INDIVIDUAL_DAMAGE
-                sferes::fit::RecoveredPerformance<Phen>::test_max_recovery(os, _archive);
+                sferes::fit::RecoveredPerformance<Phen>::test_max_recovery(os, _container);
 #else
-                sferes::fit::RecoveredPerformance<Phen>::test_recoveredperformance(os, _archive);
+                sferes::fit::RecoveredPerformance<Phen>::test_recoveredperformance(os, _container);
 #endif
 
 #endif
