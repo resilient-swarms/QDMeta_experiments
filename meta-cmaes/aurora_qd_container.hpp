@@ -48,7 +48,7 @@ namespace sferes
                     ++offset;
                 }
             }
-            void show(std::ostream & os, size_t k) const
+            void show(std::ostream & os, size_t k)
             {
 #ifdef GRAPHIC // we are just interested in observing a particular individual
                 _archive[k]->develop();
