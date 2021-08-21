@@ -23,7 +23,7 @@ cp -arv $HOME_CONTAINER/RHex_experiments/rhexps/* ${SFERES_DIR}/exp/Rhexps/  # c
 cp -arv $HOME_CONTAINER/RHex_experiments/rhex_dart/*  $BOTS_DIR/include/rhex_dart/
 
 #build meta
-export NUM_CORES=40
+export NUM_CORES=30
 export BUILD_TYPE=meta
 cd $SFERES_DIR
 ./waf distclean

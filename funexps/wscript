@@ -43,33 +43,60 @@ def _build_test(bld, take_compl=[]):
 		tag="test_trans_"
 	else:
 		tag=""
-	
-	sferes.create_variants(bld,source = 'rastrigin.cpp',
-								use = 'sferes2',
-								uselib = libs,
-								target = tag+'meta',
-								cxxflags = take_compl + cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
-								"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=2","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
-								variants = ['BINARY'])
-										
-	sferes.create_variants(bld,
-							source = 'rastrigin.cpp',
-							use = 'sferes2',
-							uselib = libs,
-							target = tag+'cvt',
-							cxxflags = take_compl +  cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
-							"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
-							variants = ['BINARY'])
-	if do_cmaes_check:
-		# note this is not a meta-condition but can only generate up to 4 binaries at a time
+	if os.environ.get('BUILD_TYPE',"control") == "AURORA":
+		libpath=os.environ["LIBTORCH_LOCATION"]
+		print(libpath)
+		bld.env.LIBPATH_PYTORCH = libpath+"/lib/"
+		bld.env.LIB_PYTORCH = 'torch_cpu torch_global_deps shm torch c10'.split(' ')
+		bld.env.INCLUDES_PYTORCH = [libpath+'/include/', libpath+'/include/torch/csrc/api/include/']
+
+		bld.env.LIBPATH_BOOST = "/usr/local/lib/"
+		bld.env.LIB_BOOST = 'boost_filesystem boost_program_options boost_regex boost_serialization boost_thread boost_system'.split(' ')
+		bld.env.INCLUDES_BOOST = ['/usr/local/include/']
+
+		# sferes
+		libs = ' TBB BOOST EIGEN PTHREAD PYTORCH  '  # 
+		bld.env['MPI_ENABLED']=False
+		# building main experiment executables: 
 		sferes.create_variants(bld,
-									source = 'rastrigin.cpp',
+							   source='aurora.cpp',
+							   use="sferes2",
+							   target=tag+"AURORA",
+							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp",'/usr/local/include/'],
+							   uselib=libs,
+							   cxxflags= cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-DENVIRONMENT="Fun"',
+							   '-DALGORITHM="aurora_uniform"',
+							   '-DENCODER_TYPE="mlp_ae"',
+							   '-march=native','-std=c++14',# libtorch requires '-std=c++14',
+							   '-DBEHAV_DIM=2',"-DEXPERIMENT_TYPE=2",'-D_GLIBCXX_USE_CXX11_ABI=1'], #,'-D_GLIBCXX_USE_CXX11_ABI=0' remove c10 linking error
+							   variants=["BINARY"] )
+	else:
+		sferes.create_variants(bld,source = 'rastrigin.cpp',
 									use = 'sferes2',
 									uselib = libs,
-									target = tag+'cmaescheck',
-									cxxflags = take_compl +  cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
-									"-DNUM_CORES=1"],   # damage
+									target = tag+'meta',
+									cxxflags = take_compl + cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
+									"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=2","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
 									variants = ['BINARY'])
+											
+		sferes.create_variants(bld,
+								source = 'rastrigin.cpp',
+								use = 'sferes2',
+								uselib = libs,
+								target = tag+'cvt',
+								cxxflags = take_compl +  cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
+								"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
+								variants = ['BINARY'])
+		if do_cmaes_check:
+			# note this is not a meta-condition but can only generate up to 4 binaries at a time
+			sferes.create_variants(bld,
+										source = 'rastrigin.cpp',
+										use = 'sferes2',
+										uselib = libs,
+										target = tag+'cmaescheck',
+										cxxflags = take_compl +  cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
+										"-DNUM_CORES=1"],   # damage
+										variants = ['BINARY'])
 
 # def _build_cvt_trajectories(bld):  # no need for cvt trajectories, always feasible within the hypercube
 
