@@ -43,9 +43,7 @@ def _build_test(bld, take_compl=[]):
 		tag="test_trans_"
 	else:
 		tag=""
-	popsize=os.environ.get('META_POP_SIZE',"10")
-	if popsize!="10":
-		tag+="_pop"+popsize
+	
 	sferes.create_variants(bld,source = 'rastrigin.cpp',
 								use = 'sferes2',
 								uselib = libs,
@@ -93,7 +91,11 @@ def _build_evolution(bld):
 		libs += 'DART_GRAPHIC'
 	if os.environ.get('BUILD_DEBUG',"False") == "True":
 		cxxflags+=['-g']
+
 	if os.environ.get('BUILD_TYPE',"control") == "meta":
+		popsize=os.environ.get('META_POP_SIZE',"10")
+		if popsize!="10":
+			tag+="_pop"+popsize
 		sferes.create_variants(bld,
 							source = 'rastrigin.cpp',
 							use = 'sferes2',
