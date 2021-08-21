@@ -16,7 +16,7 @@ mkdir $RESULTS_DIR
 mkdir $RESULTS_DIR/${binary_type}
 outputdir="${RESULTS_DIR}/${binary_type}/exp${replicate_number}"
 mkdir ${outputdir}
-binary=${SFERES_DIR}/build/exp/Rhexps/rhex_metaCMAES_${binary_type}_binary
+binary=${SFERES_DIR}/build/exp/funexps/rhex_metaCMAES_${binary_type}_binary
 currentdir=$PWD
 # get the last filename
 max="-1"
