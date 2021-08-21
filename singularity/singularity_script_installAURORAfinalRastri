@@ -40,5 +40,15 @@ cd $SFERES_DIR
 ./waf configure --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
 ./waf --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
 
+export BUILD_PHASE=TEST
+export PERTURB_TYPE=1
+./waf configure --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+./waf --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+
+export PERTURB_TYPE=2
+./waf configure --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+./waf --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+
+
 
 chmod -R o+rX $HOME_CONTAINER

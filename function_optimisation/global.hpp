@@ -4,6 +4,7 @@
 
 #include <meta-cmaes/feature_vector_typedefs.hpp>
 #include <set>
+#include <fstream>
 #if META()
 #include <meta-cmaes/feature_map.hpp>
 #include <meta-cmaes/database.hpp>
