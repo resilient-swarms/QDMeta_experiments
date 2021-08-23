@@ -71,7 +71,7 @@ namespace aurora
                 // size of a batch
                 SFERES_CONST size_t init_size = 2000; // for eval_parallel
                 SFERES_CONST size_t size = 400;// note: this looks like double the other conditions but is the same due to incrementing with +=2 in quality_diversity.hpp vs +=1 in map_elites.hpp and cvt_map_elites.hpp
-                SFERES_CONST size_t nb_gen = 250001;
+                SFERES_CONST size_t nb_gen = 30001;
                 SFERES_CONST size_t dump_period = 500;
                 SFERES_CONST size_t dump_period_aurora = 500;
             };
