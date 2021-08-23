@@ -20,6 +20,8 @@
 #define NO_PARALLEL
 #endif
 
+#define RASTRI_DIM 10 // random; just to avoid compilation error
+
 
 
 #define FRICTION 1.0
