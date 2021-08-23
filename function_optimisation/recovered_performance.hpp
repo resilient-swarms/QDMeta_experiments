@@ -84,7 +84,7 @@ namespace sferes
             static float
             evaluate_rastrigin_dimensionpairs(const std::vector<float> &x, std::set<size_t> world_option_pair)
             {
-                float sum = 10.0f * (RASTRI_DIM - 1);
+                float sum = 10.0f * (RASTRI_DIM - 2);
                 float A = 10.0f;
                 for (size_t i = 0; i < RASTRI_DIM; ++i)
                 {
