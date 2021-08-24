@@ -184,7 +184,7 @@ namespace global
     }
     void init_world(std::string seed)
     {
-        rng = new RNG((long)stoi(seed));
+        rng = new RNG((long)std::stoi(seed));
 #if CMAES_CHECK()
         std::cout << "will do world_option " << global::option_index << std::endl;
 #else

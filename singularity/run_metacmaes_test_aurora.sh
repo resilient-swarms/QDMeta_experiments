@@ -43,5 +43,5 @@ echo "max generation found is $max"
 cd $currentdir 
 echo "am now in $PWD"
 binary=${SFERES_DIR}/build/exp/funexps/${test_type}_AURORA_binary
-${binary} --load ${outputdir}/gen_${max} --number-threads 1 --d ${outputdir} -o ${outputdir}/${test_type}_damage_performance >> ${outputdir}/log_${test_type}.txt	
+${binary} --load ${outputdir}/gen_${max} --number-threads 1 --d ${outputdir} -o ${outputdir}/${test_type}_damage_performance -s 1 >> ${outputdir}/log_${test_type}.txt	
 
