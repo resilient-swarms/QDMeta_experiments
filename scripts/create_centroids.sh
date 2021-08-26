@@ -8,4 +8,4 @@
 source activate py3.8
 
 cd $SFERES_DIR/modules/cvt_map_elites
-python cvt.py -d $1 -p $2 -k 10000 -f $3/meta-cmaes/centroids -l rastri_batch -b 100000
+python cvt.py -d $1 -p $2 -k 1000 -f $3/meta-cmaes/centroids -l rastri_batch -b 100000
