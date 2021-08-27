@@ -55,7 +55,7 @@ def _build_test(bld, take_compl=[]):
 		bld.env.INCLUDES_BOOST = ['/usr/local/include/']
 
 		# sferes
-		libs = ' TBB BOOST EIGEN PTHREAD PYTORCH  '  # 
+		libs = ' TBB BOOST EIGEN PTHREAD DART  PYTORCH  '  # 
 		bld.env['MPI_ENABLED']=False
 		# building main experiment executables: 
 		sferes.create_variants(bld,
@@ -238,7 +238,7 @@ def _build_evolution(bld):
 		#bld.env.INCLUDES_CUDA = ['/usr/local/cuda/include']
 
 		# sferes
-		libs = ' PLANAR_DART TBB BOOST EIGEN PTHREAD BOOST_DART DART  PYTORCH  '  # 
+		libs = ' TBB BOOST EIGEN PTHREAD DART  PYTORCH  '  # 
 		bld.env['MPI_ENABLED']=False
 		# building main experiment executables: 
 		#both use aurora_uniform with CSC based on the results in paper (CSC is set by not setting VAT macro)
