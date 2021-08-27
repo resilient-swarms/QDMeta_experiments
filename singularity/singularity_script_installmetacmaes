@@ -56,6 +56,7 @@ export BUILD_ENVIR=True
 
 
 # build test (individual damages)
+export BUILD_INDIVIDUAL_DAMAGE=True
 export BUILD_PHASE=TEST
 ./waf configure  --exp Rhexps 
 ./waf  --exp Rhexps 

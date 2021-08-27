@@ -33,7 +33,7 @@ def _build_test(bld, take_compl=[]):
 	if os.environ.get('BUILD_INDIVIDUAL_DAMAGE',"False") == "True":
 		cxxflags+=["-DINDIVIDUAL_DAMAGE"]
 		do_cmaes_check=True
-		tag+="_max_"
+		tag+="_max"
 	else:
 		do_cmaes_check=False
 	if os.environ.get('BUILD_DEBUG',"False") == "True":
@@ -67,16 +67,16 @@ def _build_test(bld, take_compl=[]):
 							cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DBEHAV_DIM=50",
 							"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
 							variants = ['BINARY'])
-	if do_cmaes_check:
-		# note this is not a meta-condition but can only generate up to 4 binaries at a time
-		sferes.create_variants(bld,
-									source = 'rhex_metaCMAES.cpp',
-									use = 'sferes2',
-									uselib = libs,
-									target = tag+'_damage_cmaescheck',
-									cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
-									"-DNUM_CORES=1"],   # damage
-									variants = ['BINARY'])
+	# if do_cmaes_check:
+	# 	# note this is not a meta-condition but can only generate up to 4 binaries at a time
+	# 	sferes.create_variants(bld,
+	# 								source = 'rhex_metaCMAES.cpp',
+	# 								use = 'sferes2',
+	# 								uselib = libs,
+	# 								target = tag+'cmaescheck',
+	# 								cxxflags = take_compl +  cxxflags + ['-DDESC_PERIOD=100','-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
+	# 								"-DNUM_CORES=1"],   # damage
+	# 								variants = ['BINARY'])
 
 def _build_envirchecks(bld):
 	libs = 'RHEX_DART RHEX_CONTROLLER DART EIGEN BOOST_DART BOOST TBB '
