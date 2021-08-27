@@ -6,7 +6,7 @@
 #SBATCH --time=08:00:00         # walltime
 #SBATCH --job-name=rhexp_test
 
-if [[ $2 == *meta ]]; then
+if [[ $2 == *meta* ]]; then
 source activate py3.7
 maxfunevals=12000000
 echo "getting the generation file for evals=$maxfunevals via epochs_log"
