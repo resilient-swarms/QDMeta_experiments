@@ -75,22 +75,28 @@
 #endif
 typedef aurora::env::Environment<environment, params_t> env_t;
 typedef env_t::phen_t phen_t;
-template<>
-void sferes::stat::QdContainer<phen_t,params_t>::show(std::ostream &os, size_t k)
+namespace sferes
 {
+    namespace stat
+    {
+        template <>
+        void QdContainer<phen_t, params_t>::show(std::ostream &os, size_t k)
+        {
 #ifdef TEST
 #ifdef GRAPHIC // we are just interested in observing a particular individual
-    _archive[k]->develop();
-    float val = sferes::fit::RecoveredPerformance<phen_t>::_eval_all(_container[k]);
+            _archive[k]->develop();
+            float val = sferes::fit::RecoveredPerformance<phen_t>::_eval_all(_container[k]);
 #else
 #ifdef INDIVIDUAL_DAMAGE
-    sferes::fit::RecoveredPerformance<phen_t>::test_max_recovery(os, _container);
+            sferes::fit::RecoveredPerformance<phen_t>::test_max_recovery(os, _container);
 #else
-    sferes::fit::RecoveredPerformance<phen_t>::test_recoveredperformance(os, _container);
+            sferes::fit::RecoveredPerformance<phen_t>::test_recoveredperformance(os, _container);
 #endif
 
 #endif
 #endif
+        }
+    }
 }
 
 namespace aurora
@@ -197,7 +203,6 @@ int main(int argc, char **argv)
         (params_t::encoder_type != aurora::EncoderType::lstm_ae) || (params_t::use_videos),
         "Use of LSTM AE => need for use_videos");
 
-    
     typedef aurora::algo::AlgorithmFactory<algorithm, env_t>::algo_t algo_t;
 
     algo_t::update_parameters();
