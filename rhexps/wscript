@@ -33,6 +33,7 @@ def _build_test(bld, take_compl=[]):
 	if os.environ.get('BUILD_INDIVIDUAL_DAMAGE',"False") == "True":
 		cxxflags+=["-DINDIVIDUAL_DAMAGE"]
 		do_cmaes_check=True
+		tag+="_max_"
 	else:
 		do_cmaes_check=False
 	if os.environ.get('BUILD_DEBUG',"False") == "True":

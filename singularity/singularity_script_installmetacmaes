@@ -44,7 +44,18 @@ export BUILD_PHASE=TRAJECTORIES
 ./waf configure --exp Rhexps 
 ./waf --exp Rhexps 
 
+# build test (generalisation)
+export BUILD_PHASE=TEST
+./waf configure  --exp Rhexps 
+./waf  --exp Rhexps 
 # build test
+export BUILD_ENVIR=True
+./waf configure  --exp Rhexps 
+./waf  --exp Rhexps 
+
+
+
+# build test (individual damages)
 export BUILD_PHASE=TEST
 ./waf configure  --exp Rhexps 
 ./waf  --exp Rhexps 
