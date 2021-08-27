@@ -3,9 +3,8 @@
 
 #include <numeric>
 #include <sferes/stat/stat.hpp>
-#ifdef TEST
-#include <meta-cmaes/recovered_performance.hpp>
-#endif
+
+
 namespace sferes
 {
     namespace stat
@@ -50,22 +49,8 @@ namespace sferes
                     ++offset;
                 }
             }
-            void show(std::ostream & os, size_t k)
-            {
-#ifdef TEST
-#ifdef GRAPHIC // we are just interested in observing a particular individual
-                _archive[k]->develop();
-                float val = sferes::fit::RecoveredPerformance<Phen>::_eval_all(_container[k]);
-#else
-#ifdef INDIVIDUAL_DAMAGE
-                sferes::fit::RecoveredPerformance<Phen>::test_max_recovery(os, _container);
-#else
-                sferes::fit::RecoveredPerformance<Phen>::test_recoveredperformance(os, _container);
-#endif
+            void show(std::ostream & os, size_t k);
 
-#endif
-#endif
-            }
             template <class Archive>
             void serialize(Archive & ar, const unsigned int version)
             {

@@ -2,7 +2,6 @@
 
 #include <rhex_dart/experiment_defines.hpp>
 
-
 #include <boost/random.hpp>
 #include <iostream>
 #include <mutex>
@@ -71,6 +70,28 @@
 #include <meta-cmaes/aurora_parameters_factory.hpp>
 #include <meta-cmaes/aurora_environments_factory.hpp>
 #include <meta-cmaes/aurora_algorithms_factory.hpp>
+#ifdef TEST
+#include <meta-cmaes/recovered_performance.hpp>
+#endif
+typedef aurora::env::Environment<environment, params_t> env_t;
+typedef env_t::phen_t phen_t;
+template<>
+void sferes::stat::QdContainer<phen_t,params_t>::show(std::ostream &os, size_t k)
+{
+#ifdef TEST
+#ifdef GRAPHIC // we are just interested in observing a particular individual
+    _archive[k]->develop();
+    float val = sferes::fit::RecoveredPerformance<phen_t>::_eval_all(_container[k]);
+#else
+#ifdef INDIVIDUAL_DAMAGE
+    sferes::fit::RecoveredPerformance<phen_t>::test_max_recovery(os, _container);
+#else
+    sferes::fit::RecoveredPerformance<phen_t>::test_recoveredperformance(os, _container);
+#endif
+
+#endif
+#endif
+}
 
 namespace aurora
 {
@@ -92,7 +113,6 @@ namespace aurora
         arg.number_threads = vm["number-threads"].as<size_t>();
     }
 } // namespace aurora
-
 
 namespace sferes
 {
@@ -177,7 +197,7 @@ int main(int argc, char **argv)
         (params_t::encoder_type != aurora::EncoderType::lstm_ae) || (params_t::use_videos),
         "Use of LSTM AE => need for use_videos");
 
-    typedef aurora::env::Environment<environment, params_t> env_t;
+    
     typedef aurora::algo::AlgorithmFactory<algorithm, env_t>::algo_t algo_t;
 
     algo_t::update_parameters();

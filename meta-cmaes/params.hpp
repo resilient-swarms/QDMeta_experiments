@@ -76,7 +76,7 @@ struct BottomParams
     // simulation time
     struct simu
     {
-        SFERES_CONST size_t time = 5;
+        SFERES_CONST size_t time = SIMU_TIME;
     };
 };
 

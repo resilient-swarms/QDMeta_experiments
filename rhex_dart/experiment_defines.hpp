@@ -20,6 +20,8 @@
 #define NO_PARALLEL
 #endif
 
+#define SIMU_TIME 5
+
 #define RASTRI_DIM 10 // random; just to avoid compilation error
 
 
