@@ -64,7 +64,7 @@ def _build_test(bld, take_compl=[]):
 							   target=tag+"AURORA",
 							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp",'/usr/local/include/'],
 							   uselib=libs,
-							   cxxflags= cxxflags + ['-DTEST','-DDESC_PERIOD=100','-DENVIRONMENT="RHex"',
+							   cxxflags= take_compl + cxxflags + ['-DTEST','-DDESC_PERIOD=100','-DENVIRONMENT="RHex"',
 							   '-DALGORITHM="aurora_uniform"',
 							   '-DENCODER_TYPE="mlp_ae"',
 							   '-march=native','-std=c++14',# libtorch requires '-std=c++14',
