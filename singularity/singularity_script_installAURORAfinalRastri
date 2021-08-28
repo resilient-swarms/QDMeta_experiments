@@ -42,6 +42,7 @@ cd $SFERES_DIR
 ./waf --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
 
 export BUILD_PHASE=TEST
+export BUILD_INDIVIDUAL_DAMAGE=False
 export PERTURB_TYPE=1
 ./waf configure --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
 ./waf --exp funexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib

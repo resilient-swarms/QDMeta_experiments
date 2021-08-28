@@ -16,22 +16,17 @@ def configure(conf):
 	boost_var = 'BOOST_DART'
 	conf.check_boost(lib='regex system', min_version='1.46', uselib_store=boost_var)
 
-def _build_test(bld, take_compl=[]):
+def _build_test(bld):
 	DIM = os.environ.get("BUILD_DIMENSION","20")
 	libs = 'EIGEN BOOST TBB '
 	cxxflags = bld.get_env()['CXXFLAGS'] 
 	perturb_type=os.environ.get("PERTURB_TYPE","0")
 	cxxflags+=["-DRASTRI_DIM="+DIM,"-I"+os.environ.get("BOTS_DIR")+"/include/","-DPERTURB_TYPE="+perturb_type]
-	if take_compl:
-		tag="test"
-	else:
-		tag="train"
 
 	if os.environ.get('BUILD_GRAPHIC',"False") == "True":
 		cxxflags+=["-DGRAPHIC"]
 		libs += 'DART_GRAPHIC'
-	if os.environ.get('BUILD_INDIVIDUAL_DAMAGE',"True") == "True":
-		cxxflags+=["-DINDIVIDUAL_DAMAGE"]
+
 	if os.environ.get('BUILD_DEBUG',"False") == "True":
 		cxxflags+=['-g']
 	if perturb_type == "1":
@@ -40,6 +35,10 @@ def _build_test(bld, take_compl=[]):
 		tag="test_trans_"
 	else:
 		tag=""
+	if os.environ.get('BUILD_INDIVIDUAL_DAMAGE',"True") == "True":
+		cxxflags+=["-DINDIVIDUAL_DAMAGE"]
+        else:
+		tag+="centroid_"
 	if os.environ.get('BUILD_TYPE',"control") == "AURORA":
 		libpath=os.environ["LIBTORCH_LOCATION"]
 		print(libpath)
