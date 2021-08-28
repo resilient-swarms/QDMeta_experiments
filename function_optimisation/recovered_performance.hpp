@@ -2,7 +2,6 @@
 #ifndef RECOVERED_PERFORMANCE_HPP
 #define RECOVERED_PERFORMANCE_HPP
 #include <meta-cmaes/global.hpp>
-#include <meta-cmaes/cvt_utils.hpp>
 
 #if CMAES_CHECK()
 #include <meta-cmaes/cmaescheck_typedefs.hpp>
