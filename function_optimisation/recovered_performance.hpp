@@ -2,6 +2,7 @@
 #ifndef RECOVERED_PERFORMANCE_HPP
 #define RECOVERED_PERFORMANCE_HPP
 #include <meta-cmaes/global.hpp>
+#include <meta-cmaes/cvt_utils.hpp>
 
 #if CMAES_CHECK()
 #include <meta-cmaes/cmaescheck_typedefs.hpp>
@@ -17,10 +18,11 @@ namespace sferes
         const std::vector<float> b_pos_range = {0., 0.5};
         const std::vector<float> a_neg_range = {-1.10, -1.0};
         const std::vector<float> a_pos_range = {1.0, 1.10};
+        
         template <typename Phen>
         struct RecoveredPerformance
         {
-
+            typedef boost::array<double, RASTRI_DIM> point_t;
             static float _eval_single_envir(const Phen &indiv, size_t world_option)
             {
                 // copy of controller's parameters
@@ -136,11 +138,11 @@ namespace sferes
 #if TRANSLATION_TESTS()
             static float evaluate_rastrigin_translationtest(std::vector<float> &x, size_t world_option)
             {
-                
+
                 // test set (see global.hpp)
                 float a = global::get_test_a(world_option);
                 float b = global::get_test_b(world_option);
-                
+
                 float sum = 10.0f * RASTRI_DIM;
 #ifdef GRAPHIC
                 std::cout << "translation with a=" << a << " b=" << b << std::endl;
@@ -333,16 +335,15 @@ namespace sferes
                 _eval_taskmax(os, individuals);
             }
 #endif
+            
             static void test_recoveredperformance(std::ostream &os, std::vector<boost::shared_ptr<Phen>> &archive)
             {
                 float val = 0.0f;
-                typedef boost::array<double, number_of_dimensions> point_t;
-                std::vector<point_t> centroids = load_centroids(std::string(std::getenv("BOTS_DIR")) + "/include/meta-cmaes/centroids/centroids_" + std::to_string(BottomParams::ea::number_of_clusters) + "_" + std::to_string(BottomParams::ea::number_of_dimensions) + ".dat");
                 for (size_t k = 0; k < archive.size(); ++k)
                 {
-                    for (size_t l = 0; l< archive[k]->gen.data().size(); ++l)
+                    for (size_t l = 0; l < archive[k]->gen().data().size(); ++l)
                     {
-                         os << archive[]->gen.data()[l] << " " ;
+                        os << archive[k]->gen.data()[l] << " ";
                     }
                     val = _eval_all(*archive[k]);
                     val /= (float)global::world_options.size();
