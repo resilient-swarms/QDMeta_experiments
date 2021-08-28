@@ -23,6 +23,8 @@
 #define RASTRI_MAX 5.12f
 #define RASTRI_RANGE 2*RASTRI_MAX
 
+#define SIMU_TIME 5 // arbitrary; just to avoid compilation errors
+
 #ifndef TEST
 #if NUM_CORES > 1
 	#define PARALLEL_RUN
