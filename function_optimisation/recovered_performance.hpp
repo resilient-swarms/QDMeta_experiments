@@ -17,7 +17,7 @@ namespace sferes
         const std::vector<float> b_pos_range = {0., 0.5};
         const std::vector<float> a_neg_range = {-1.10, -1.0};
         const std::vector<float> a_pos_range = {1.0, 1.10};
-        
+
         template <typename Phen>
         struct RecoveredPerformance
         {
@@ -311,6 +311,10 @@ namespace sferes
                 {
                     if (*k)
                     {
+                        for (size_t l = 0; l < *k->gen().data().size(); ++l)
+                        {
+                            os << *k->gen().data()[l] << " ";
+                        }
                         val = _eval_all(**k);
                         val /= (float)global::world_options.size();
                         os << val << std::endl;
@@ -334,7 +338,7 @@ namespace sferes
                 _eval_taskmax(os, individuals);
             }
 #endif
-            
+
             static void test_recoveredperformance(std::ostream &os, std::vector<boost::shared_ptr<Phen>> &archive)
             {
                 float val = 0.0f;

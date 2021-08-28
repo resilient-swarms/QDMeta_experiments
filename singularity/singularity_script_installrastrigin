@@ -48,7 +48,7 @@ export BUILD_TYPE=control
 # test
 
 export BUILD_PHASE=TEST
-
+export BUILD_INDIVIDUAL_DAMAGE=False
 export BUILD_TYPE=meta
 export PERTURB_TYPE=1
 cd $SFERES_DIR
