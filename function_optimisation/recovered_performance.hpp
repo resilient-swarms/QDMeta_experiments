@@ -311,9 +311,9 @@ namespace sferes
                 {
                     if (*k)
                     {
-                        for (size_t l = 0; l < *k->gen().data().size(); ++l)
+                        for (size_t l = 0; l < **k.gen().data().size(); ++l)
                         {
-                            os << *k->gen().data()[l] << " ";
+                            os << **k.gen().data()[l] << " ";
                         }
                         val = _eval_all(**k);
                         val /= (float)global::world_options.size();
