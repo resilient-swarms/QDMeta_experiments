@@ -162,7 +162,7 @@ namespace sferes
                 {
 
 #ifdef BASE_BEHAVS
-                    std::vector<double> basebehavs = _eval_basefeatures(**k);
+                    std::vector<double> basebehavs = _eval_basefeatures(*archive[k]);
                     for (size_t i = 0; i < basebehavs.size(); ++i)
                     {
                         os << basebehavs[i] << " ";
