@@ -66,7 +66,7 @@ namespace rhex_dart
             using rhex_control_t = RhexControlBuehler;
             // using safety_measures_t = boost::fusion::vector<safety_measures::MaxHeight, safety_measures::BodyColliding, safety_measures::TurnOver>;
             using safety_measures_t = boost::fusion::vector<safety_measures::TurnOver>;
-            using descriptors_t = boost::fusion::vector<descriptors::DutyCycle, descriptors::BodyOrientation, descriptors::AvgCOMVelocities>;
+            using descriptors_t = boost::fusion::vector<rhex_dart::descriptors::DeltaFullTrajectory,descriptors::DutyCycle, descriptors::BodyOrientation, descriptors::AvgCOMVelocities>;
             using viz_t = boost::fusion::vector<visualizations::HeadingArrow, visualizations::RobotTrajectory>;
         };
 
