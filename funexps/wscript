@@ -71,7 +71,7 @@ def _build_test(bld):
 									use = 'sferes2',
 									uselib = libs,
 									target = tag+'meta',
-									cxxflags = take_compl + cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
+									cxxflags = cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
 									"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=2","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
 									variants = ['BINARY'])
 											
@@ -80,7 +80,7 @@ def _build_test(bld):
 								use = 'sferes2',
 								uselib = libs,
 								target = tag+'cvt',
-								cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
+								cxxflags =  cxxflags + ['-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
 								"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
 								variants = ['BINARY'])
 		# if do_cmaes_check:
