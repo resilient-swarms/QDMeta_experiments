@@ -69,7 +69,9 @@
 #include <meta-cmaes/aurora_parameters_factory.hpp>
 #include <meta-cmaes/aurora_environments_factory.hpp>
 #include <meta-cmaes/aurora_algorithms_factory.hpp>
-
+#ifdef TEST
+#include <meta-cmaes/recovered_performance.hpp>
+#endif
 namespace aurora
 {
 
