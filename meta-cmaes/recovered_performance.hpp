@@ -29,7 +29,12 @@ namespace sferes
 
                 // launching the simulation
                 auto robot = global::global_robot->clone();
-                simulator_t simu(_ctrl, robot, 0, 1.0);
+                using desc_t = boost::fusion::vector<rhex_dart::descriptors::DeltaFullTrajectory>;
+
+                using safe_t = boost::fusion::vector<rhex_dart::safety_measures::TurnOver>;
+                //using viz_t = boost::fusion::vector<rhex_dart::visualizations::HeadingArrow, rhex_dart::visualizations::RobotTrajectory>;
+                using simu_t = rhex_dart::RhexDARTSimu<rhex_dart::desc<desc_t>, rhex_dart::safety<safe_t>>;
+                simu_t simu(_ctrl, robot, 0, 1.0);
                 simu.run(SIMU_TIME); // run simulation for the same amount of time as the bottom level, to keep function evals comparable
                 std::vector<double> vec;
                 simu.get_descriptor<rhex_dart::descriptors::DeltaFullTrajectory, std::vector<double>>(vec);
@@ -121,6 +126,10 @@ namespace sferes
                     if (*k)
                     {
 #ifdef BASE_BEHAVS
+                        for (size_t l = 0; l < (*k)->gen().data().size(); ++l)
+                        {
+                            os << (*k)->gen().data()[l] << " ";
+                        }
                         std::vector<double> basebehavs = _eval_basefeatures(**k);
                         for (size_t i = 0; i < basebehavs.size(); ++i)
                         {
@@ -162,6 +171,10 @@ namespace sferes
                 {
 
 #ifdef BASE_BEHAVS
+                    for (size_t l = 0; l < archive[k]->gen().data().size(); ++l)
+                    {
+                        os << archive[k]->gen().data()[l] << " ";
+                    }
                     std::vector<double> basebehavs = _eval_basefeatures(*archive[k]);
                     for (size_t i = 0; i < basebehavs.size(); ++i)
                     {
