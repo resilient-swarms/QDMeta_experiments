@@ -336,10 +336,14 @@ namespace sferes
             static void test_recoveredperformance(std::ostream &os, std::vector<boost::shared_ptr<Phen>> &archive)
             {
                 float val = 0.0f;
-
+                typedef boost::array<double, number_of_dimensions> point_t;
+                std::vector<point_t> centroids = load_centroids(std::string(std::getenv("BOTS_DIR")) + "/include/meta-cmaes/centroids/centroids_" + std::to_string(BottomParams::ea::number_of_clusters) + "_" + std::to_string(BottomParams::ea::number_of_dimensions) + ".dat");
                 for (size_t k = 0; k < archive.size(); ++k)
                 {
-
+                    for (size_t l = 0; l< archive[k]->gen.data().size(); ++l)
+                    {
+                         os << archive[]->gen.data()[l] << " " ;
+                    }
                     val = _eval_all(*archive[k]);
                     val /= (float)global::world_options.size();
                     os << val << std::endl;

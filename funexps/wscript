@@ -30,11 +30,8 @@ def _build_test(bld, take_compl=[]):
 	if os.environ.get('BUILD_GRAPHIC',"False") == "True":
 		cxxflags+=["-DGRAPHIC"]
 		libs += 'DART_GRAPHIC'
-	if os.environ.get('BUILD_INDIVIDUAL_DAMAGE',"False") == "True":
+	if os.environ.get('BUILD_INDIVIDUAL_DAMAGE',"True") == "True":
 		cxxflags+=["-DINDIVIDUAL_DAMAGE"]
-		do_cmaes_check=True
-	else:
-		do_cmaes_check=False
 	if os.environ.get('BUILD_DEBUG',"False") == "True":
 		cxxflags+=['-g']
 	if perturb_type == "1":
@@ -64,7 +61,7 @@ def _build_test(bld, take_compl=[]):
 							   target=tag+"AURORA",
 							   includes=["../..",os.environ["BOTS_DIR"]+"/include/AURORA/cpp",'/usr/local/include/'],
 							   uselib=libs,
-							   cxxflags= cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-DENVIRONMENT="Fun"',
+							   cxxflags= cxxflags + ['-DTEST','-DENVIRONMENT="Fun"',
 							   '-DALGORITHM="aurora_uniform"',
 							   '-DENCODER_TYPE="mlp_ae"',
 							   '-march=native','-std=c++14',# libtorch requires '-std=c++14',
@@ -75,7 +72,7 @@ def _build_test(bld, take_compl=[]):
 									use = 'sferes2',
 									uselib = libs,
 									target = tag+'meta',
-									cxxflags = take_compl + cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
+									cxxflags = take_compl + cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=0",
 									"-DNUM_CORES=1","-DFEATUREMAP=2","-DBEHAV_DIM=2","-DMETA_POP_SIZE="+str(os.environ.get('META_POP_SIZE',"10"))],   # environment
 									variants = ['BINARY'])
 											
@@ -84,19 +81,19 @@ def _build_test(bld, take_compl=[]):
 								use = 'sferes2',
 								uselib = libs,
 								target = tag+'cvt',
-								cxxflags = take_compl +  cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
+								cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DBEHAV_DIM="+DIM,
 								"-DEXPERIMENT_TYPE=1","-DNUM_CORES=1","-DCVT_ME=1"],   # damage
 								variants = ['BINARY'])
-		if do_cmaes_check:
-			# note this is not a meta-condition but can only generate up to 4 binaries at a time
-			sferes.create_variants(bld,
-										source = 'rastrigin.cpp',
-										use = 'sferes2',
-										uselib = libs,
-										target = tag+'cmaescheck',
-										cxxflags = take_compl +  cxxflags + ['-DINDIVIDUAL_DAMAGE','-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
-										"-DNUM_CORES=1"],   # damage
-										variants = ['BINARY'])
+		# if do_cmaes_check:
+		# 	# note this is not a meta-condition but can only generate up to 4 binaries at a time
+		# 	sferes.create_variants(bld,
+		# 								source = 'rastrigin.cpp',
+		# 								use = 'sferes2',
+		# 								uselib = libs,
+		# 								target = tag+'cmaescheck',
+		# 								cxxflags = take_compl +  cxxflags + ['-DTEST','-march=native',"-DEXPERIMENT_TYPE=3",
+		# 								"-DNUM_CORES=1"],   # damage
+		# 								variants = ['BINARY'])
 
 # def _build_cvt_trajectories(bld):  # no need for cvt trajectories, always feasible within the hypercube
 
