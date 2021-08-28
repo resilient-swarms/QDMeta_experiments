@@ -18,7 +18,24 @@ namespace sferes
         template <typename Phen>
         struct RecoveredPerformance
         {
-                
+            static std::vector<double> _eval_basefeatures(const Phen &indiv)
+            {
+                // copy of controller's parameters
+                std::vector<double> _ctrl;
+                _ctrl.clear();
+
+                for (size_t i = 0; i < 24; i++)
+                    _ctrl.push_back(indiv.gen().data(i));
+
+                // launching the simulation
+                auto robot = global::global_robot->clone();
+                simulator_t simu(_ctrl, robot, 0, 1.0);
+                simu.run(SIMU_TIME); // run simulation for the same amount of time as the bottom level, to keep function evals comparable
+                std::vector<double> vec;
+                simu.get_descriptor<rhex_dart::descriptors::DeltaFullTrajectory, std::vector<double>>(vec);
+                return vec;
+            }
+
             static float _eval_single_envir(const Phen &indiv, size_t world_option, size_t damage_option)
             {
                 // copy of controller's parameters
@@ -95,7 +112,7 @@ namespace sferes
                 }
             }
 #if NOT_AURORA()
-            static void test_recoveredperformance(std::ostream &os, const boost::multi_array<boost::shared_ptr<Phen>,BEHAV_DIM> &archive)
+            static void test_recoveredperformance(std::ostream &os, const boost::multi_array<boost::shared_ptr<Phen>, BEHAV_DIM> &archive)
             {
                 float val = 0.0f;
 
@@ -103,6 +120,13 @@ namespace sferes
                 {
                     if (*k)
                     {
+#ifdef BASE_BEHAVS
+                        std::vector<double> basebehavs = _eval_basefeatures(**k);
+                        for (size_t i = 0; i < basebehavs.size(); ++i)
+                        {
+                            os << basebehavs[i] << " ";
+                        }
+#endif
                         val = _eval_all(**k);
 #ifdef EVAL_ENVIR
                         val /= (float)global::world_options.size();
@@ -130,19 +154,27 @@ namespace sferes
                 _eval_taskmax(os, individuals);
             }
 #endif
-	    static void test_recoveredperformance(std::ostream &os, std::vector<boost::shared_ptr<Phen>> &archive)
+            static void test_recoveredperformance(std::ostream &os, std::vector<boost::shared_ptr<Phen>> &archive)
             {
                 float val = 0.0f;
 
                 for (size_t k = 0; k < archive.size(); ++k)
                 {
-                        val =_eval_all(*archive[k]);
-#ifdef EVAL_ENVIR
-                        val /= (float)global::world_options.size();
-#else
-                        val /= (float)global::damage_sets.size();
+
+#ifdef BASE_BEHAVS
+                    std::vector<double> basebehavs = _eval_basefeatures(**k);
+                    for (size_t i = 0; i < basebehavs.size(); ++i)
+                    {
+                        os << basebehavs[i] << " ";
+                    }
 #endif
-                        os << val << std::endl;
+                    val = _eval_all(*archive[k]);
+#ifdef EVAL_ENVIR
+                    val /= (float)global::world_options.size();
+#else
+                    val /= (float)global::damage_sets.size();
+#endif
+                    os << val << std::endl;
                 }
             }
             // assess maximal recovery for each damage separately

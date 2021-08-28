@@ -43,6 +43,9 @@ def _build_test(bld, take_compl=[]):
 		tag+="_envir_"
 	else:
 		tag+="_damage_"
+	if os.environ.get('BUILD_BASEBEHAVS',"False") == "True":
+		cxxflags+=['-DBASE_BEHAVS']
+		tag+="centroid_"
 	if os.environ.get('BUILD_TYPE',"control") == "AURORA":
 		libpath=os.environ["LIBTORCH_LOCATION"]
 		print(libpath)
