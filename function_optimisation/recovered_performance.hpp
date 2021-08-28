@@ -342,7 +342,7 @@ namespace sferes
                 {
                     for (size_t l = 0; l < archive[k]->gen().data().size(); ++l)
                     {
-                        os << archive[k]->gen.data()[l] << " ";
+                        os << archive[k]->gen().data()[l] << " ";
                     }
                     val = _eval_all(*archive[k]);
                     val /= (float)global::world_options.size();
