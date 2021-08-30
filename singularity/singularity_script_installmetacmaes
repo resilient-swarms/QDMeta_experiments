@@ -67,3 +67,33 @@ export BUILD_BASEBEHAVS=False
 export BUILD_ENVIR=True
 ./waf configure  --exp Rhexps 
 ./waf  --exp Rhexps 
+
+
+
+
+# build train (fit)
+export BUILD_INDIVIDUAL_DAMAGE=False
+export BUILD_PHASE=TRAIN
+export BUILD_BASEBEHAVS=True
+export BUILD_ENVIR=False
+
+./waf configure  --exp Rhexps 
+./waf  --exp Rhexps 
+# build test
+export BUILD_ENVIR=True
+./waf configure  --exp Rhexps 
+./waf  --exp Rhexps 
+
+
+
+# build test (fit; individual damages)
+export BUILD_INDIVIDUAL_DAMAGE=True
+export BUILD_PHASE=TRAIN
+export BUILD_BASEBEHAVS=False
+export BUILD_ENVIR=False
+./waf configure  --exp Rhexps 
+./waf  --exp Rhexps 
+# build test
+export BUILD_ENVIR=True
+./waf configure  --exp Rhexps 
+./waf  --exp Rhexps 

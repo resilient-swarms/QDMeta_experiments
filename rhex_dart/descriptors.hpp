@@ -202,6 +202,7 @@ namespace rhex_dart
             void get(std::vector<Eigen::Vector3d> &results)
             {
                 results = _pos_traj;
+                this->_pos_traj.clear();
             }
 
         protected:
@@ -226,6 +227,7 @@ namespace rhex_dart
             void get(std::vector<Eigen::Vector3d> &results)
             {
                 results = _rotation_traj;
+                this->_rotation_traj.clear();
             }
 
         protected:
@@ -263,6 +265,7 @@ namespace rhex_dart
 #endif
                 }
                 results = _traj;
+                this->_traj.clear();
             }
 
         protected:
