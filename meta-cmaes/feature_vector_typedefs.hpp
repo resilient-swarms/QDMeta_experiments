@@ -9,7 +9,7 @@
 #define EIGEN_DENSEBASE_PLUGIN "EigenDenseBaseAddons.h"
 #include <Eigen/Dense>
 
-#if USE_FEATURE_SETS()
+#ifdef FEATURE_SETS
 const int NUM_BASE_FEATURES = 15; 
 #else
 const int NUM_BASE_FEATURES = 50; // number of base features (5 features for 10 time steps)
