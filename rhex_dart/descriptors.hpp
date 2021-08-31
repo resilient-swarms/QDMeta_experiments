@@ -310,6 +310,7 @@ namespace rhex_dart
                     }
                 }
                 results = _traj;
+                this->_traj.clear();
             }
             
 
