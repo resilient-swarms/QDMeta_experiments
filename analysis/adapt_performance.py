@@ -541,15 +541,16 @@ def get_performances(test_type):
         centroid_stats.write("centroid\tfreq\tgeno\tbehaviour\n")
         for c, val in archive.items():
             freq, best_geno, best_behav, best_fit = val
-            centroid_stats.write("%d|\t%d\t"%(c,freq))
+            centroid_stats.write("%d | %d "%(c,freq))
             centroid_stats.write("|")
             for g in best_geno:
-                centroid_stats.write("%.3f\t"%(g*genomultiplier))
+                centroid_stats.write("%.3f "%(g*genomultiplier))
             centroid_stats.write("|")
             for b in best_behav:
-                centroid_stats.write("%.3f\t" % (b))
+                centroid_stats.write("%.3f " % (b))
             centroid_stats.write("|")
-            centroid_stats.write("%.3f\n" % (best_fit))
+            centroid_stats.write("%.3f " % (best_fit))
+            centroid_stats.write("\n")
     # offsets=20
     # legs=8
     # total=offsets*legs
