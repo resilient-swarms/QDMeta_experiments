@@ -78,5 +78,19 @@ export BUILD_ENVIR=True
 ./waf --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
 
 
+export BUILD_BASEBEHAVS=True
+export BUILD_PHASE=TRAIN
+export BUILD_INDIVIDUAL_DAMAGE=False
+export BUILD_ENVIR=False
+./waf configure --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+./waf --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+
+
+export BUILD_ENVIR=True
+./waf configure --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+./waf --exp Rhexps --no-mpi #--boost-includes=/usr/local/include --boost-libs=/usr/local/lib
+
+
+
 
 chmod -R o+rX $HOME_CONTAINER

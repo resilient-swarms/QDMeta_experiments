@@ -304,7 +304,7 @@ namespace sferes
 #endif
                 }
             }
-#ifdef FEATURE_SETS
+#if USE_FEATURE_SETS()
             // cf. skeleton : .54 .39 .139
             inline float correct_lv_x(float v_x)
             {
@@ -327,7 +327,7 @@ namespace sferes
             void get_base_features(simulator_t & simu)
             {
                 this->_gt.clear();
-#ifdef FEATURE_SETS
+#if USE_FEATURE_SETS()
                 
                 std::vector<double> results;
                 simu.get_descriptor<rhex_dart::descriptors::DutyCycle, std::vector<double>>(results);
@@ -364,7 +364,7 @@ namespace sferes
             void get_base_features(base_features_t & base_features, simulator_t & simu)
             {
 
-#ifdef FEATURE_SETS
+#if USE_FEATURE_SETS()
                 std::vector<double> results;
                 simu.get_descriptor<rhex_dart::descriptors::DutyCycle, std::vector<double>>(results);
 

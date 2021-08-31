@@ -16,6 +16,7 @@
 #define ENVIR_TESTS() EVAL_ENVIR == 1 && (TEST || META() || CMAES_CHECK())
 #define DAMAGE_TESTS() EVAL_ENVIR == 0 && (TEST || META() || CMAES_CHECK())
 
+
 #ifdef GRAPHIC
 #define NO_PARALLEL
 #endif
