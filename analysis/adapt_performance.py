@@ -59,6 +59,8 @@ if args.DEST.endswith("RHEX"):
     ]
     N_g = 24
     N_BD = 50
+    centroid_filename=os.environ["HOME"]+"/RHex_experiments/meta-cmaes/centroids/centroids_10_50.dat"
+    genomultiplier=0.025 # sampled genotype
     #("envir_meta_b1p" + percentage_factor, 10,20)]
 
     #bd_shapes = [(4096, 4), (4096, 4), (4096, 4), (4096, 4), (4096, 4), (4096, 4), (4096, 4), (4096, 4)]  # shape of the characterisation
@@ -77,6 +79,9 @@ elif args.DEST.endswith("RASTRI"):
         #             (10000,20)]  # shape of the characterisation
         N_g = 20
         N_BD = 20
+        centroid_filename = os.environ["HOME"] + "/RHex_experiments/meta-cmaes/centroids/centroids_10000_20.dat"
+        centroid_dimreduced_filename = os.environ["HOME"] + "/RHex_experiments/meta-cmaes/centroids/centroids_10000_18.dat"
+        genomultiplier = 1.0  # evofloat genotype
 
 else:
     raise Exception("specify a destination directory with RHEX or RASTRI")
@@ -124,7 +129,7 @@ def get_performances_single(gens_list,behavs_list,fits_list,condition, replicate
         fitness.append(fit)
 
     if "centroid" in filename:
-        gens_list.append(gen)
+        gens_list.append(gens)
         behavs_list.append(behavs)
     fits_list.append(fitness)
 
@@ -480,12 +485,48 @@ def get_performances_pop(gens_list,behavs_list,fitness_list,n_pop, condition, re
     behavs_list.append(behav)
     fitness_list.append(fitness)
 
-def get_performances(test_type):
 
+def get_centroids():
+    centroids=[]
+    with open(centroid_filename, 'r') as f:
+        for line in f:
+            values = line.split(" ")
+            values = [float(v) for v in values[:-1]]  # -1 is for \n
+            centroids.append(np.array(values))
+    return centroids
+
+def get_archive(genotypes, behaviours,fitness,centroids):
+    archive={}
+    for i, behaviour in enumerate(behaviours):
+        # find closest matching centroid
+        mindistc = -1
+        mindist = float("inf")
+        for c , centroid in enumerate(centroids):
+            dist = np.sum(np.square(behaviour - centroid))
+            if dist < mindist:
+                mindistc=c
+                mindist=dist
+        # increase frequency of this centroid and if it is the best add the solution to the archive
+        current_data = archive.get(mindistc,None)
+        if current_data is None:
+            archive[mindistc] = (1,genotypes[i],behaviour,fitness[i])
+        else:
+            freq, best_geno, best_behav, best_fit = archive[mindistc]
+            freq+=1
+            if fitness[i] > best_fit:
+                archive[mindistc] = (freq,genotypes[i],behaviour,fitness[i])
+            else:
+                archive[mindistc] = (freq,best_geno,best_behav,best_fit)
+    return archive
+def get_performances(test_type):
+    def flatten(t):
+        return [item for sublist in t for item in sublist]
     n_pop=10
     genotype_list=[]
     behav_list=[]
     fitness_list=[]
+    centroids = get_centroids()
+
     for con in conditions:
         con,_,_ = con
         if "meta" in con:
@@ -493,16 +534,22 @@ def get_performances(test_type):
         else:
             # mins,means,maxs, condition,test_type,replicates, type
             get_performances_single(genotype_list, behav_list,fitness_list, con, replicates, test_type)
-    x=np.linspace(-180.0,180.0,21)
-    x=np.delete(x,10) # remove 0
-    # markers (numsides, style, angle)
-    markers=[]
-    for k in range(4):
-        for j in range(0,3):
-            for i in range(3, 5):
-                markers.append((i,j,k*90))
-                if len(markers) == len(conditions):
-                    break
+
+        archive = get_archive(flatten(genotype_list[-1]), flatten(behav_list[-1]), flatten(fitness_list[-1]), centroids)
+        centroid_stats = open("centroid_stats_"+con+".txt", "w")
+        centroid_stats.write("coverage %d \n"%(len(archive)))
+        centroid_stats.write("centroid\tfreq\tgeno\tbehaviour\n")
+        for c, val in archive.items():
+            freq, best_geno, best_behav, best_fit = val
+            centroid_stats.write("%d|\t%d\t"%(c,freq))
+            centroid_stats.write("|")
+            for g in best_geno:
+                centroid_stats.write("%.3f\t"%(g*genomultiplier))
+            centroid_stats.write("|")
+            for b in best_behav:
+                centroid_stats.write("%.3f\t" % (b))
+            centroid_stats.write("|")
+            centroid_stats.write("%.3f\n" % (best_fit))
     # offsets=20
     # legs=8
     # total=offsets*legs
