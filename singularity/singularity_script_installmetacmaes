@@ -44,7 +44,7 @@ export BUILD_PHASE=TRAJECTORIES
 ./waf configure --exp Rhexps 
 ./waf --exp Rhexps 
 
-# build test (generalisation)
+# build test_centroid (generalisation)
 export BUILD_PHASE=TEST
 export BUILD_BASEBEHAVS=True
 ./waf configure  --exp Rhexps 
@@ -56,7 +56,7 @@ export BUILD_ENVIR=True
 
 
 
-# build test (individual damages)
+# build test_max (individual damages)
 export BUILD_INDIVIDUAL_DAMAGE=True
 export BUILD_PHASE=TEST
 export BUILD_ENVIR=False
@@ -71,7 +71,7 @@ export BUILD_ENVIR=True
 
 
 
-# build train (fit)
+# build train_centroid (fit)
 export BUILD_INDIVIDUAL_DAMAGE=False
 export BUILD_PHASE=TRAIN
 export BUILD_BASEBEHAVS=True
@@ -85,15 +85,3 @@ export BUILD_ENVIR=True
 ./waf  --exp Rhexps 
 
 
-
-# build test (fit; individual damages)
-export BUILD_INDIVIDUAL_DAMAGE=True
-export BUILD_PHASE=TRAIN
-export BUILD_BASEBEHAVS=False
-export BUILD_ENVIR=False
-./waf configure  --exp Rhexps 
-./waf  --exp Rhexps 
-# build test
-export BUILD_ENVIR=True
-./waf configure  --exp Rhexps 
-./waf  --exp Rhexps 
