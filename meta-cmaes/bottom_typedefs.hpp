@@ -37,7 +37,7 @@ typedef sferes::gen::Sampled<24, BottomParams> bottom_gen_t; // 24 parameters fo
 typedef size_t bottom_gen_data_t;                            // sampled data type is based on unsigned ints
 typedef boost::fusion::vector<rhex_dart::safety_measures::TurnOver> base_safe_t;
 
-#ifdef USE_FEATURE_SETS()
+#if USE_FEATURE_SETS()
 typedef boost::fusion::vector<rhex_dart::descriptors::DutyCycle, rhex_dart::descriptors::BodyOrientation, rhex_dart::descriptors::AvgCOMVelocities> base_desc_t;
 #else
 typedef boost::fusion::vector<rhex_dart::descriptors::DeltaFullTrajectory> base_desc_t;
