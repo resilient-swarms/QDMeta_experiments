@@ -1,4 +1,4 @@
-# evolution and adaptation experiments on RHex robot and Rastrigin function
+# QD-Meta evolution and adaptation experiments on RHex robot and Rastrigin function
 
 This repository is used to conduct evolution and adaptation experiments with QD-Meta, a system for customising quality-diversity archives to a meta-objective. 
 
