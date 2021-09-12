@@ -22,7 +22,7 @@ While dependencies will be installed if you are using the singularity scripts in
 
 For installation, we advise using singularity. To build singularity containers please see the singularity/ folder.
 
-For running experiments, please see scripts/ for a range of examples.
+For running experiments, please see scripts/ and the run_* files in singularity/ for a range of examples.
 
 The wscript files show all the binaries that can be generated. You can also modify the wscript files to setup your own experiments if needed. 
 
